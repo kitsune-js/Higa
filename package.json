@@ -1,0 +1,37 @@
+{
+  "name": "higa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "typings": "./index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prettier": "prettier **.json src --write",
+    "lint": "eslint src index.d.ts",
+    "lint:fix": "eslint src index.d.ts --fix"
+  },
+  "dependencies": {
+    "node-fetch": "2.6.6",
+    "ws": "^8.4.2"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.12",
+    "@types/ws": "^8.2.2",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "discord-api-types": "^0.26.1",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
+  },
+  "author": "fantomitechno",
+  "license": "ISC",
+  "private": "false",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

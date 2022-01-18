@@ -1,0 +1,9 @@
+src
+test
+.eslintignore
+.eslintrc.json
+.gitattributes
+.gitignore
+.prettierignore
+.prettierrc.json
+tsconfig.json
