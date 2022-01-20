@@ -3,6 +3,7 @@ import { GatewayPresenceUpdateData } from 'discord-api-types/gateway';
 import fetch from 'node-fetch';
 import WebSocket from 'ws';
 import { EventEmitter } from 'node:events';
+import { CacheManager } from './CacheManager';
 
 const ClientIntents = {
   GUILDS: 1 << 0,
@@ -36,6 +37,8 @@ class Client extends EventEmitter {
   private sequence_number: number | null = null;
   private session_id = '';
 
+  private cache = new CacheManager();
+
   constructor(token?: string, intents: (keyof typeof ClientIntents)[] = []) {
     super();
     if (!token) throw new Error('NO TOKEN PROVIDED');
@@ -65,6 +68,8 @@ class Client extends EventEmitter {
         }
       }, this.heartbeat_interval);
     });
+
+    this.channel = new ChannelManager(this.token, this.cache);
   }
 
   private intentsToNumber(intents: (keyof typeof ClientIntents)[]) {
