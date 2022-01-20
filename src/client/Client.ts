@@ -4,6 +4,7 @@ import fetch from 'node-fetch';
 import WebSocket from 'ws';
 import { EventEmitter } from 'node:events';
 import { CacheManager } from './CacheManager';
+import { ChannelManager } from './ChannelManager';
 
 const ClientIntents = {
   GUILDS: 1 << 0,
@@ -38,6 +39,8 @@ class Client extends EventEmitter {
   private session_id = '';
 
   private cache = new CacheManager();
+
+  public channel: ChannelManager;
 
   constructor(token?: string, intents: (keyof typeof ClientIntents)[] = []) {
     super();
