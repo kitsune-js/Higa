@@ -11,7 +11,8 @@
     "dev:serve": "ts-node --files index.ts -- true"
   },
   "dependencies": {
-    "higa": "../"
+    "higa": "../",
+    "dotenv": "^14.2.0"
   },
   "devDependencies": {
     "discord-api-types": "^0.26.1",
