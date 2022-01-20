@@ -6,6 +6,7 @@
   "typings": "./index.d.ts",
   "scripts": {
     "build": "tsc",
+    "dev:build": "nodemon --watch src --ext ts --exec npm run build",
     "prettier": "prettier **.json src --write",
     "lint": "eslint src index.d.ts",
     "lint:fix": "eslint src index.d.ts --fix"
@@ -26,6 +27,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.3.2",
+    "nodemon": "^2.0.14",
     "typescript": "^4.3.5"
   },
   "author": "fantomitechno",
