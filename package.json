@@ -2,8 +2,8 @@
   "name": "higa",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
-  "typings": "./index.d.ts",
+  "main": "build",
+  "typings": "types",
   "scripts": {
     "build": "tsc",
     "dev:build": "nodemon --watch src --ext ts --exec npm run build",
