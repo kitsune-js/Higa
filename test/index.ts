@@ -34,13 +34,25 @@ client.on("MESSAGE_CREATE", async message => {
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
     case "!ping":
-      client.replyToMessage(message.channel_id, message.id, "Pong !")
+      client.channel.createMessage(message.channel_id, {
+        content: "Pong!",
+        message_reference: {
+          message_id: message.channel_id
+        }
+      })
       break
     case "!say":
-      client.sendMessage(message.channel_id, args.join(" "))
+      client.channel.createMessage(message.channel_id, {
+        content: args.join(" ")
+      })
       break
     case "!get":
-      client.replyToMessage(message.channel_id, message.id, "Getting things, check console")
+      client.channel.createMessage(message.channel_id, {
+        content: "Getting things, check console",
+        message_reference: {
+          message_id: message.channel_id
+        }
+      })
       switch (args[0]) {
         case "channel":
           console.log(await client.channel.getChannel(args[1]))

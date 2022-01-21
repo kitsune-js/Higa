@@ -4,7 +4,8 @@ import {
   APIChannel,
   APIMessage,
   GatewayPresenceUpdateData,
-  RESTPatchAPIChannelJSONBody
+  RESTPatchAPIChannelJSONBody,
+  RESTPostAPIChannelMessageJSONBody
 } from 'discord-api-types';
 
 declare module 'higa';
@@ -57,6 +58,11 @@ class ChannelManager {
   public async getChannelMessage(
     channelID: string,
     messageID: string
+  ): Promise<APIMessage>;
+
+  public async createMessage(
+    channelID: string,
+    options: RESTPostAPIChannelMessageJSONBody
   ): Promise<APIMessage>;
 }
 

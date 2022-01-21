@@ -1,10 +1,10 @@
 import { CacheManager } from './CacheManager';
-import { APIChannel, RESTPatchAPIChannelJSONBody } from 'discord-api-types';
 import {
   APIChannel,
   RESTGetAPIChannelMessagesQuery,
   RESTPatchAPIChannelJSONBody,
   APIMessage,
+  RESTPostAPIChannelMessageJSONBody
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 
@@ -105,6 +105,24 @@ class ChannelManager {
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
         },
         method: 'GET'
+      }
+    );
+    return await res.json();
+  }
+
+  public async createMessage(
+    channelID: string,
+    options: RESTPostAPIChannelMessageJSONBody
+  ): Promise<APIMessage> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/messages`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(options),
+        method: 'POST'
       }
     );
     return await res.json();
