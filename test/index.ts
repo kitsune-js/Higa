@@ -33,6 +33,22 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case "!edit":
+      client.channel.createMessage(message.channel_id,
+        {
+          content: "Premier message"
+        }
+      ).then(m => {
+        setTimeout(() => {
+          client.channel.editMessage(
+            m.channel_id, m.id,
+            {
+              content: "Deuxième message"
+            }
+          )
+        }, 3000);
+      })
+      break
     case "!ping":
       client.channel.createMessage(message.channel_id, {
         content: "Pong ! 🏓",
