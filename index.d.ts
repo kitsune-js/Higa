@@ -37,8 +37,10 @@ export interface ClientEvents {
 
 export type Awaitable<T> = T | PromiseLike<T>;
 
+export function resolveHexaColor(color: string): number;
+
 class ChannelManager {
-  constructor(token: string, cache: typeof CacheManager): void;
+  constructor(token: string, cache: typeof CacheManager, client: Client): void;
 
   public async getChannel(id: string): Promise<APIChannel>;
 
@@ -61,6 +63,17 @@ class ChannelManager {
   ): Promise<APIMessage>;
 
   public async createMessage(
+    channelID: string,
+    options: RESTPostAPIChannelMessageJSONBody
+  ): Promise<APIMessage>;
+
+  public async crosspostMessage(
+    channelID: string,
+    messageID: string
+  ): Promise<APIMessage>;
+
+  public async editMessage(
+    channelID: string,
     channelID: string,
     options: RESTPostAPIChannelMessageJSONBody
   ): Promise<APIMessage>;
