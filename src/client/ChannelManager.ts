@@ -4,7 +4,8 @@ import {
   RESTGetAPIChannelMessagesQuery,
   RESTPatchAPIChannelJSONBody,
   APIMessage,
-  RESTPostAPIChannelMessageJSONBody
+  RESTPostAPIChannelMessageJSONBody,
+  RESTPatchAPIChannelMessageJSONBody
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -143,6 +144,25 @@ class ChannelManager {
           'Content-Type': 'application/json'
         },
         method: 'POST'
+      }
+    );
+    return await res.json();
+  }
+
+  public async editMessage(
+    channelID: string,
+    messageID: string,
+    options: RESTPatchAPIChannelMessageJSONBody
+  ): Promise<APIMessage> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(options),
+        method: 'PATCH'
       }
     );
     return await res.json();
