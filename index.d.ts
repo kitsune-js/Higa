@@ -47,6 +47,11 @@ class ChannelManager {
   ): Promise<APIChannel>;
 
   public async deleteChannel(id: string, reason?: string): Promise<APIChannel>;
+
+  public async getChannelMessages(
+    id: string,
+    options?: RESTGetAPIChannelMessagesQuery
+  ): Promise<APIMessage[]>;
 }
 
 export class Client extends EventEmitter {

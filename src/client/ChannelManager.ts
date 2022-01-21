@@ -1,5 +1,11 @@
 import { CacheManager } from './CacheManager';
 import { APIChannel, RESTPatchAPIChannelJSONBody } from 'discord-api-types';
+import {
+  APIChannel,
+  RESTGetAPIChannelMessagesQuery,
+  RESTPatchAPIChannelJSONBody,
+  APIMessage,
+} from 'discord-api-types';
 import fetch from 'node-fetch';
 
 class ChannelManager {
@@ -64,6 +70,27 @@ class ChannelManager {
     this.cache.channels.delete(id);
     return json;
   }
+
+  public async getChannelMessages(
+    id: string,
+    options?: RESTGetAPIChannelMessagesQuery
+  ): Promise<APIMessage[]> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${id}/messages`,
+      {
+        body: JSON.stringify(options),
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        },
+        method: 'GET'
+      }
+    );
+    return await res.json();
+  }
+
 }
 
 export { ChannelManager };
