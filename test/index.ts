@@ -33,6 +33,13 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case "!random":
+      client.channel.createMessage(message.channel_id,
+        {
+          content: Math.random() > 0.5 ? "Pile !" : "Face !"
+        }
+      )
+      break
     case "!edit":
       client.channel.createMessage(message.channel_id,
         {
