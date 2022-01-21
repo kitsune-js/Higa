@@ -5,7 +5,6 @@ import {
   RESTPatchAPIChannelJSONBody,
   APIMessage,
   RESTPostAPIChannelMessageJSONBody,
-  RESTPatchAPIChannelMessageJSONBody
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -19,6 +18,16 @@ class ChannelManager {
     this.token = token;
     this.cache = cache;
     this.client = client;
+  }
+
+  private optionsToQueryStringParams(options: object): string {
+    let params = '?';
+    const paramsArray = [];
+    for (const t of Object.entries(options)) {
+      paramsArray.push(`${t[0]}=${t[1]}`);
+    }
+    params += paramsArray.join('&');
+    return params;
   }
 
   public async getChannel(id: string): Promise<APIChannel> {
@@ -79,10 +88,10 @@ class ChannelManager {
     id: string,
     options?: RESTGetAPIChannelMessagesQuery
   ): Promise<APIMessage[]> {
+    const params = options ? this.optionsToQueryStringParams(options) : '';
     const res = await fetch(
-      `https://discord.com/api/v9/channels/${id}/messages`,
+      `https://discord.com/api/v9/channels/${id}/messages${params}`,
       {
-        body: JSON.stringify(options),
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
