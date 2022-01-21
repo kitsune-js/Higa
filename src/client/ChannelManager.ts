@@ -7,14 +7,17 @@ import {
   RESTPostAPIChannelMessageJSONBody
 } from 'discord-api-types';
 import fetch from 'node-fetch';
+import { Client } from './Client';
 
 class ChannelManager {
   private token: string;
   private cache: CacheManager;
+  private client: Client;
 
-  constructor(token: string, cache: CacheManager) {
+  constructor(token: string, cache: CacheManager, client: Client) {
     this.token = token;
     this.cache = cache;
+    this.client = client;
   }
 
   public async getChannel(id: string): Promise<APIChannel> {

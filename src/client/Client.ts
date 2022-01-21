@@ -72,7 +72,7 @@ class Client extends EventEmitter {
       }, this.heartbeat_interval);
     });
 
-    this.channel = new ChannelManager(this.token, this.cache);
+    this.channel = new ChannelManager(this.token, this.cache, this);
   }
 
   private intentsToNumber(intents: (keyof typeof ClientIntents)[]) {
