@@ -1,4 +1,4 @@
-import { APIChannel } from 'discord-api-types';
+import { APIApplication, APIChannel, APIMessage } from 'discord-api-types';
 import { GatewayPresenceUpdateData } from 'discord-api-types/gateway';
 import fetch from 'node-fetch';
 import WebSocket from 'ws';
@@ -24,6 +24,13 @@ const ClientIntents = {
   DIRECT_MESSAGE_TYPING: 1 << 14,
   GUILD_SCHEDULED_EVENTS: 1 << 16
 };
+
+interface ClientEvents {
+  READY: [client: APIApplication];
+  MESSAGE_CREATE: [message: APIMessage];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  DEBUG: any;
+}
 
 class Client extends EventEmitter {
   private readonly token: string;
@@ -73,6 +80,13 @@ class Client extends EventEmitter {
     });
 
     this.channel = new ChannelManager(this.token, this.cache, this);
+  }
+
+  public override on<K extends keyof ClientEvents>(
+    eventName: K,
+    listener: (...args: ClientEvents[K]) => void
+  ): this {
+    return super.on(eventName, listener);
   }
 
   private intentsToNumber(intents: (keyof typeof ClientIntents)[]) {
