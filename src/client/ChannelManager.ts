@@ -123,7 +123,9 @@ class ChannelManager {
       {
         headers: {
           Authorization: 'Bot ' + this.token,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
         },
         body: JSON.stringify(options),
         method: 'POST'
@@ -141,7 +143,9 @@ class ChannelManager {
       {
         headers: {
           Authorization: 'Bot ' + this.token,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
         },
         method: 'POST'
       }
@@ -159,7 +163,9 @@ class ChannelManager {
       {
         headers: {
           Authorization: 'Bot ' + this.token,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
         },
         body: JSON.stringify(options),
         method: 'PATCH'
