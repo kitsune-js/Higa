@@ -5,6 +5,8 @@ import {
   RESTPatchAPIChannelJSONBody,
   APIMessage,
   RESTPostAPIChannelMessageJSONBody,
+  RESTPatchAPIChannelMessageJSONBody,
+  RESTPostAPIChannelMessagesBulkDeleteJSONBody
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -199,6 +201,34 @@ class ChannelManager {
           'X-Audit-Log-Reason': reason ?? ''
         },
         method: 'DELETE'
+      }
+    );
+  }
+
+  public async bulkDeleteMessages(
+    channelID: string,
+    options: RESTPostAPIChannelMessagesBulkDeleteJSONBody | number,
+    reason?: string
+  ): Promise<void> {
+    if (typeof options == 'number') {
+      options = {
+        messages: (
+          await this.getChannelMessages(channelID, { limit: options })
+        ).map((m) => m.id)
+      };
+    }
+    await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/messages/bulk-delete`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        },
+        body: JSON.stringify(options)
       }
     );
   }

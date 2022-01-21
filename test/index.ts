@@ -33,14 +33,17 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
-    case "!random":
+    case ":clear":
+      client.channel.bulkDeleteMessages(message.channel_id, 10)
+      break
+    case ":random":
       client.channel.createMessage(message.channel_id,
         {
           content: Math.random() > 0.5 ? "Pile !" : "Face !"
         }
       )
       break
-    case "!edit":
+    case ":edit":
       client.channel.createMessage(message.channel_id,
         {
           content: "Premier message"
@@ -64,12 +67,13 @@ client.on("MESSAGE_CREATE", async message => {
         }
       })
       break
-    case "!say":
+    case ":say":
+      client.channel.deleteMessage(message.channel_id, message.id)
       client.channel.createMessage(message.channel_id, {
         content: args.join(" ")
       })
       break
-    case "!get":
+    case ":get":
       client.channel.createMessage(message.channel_id, {
         content: "Getting things, check console",
         message_reference: {
@@ -87,12 +91,12 @@ client.on("MESSAGE_CREATE", async message => {
           console.log(await client.channel.getChannelMessage(message.channel_id, message.id))
       }
       break
-    case "!modify":
+    case ":modify":
       client.channel.modifyChannel(message.channel_id, {
         topic: args.join(" ")
       })
       break
-    case "!del":
+    case ":del":
       client.channel.deleteChannel(message.channel_id)
       break
   }
