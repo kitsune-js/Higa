@@ -1,5 +1,11 @@
 # HIGA
+[![npm](https://img.shields.io/npm/v/higa?style=for-the-badge)](https://www.npmjs.com/package/higa)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/fantomitechno/Higa?include_prereleases&style=for-the-badge)](https://github.com/fantomitechno/Higa/releases)
 
+[![Higa commit](https://img.shields.io/github/last-commit/fantomitechno/Higa?style=for-the-badge)](https://github.com/fantomitechno/Higa)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fantomitechno/Higa?style=for-the-badge)](https://github.com/fantomitechno/Higa)
+
+[![Discord](https://img.shields.io/discord/932885182543982603?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/VhSR3ARYb7)
 ## What is Higa ?
 It's a random Discord API package builded with randomness by fantomitechno.
 
