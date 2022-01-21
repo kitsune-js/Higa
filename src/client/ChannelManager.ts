@@ -178,8 +178,8 @@ class ChannelManager {
     channelID: string,
     messageID: string,
     reason?: string
-  ): Promise<APIMessage> {
-    const res = await fetch(
+  ): Promise<void> {
+    await fetch(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
@@ -192,7 +192,6 @@ class ChannelManager {
         method: 'DELETE'
       }
     );
-    return await res.json();
   }
 }
 
