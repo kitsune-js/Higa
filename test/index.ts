@@ -35,9 +35,9 @@ client.on("MESSAGE_CREATE", async message => {
   switch (cmd) {
     case "!ping":
       client.channel.createMessage(message.channel_id, {
-        content: "Pong!",
+        content: "Pong ! 🏓",
         message_reference: {
-          message_id: message.channel_id
+          message_id: message.id
         }
       })
       break
@@ -50,7 +50,7 @@ client.on("MESSAGE_CREATE", async message => {
       client.channel.createMessage(message.channel_id, {
         content: "Getting things, check console",
         message_reference: {
-          message_id: message.channel_id
+          message_id: message.id
         }
       })
       switch (args[0]) {
