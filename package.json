@@ -1,6 +1,6 @@
 {
   "name": "higa",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "build",
   "typings": "types",
@@ -11,6 +11,12 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },
+  "keywords": [
+    "nodejs",
+    "discord",
+    "discord-bot",
+    "discord-api"
+  ],
   "dependencies": {
     "node-fetch": "2.6.6",
     "ws": "^8.4.2"
@@ -31,7 +37,6 @@
   },
   "author": "fantomitechno",
   "license": "ISC",
-  "private": "false",
   "engines": {
     "node": ">=16.0.0"
   }
