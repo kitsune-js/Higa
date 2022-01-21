@@ -52,6 +52,11 @@ class ChannelManager {
     id: string,
     options?: RESTGetAPIChannelMessagesQuery
   ): Promise<APIMessage[]>;
+
+  public async getChannelMessage(
+    channelID: string,
+    messageID: string
+  ): Promise<APIMessage>;
 }
 
 export class Client extends EventEmitter {
