@@ -28,18 +28,37 @@ client.on('READY', () => {
 
 client.on('DEBUG', console.log)
 
+// quick command handler to test features
 client.on("MESSAGE_CREATE", async message => {
-  if (message.content.startsWith("!ping")) {
-    client.replyToMessage(message.channel_id, message.id, "Pong !")
-  } else if (message.content.startsWith("!say")) {
-    client.sendMessage(message.channel_id, message.content.replace("!say", ""))
-  } else if (message.content.startsWith("!get")) {
-    console.log(await client.channel.getChannel(message.content.replace("!get ", "")))
-  } else if (message.content.startsWith("!modify")) {
-    console.log(
-      await client.channel.modifyChannel(message.channel_id, {
-        topic: "Ceci est un test qui marche bien (ou pas)" 
+  if (message.author.bot) return
+  const [cmd, ...args] = message.content.split(" ")
+  switch (cmd) {
+    case "!ping":
+      client.replyToMessage(message.channel_id, message.id, "Pong !")
+      break
+    case "!say":
+      client.sendMessage(message.channel_id, args.join(" "))
+      break
+    case "!get":
+      client.replyToMessage(message.channel_id, message.id, "Getting things, check console")
+      switch (args[0]) {
+        case "channel":
+          console.log(await client.channel.getChannel(args[1]))
+          break
+        case "messages":
+          console.log(await client.channel.getChannelMessages(args[1]))
+          break
+        case "message":
+          console.log(await client.channel.getChannelMessage(message.channel_id, message.id))
+      }
+      break
+    case "!modify":
+      client.channel.modifyChannel(message.channel_id, {
+        topic: args.join(" ")
       })
-    )
+      break
+    case "!del":
+      client.channel.deleteChannel(message.channel_id)
+      break
   }
 }) 
