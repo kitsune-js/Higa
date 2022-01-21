@@ -1,5 +1,6 @@
 import { EventEmitter } from 'node:events';
 import {
+  RESTGetAPIChannelMessagesQuery,
   APIChannel,
   APIMessage,
   GatewayPresenceUpdateData,
