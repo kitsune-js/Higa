@@ -56,7 +56,7 @@ client.on("MESSAGE_CREATE", async message => {
         }, 3000);
       })
       break
-    case "!ping":
+    case ":ping":
       client.channel.createMessage(message.channel_id, {
         content: "Pong ! 🏓",
         message_reference: {
