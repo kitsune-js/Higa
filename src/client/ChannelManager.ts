@@ -173,6 +173,27 @@ class ChannelManager {
     );
     return await res.json();
   }
+
+  public async deleteMessage(
+    channelID: string,
+    messageID: string,
+    reason?: string
+  ): Promise<APIMessage> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        },
+        method: 'DELETE'
+      }
+    );
+    return await res.json();
+  }
 }
 
 export { ChannelManager };
