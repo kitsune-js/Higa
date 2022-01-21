@@ -43,7 +43,25 @@ class ChannelManager {
       },
       body: JSON.stringify(options)
     });
+
     const json = await res.json();
+    this.cache.channels.set(id, json);
+    return json;
+  }
+
+  public async deleteChannel(id: string, reason?: string): Promise<APIChannel> {
+    const res = await fetch(`https://discord.com/api/v9/channels/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bot ' + this.token,
+        'Content-Type': 'application/json',
+        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+        'X-Audit-Log-Reason': reason ?? ''
+      }
+    });
+
+    const json = await res.json();
+    this.cache.channels.delete(id);
     return json;
   }
 }

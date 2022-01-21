@@ -45,6 +45,8 @@ class ChannelManager {
     options: RESTPatchAPIChannelJSONBody,
     reason?: string
   ): Promise<APIChannel>;
+
+  public async deleteChannel(id: string, reason?: string): Promise<APIChannel>;
 }
 
 export class Client extends EventEmitter {
