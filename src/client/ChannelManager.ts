@@ -130,6 +130,23 @@ class ChannelManager {
     );
     return await res.json();
   }
+
+  public async crosspostMessage(
+    channelID: string,
+    messageID: string
+  ): Promise<APIChannel> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
+      }
+    );
+    return await res.json();
+  }
 }
 
 export { ChannelManager };
