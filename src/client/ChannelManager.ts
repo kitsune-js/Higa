@@ -21,6 +21,8 @@ import {
   RESTPostAPIChannelFollowersJSONBody,
   RESTGetAPIChannelPinsResult,
   RESTPutAPIChannelRecipientJSONBody,
+  RESTPostAPIChannelMessagesThreadsJSONBody,
+  RESTPostAPIChannelMessagesThreadsResult,
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -463,6 +465,29 @@ class ChannelManager {
         }
       }
     );
+  }
+
+  public async startThreadWithMessages(
+    channelID: string,
+    messageID: string,
+    options: RESTPostAPIChannelMessagesThreadsJSONBody,
+    reason?: string
+  ): Promise<RESTPostAPIChannelMessagesThreadsResult> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}/threads`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        },
+        body: JSON.stringify(options)
+      }
+    );
+    return await res.json();
   }
 }
 

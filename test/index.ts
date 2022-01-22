@@ -1,4 +1,4 @@
-import { PresenceUpdateStatus } from 'discord-api-types';
+import { PresenceUpdateStatus, ThreadAutoArchiveDuration } from 'discord-api-types';
 import { Client } from 'higa';
 require("dotenv").config()
 
@@ -33,6 +33,28 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case ":thread":
+      client.channel.createMessage(message.channel_id,
+        {
+          content: "Creating thread...",
+          message_reference: {
+            message_id: message.id
+          },
+          allowed_mentions: {
+            replied_user: false
+          }
+        })
+      switch (args[0]) {
+        case "message":
+          client.channel.startThreadWithMessages(
+            message.channel_id, message.id,
+            {
+              name: "test",
+              auto_archive_duration: ThreadAutoArchiveDuration.OneHour
+            }
+          )
+          break;
+      break
     case ":pin":
       client.channel.pinMessage(message.channel_id, message.id)
       break
