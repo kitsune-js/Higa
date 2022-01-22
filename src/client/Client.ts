@@ -1,5 +1,8 @@
 import { APIApplication, APIChannel, APIMessage } from 'discord-api-types';
-import { GatewayPresenceUpdateData } from 'discord-api-types/gateway';
+import {
+  GatewayChannelDeleteDispatchData,
+  GatewayPresenceUpdateData
+} from 'discord-api-types/gateway';
 import fetch from 'node-fetch';
 import WebSocket from 'ws';
 import { EventEmitter } from 'node:events';
@@ -30,6 +33,8 @@ interface ClientEvents {
   MESSAGE_CREATE: [message: APIMessage];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   DEBUG: any;
+  THREAD_CREATE: [thread: APIChannel];
+  THREAD_DELETE: [thread: APIChannel];
 }
 
 class Client extends EventEmitter {
@@ -156,7 +161,15 @@ class Client extends EventEmitter {
     });
   }
 
-  private handleEvent(event: string, object: unknown) {
+  private handleEvent<K extends keyof ClientEvents>(
+    event: K | string,
+    object: unknown
+  ) {
+    if (event === 'THREAD_DELETE') {
+      object = this.cache.channels.get(
+        (<GatewayChannelDeleteDispatchData>object).id
+      );
+    }
     this.emit(event, object);
   }
 
