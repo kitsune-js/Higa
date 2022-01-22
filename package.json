@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "node-fetch": "2.6.6",
+    "discord-api-types": "^0.26.1",
     "ws": "^8.4.2"
   },
   "devDependencies": {
@@ -28,7 +29,6 @@
     "@types/ws": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
-    "discord-api-types": "^0.26.1",
     "eslint": "^8.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
