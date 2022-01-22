@@ -3,10 +3,16 @@ import {
   APIChannel,
   RESTGetAPIChannelMessagesQuery,
   RESTPatchAPIChannelJSONBody,
-  APIMessage,
   RESTPostAPIChannelMessageJSONBody,
   RESTPatchAPIChannelMessageJSONBody,
-  RESTPostAPIChannelMessagesBulkDeleteJSONBody
+  RESTPostAPIChannelMessagesBulkDeleteJSONBody,
+  RESTPatchAPIChannelMessageResult,
+  RESTPostAPIChannelMessageResult,
+  RESTPostAPIChannelMessageCrosspostResult,
+  RESTGetAPIChannelMessageResult,
+  RESTGetAPIChannelMessagesResult,
+  RESTPatchAPIChannelResult,
+  RESTGetAPIChannelResult
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -32,46 +38,57 @@ class ChannelManager {
     return params;
   }
 
-  public async getChannel(id: string): Promise<APIChannel> {
-    if (this.cache.channels.has(id))
-      return <APIChannel>this.cache.channels.get(id);
-    const res = await fetch(`https://discord.com/api/v9/channels/${id}`, {
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-      },
-      method: 'GET'
-    });
+  public async getChannel(channelID: string): Promise<RESTGetAPIChannelResult> {
+    if (this.cache.channels.has(channelID))
+      return <APIChannel>this.cache.channels.get(channelID);
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        },
+        method: 'GET'
+      }
+    );
 
     const json = await res.json();
-    this.cache.channels.set(id, json);
+    this.cache.channels.set(channelID, json);
     return json;
   }
 
   public async modifyChannel(
-    id: string,
+    channelID: string,
     options: RESTPatchAPIChannelJSONBody,
     reason?: string
-  ): Promise<APIChannel> {
-    const res = await fetch(`https://discord.com/api/v9/channels/${id}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
-        'X-Audit-Log-Reason': reason ?? ''
-      },
-      body: JSON.stringify(options)
-    });
+  ): Promise<RESTPatchAPIChannelResult> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        },
+        body: JSON.stringify(options)
+      }
+    );
 
     const json = await res.json();
-    this.cache.channels.set(id, json);
+    this.cache.channels.set(channelID, json);
     return json;
   }
 
-  public async deleteChannel(id: string, reason?: string): Promise<APIChannel> {
-    const res = await fetch(`https://discord.com/api/v9/channels/${id}`, {
+  public async deleteChannel(
+    channelID: string,
+    reason?: string
+  ): Promise<void> {
+    await fetch(`https://discord.com/api/v9/channels/${channelID}`, {
       method: 'DELETE',
       headers: {
         Authorization: 'Bot ' + this.token,
@@ -80,19 +97,16 @@ class ChannelManager {
         'X-Audit-Log-Reason': reason ?? ''
       }
     });
-
-    const json = await res.json();
-    this.cache.channels.delete(id);
-    return json;
+    this.cache.channels.delete(channelID);
   }
 
   public async getChannelMessages(
-    id: string,
+    channelID: string,
     options?: RESTGetAPIChannelMessagesQuery
-  ): Promise<APIMessage[]> {
+  ): Promise<RESTGetAPIChannelMessagesResult> {
     const params = options ? this.optionsToQueryStringParams(options) : '';
     const res = await fetch(
-      `https://discord.com/api/v9/channels/${id}/messages${params}`,
+      `https://discord.com/api/v9/channels/${channelID}/messages${params}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -109,7 +123,7 @@ class ChannelManager {
   public async getChannelMessage(
     channelID: string,
     messageID: string
-  ): Promise<APIMessage> {
+  ): Promise<RESTGetAPIChannelMessageResult> {
     const res = await fetch(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
       {
@@ -128,7 +142,7 @@ class ChannelManager {
   public async createMessage(
     channelID: string,
     options: RESTPostAPIChannelMessageJSONBody
-  ): Promise<APIMessage> {
+  ): Promise<RESTPostAPIChannelMessageResult> {
     const res = await fetch(
       `https://discord.com/api/v9/channels/${channelID}/messages`,
       {
@@ -148,7 +162,7 @@ class ChannelManager {
   public async crosspostMessage(
     channelID: string,
     messageID: string
-  ): Promise<APIChannel> {
+  ): Promise<RESTPostAPIChannelMessageCrosspostResult> {
     const res = await fetch(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
       {
@@ -168,7 +182,7 @@ class ChannelManager {
     channelID: string,
     messageID: string,
     options: RESTPatchAPIChannelMessageJSONBody
-  ): Promise<APIMessage> {
+  ): Promise<RESTPatchAPIChannelMessageResult> {
     const res = await fetch(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
       {
