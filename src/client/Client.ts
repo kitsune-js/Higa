@@ -98,9 +98,10 @@ class Client extends EventEmitter {
 
   public override emit<K extends keyof ClientEvents>(
     eventName: K | string,
-    ...args: ClientEvents[K] | unknown[]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ...args: ClientEvents[K] | any
   ): boolean {
-    return super.emit(eventName, args);
+    return super.emit(eventName, ...args);
   }
 
   private intentsToNumber(intents: (keyof typeof ClientIntents)[]) {
