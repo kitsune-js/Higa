@@ -33,6 +33,9 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case ":pin":
+      client.channel.pinMessage(message.channel_id, message.id)
+      break
     case ":typing":
       client.channel.triggerTypingIndicator(message.channel_id)
       break
