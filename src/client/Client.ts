@@ -89,6 +89,20 @@ class Client extends EventEmitter {
     return super.on(eventName, listener);
   }
 
+  public override once<K extends keyof ClientEvents>(
+    eventName: K,
+    listener: (...args: ClientEvents[K]) => void
+  ): this {
+    return super.once(eventName, listener);
+  }
+
+  public override emit<K extends keyof ClientEvents>(
+    eventName: K | string,
+    ...args: ClientEvents[K] | unknown[]
+  ): boolean {
+    return super.emit(eventName, args);
+  }
+
   private intentsToNumber(intents: (keyof typeof ClientIntents)[]) {
     let counter = 0;
     for (const i of intents) {
