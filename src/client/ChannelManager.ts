@@ -18,7 +18,8 @@ import {
   RESTPostAPIChannelInviteJSONBody,
   RESTPostAPIChannelInviteResult,
   RESTPostAPIChannelFollowersResult,
-  RESTPostAPIChannelFollowersJSONBody
+  RESTPostAPIChannelFollowersJSONBody,
+  RESTGetAPIChannelPinsResult
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -365,6 +366,24 @@ class ChannelManager {
         'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
       }
     });
+  }
+
+  public async getPinnedMessages(
+    channelID: string
+  ): Promise<RESTGetAPIChannelPinsResult> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/pins`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return await res.json();
   }
 }
 

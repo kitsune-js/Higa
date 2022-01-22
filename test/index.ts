@@ -143,6 +143,9 @@ client.on("MESSAGE_CREATE", async message => {
         case "invites":
           console.log(await client.channel.getChannelInvites(message.channel_id))
           break
+        case "pins":
+          console.log(await client.channel.getPinnedMessages(message.channel_id))
+          break
       }
       break
     case ":modify":
