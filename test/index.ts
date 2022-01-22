@@ -33,6 +33,9 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case ":typing":
+      client.channel.triggerTypingIndicator(message.channel_id)
+      break
     case ":follow":
       client.channel.followNewsChannel(
         "932886951349071913",
