@@ -1,0 +1,19 @@
+{
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "gitRemote": "https://github.com/fantomitechno/Higa",
+	"highlightTheme": "github-dark",
+	"includeVersion": true,
+	"name": "Higa",
+	"out": "docs",
+	"readme": "https://github.com/fantomitechno/Higa/README.md",
+	"sort": [
+		"static-first",
+		"visibility",
+		"alphabetical",
+		"enum-value-descending"
+	],
+	"theme": "./node_modules/typedoc-darker-theme/bin/default",
+	"tsconfig": "tsconfig.json"
+}
