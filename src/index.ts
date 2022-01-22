@@ -1,8 +1,6 @@
 export * from './client';
 
-
 /**
- * 
  * @param color - A color in Hexadecimal
  * @returns - Color code for Discord
  */
