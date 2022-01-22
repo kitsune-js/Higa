@@ -36,6 +36,9 @@ client.on("MESSAGE_CREATE", async message => {
     case ":pin":
       client.channel.pinMessage(message.channel_id, message.id)
       break
+    case ":unpin":
+      client.channel.unpinMessage(message.channel_id, args[0])
+      break
     case ":typing":
       client.channel.triggerTypingIndicator(message.channel_id)
       break
