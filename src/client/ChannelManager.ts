@@ -446,6 +446,24 @@ class ChannelManager {
       }
     );
   }
+
+  public async groupDMRemoveRecipient(
+    channelID: string,
+    userID: string
+  ): Promise<void> {
+    await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/recipients/${userID}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
 }
 
 export { ChannelManager };
