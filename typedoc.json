@@ -5,6 +5,7 @@
   "gitRemote": "https://github.com/fantomitechno/Higa",
 	"highlightTheme": "github-dark",
 	"includeVersion": true,
+	"excludeExternals": true,
 	"name": "Higa",
 	"out": "docs",
 	"readme": "https://github.com/fantomitechno/Higa/README.md",
