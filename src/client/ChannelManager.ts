@@ -7,6 +7,7 @@ import {
   RESTPatchAPIChannelMessageJSONBody,
   RESTPostAPIChannelMessagesBulkDeleteJSONBody,
   RESTPutAPIChannelPermissionJSONBody,
+  RESTGetAPIChannelInvitesResult,
   RESTPatchAPIChannelMessageResult,
   RESTPostAPIChannelMessageResult,
   RESTPostAPIChannelMessageCrosspostResult,
@@ -268,6 +269,24 @@ class ChannelManager {
         body: JSON.stringify(options)
       }
     );
+  }
+
+  public async getChannelInvites(
+    channelID: string
+  ): Promise<RESTGetAPIChannelInvitesResult> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/invites`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return await res.json();
   }
 }
 

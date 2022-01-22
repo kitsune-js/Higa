@@ -99,6 +99,10 @@ client.on("MESSAGE_CREATE", async message => {
           break
         case "message":
           console.log(await client.channel.getChannelMessage(message.channel_id, message.id))
+          break
+        case "invites":
+          console.log(await client.channel.getChannelInvites(message.channel_id))
+          break
       }
       break
     case ":modify":
