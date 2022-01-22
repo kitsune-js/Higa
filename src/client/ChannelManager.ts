@@ -528,6 +528,24 @@ class ChannelManager {
       }
     );
   }
+
+  public async addThreadMember(
+    channelID: string,
+    userID: string
+  ): Promise<void> {
+    await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/thread-members/${userID}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
 }
 
 export { ChannelManager };

@@ -39,6 +39,9 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case ":join-thread":
+      client.channel.addThreadMember(message.channel_id, "933287043663003668")
+      break
     case ":thread":
       client.channel.createMessage(message.channel_id,
         {
