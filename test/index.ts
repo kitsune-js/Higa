@@ -31,6 +31,7 @@ client.on('DEBUG', console.log)
 
 client.on("THREAD_CREATE", async thread => {
   console.log(thread.name)
+  client.channel.joinThread(thread.id)
 })
 
 // quick command handler to test features
