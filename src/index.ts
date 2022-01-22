@@ -1,4 +1,4 @@
-export * from './client/Client';
+export * from './client';
 
 const resolveHexaColor = (color: string) => {
   return parseInt(color.replace('#', ''), 16);
