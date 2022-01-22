@@ -24,7 +24,8 @@ import {
   RESTPostAPIChannelMessagesThreadsJSONBody,
   RESTPostAPIChannelMessagesThreadsResult,
   RESTPostAPIChannelThreadsJSONBody,
-  RESTPostAPIChannelThreadsResult
+  RESTPostAPIChannelThreadsResult,
+  APIThreadMember
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -578,6 +579,25 @@ class ChannelManager {
         }
       }
     );
+  }
+
+  public async getThreadMember(
+    channelID: string,
+    userID: string
+  ): Promise<APIThreadMember> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/thread-members/${userID}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return await res.json();
   }
 }
 
