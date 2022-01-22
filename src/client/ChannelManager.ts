@@ -31,8 +31,7 @@ import {
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 
-import { CacheManager } from './CacheManager';
-import { Client } from './Client';
+import { CacheManager, Client } from '.';
 
 class ChannelManager {
   /**
