@@ -5,7 +5,8 @@ require("dotenv").config()
 const client = new Client(
   process.env.DISCORD,
   [
-    'GUILD_MESSAGES'
+    'GUILD_MESSAGES',
+    'GUILDS'
   ]
 )
 
@@ -27,6 +28,10 @@ client.on('READY', () => {
 })
 
 client.on('DEBUG', console.log)
+
+client.on("THREAD_CREATE", async thread => {
+  console.log(thread.name)
+})
 
 // quick command handler to test features
 client.on("MESSAGE_CREATE", async message => {
