@@ -54,6 +54,15 @@ client.on("MESSAGE_CREATE", async message => {
             }
           )
           break;
+        case "no":
+          client.channel.startThreadWithoutMessages(message.channel_id,
+            {
+              name: "test",
+              auto_archive_duration: ThreadAutoArchiveDuration.OneHour,
+              type: 11
+            })
+          break;
+      }
       break
     case ":pin":
       client.channel.pinMessage(message.channel_id, message.id)
