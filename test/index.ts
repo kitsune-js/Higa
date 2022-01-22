@@ -61,6 +61,11 @@ client.on("MESSAGE_CREATE", async message => {
         }
       )
       break
+    case ":unlock":
+      client.channel.deleteChannelPermission(
+        message.channel_id, message.author.id, "Il s'est calmé le vilain"
+      ) 
+      break
     case ":clear":
       client.channel.bulkDeleteMessages(message.channel_id, 10)
       break
