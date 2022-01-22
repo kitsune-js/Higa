@@ -1,6 +1,6 @@
 name: Generate Documentation
 
-on: [ workflow_dispatch, repository_dispatch ]
+on: [ workflow_dispatch, repository_dispatch, push ]
 
 jobs:
   genDocs:
