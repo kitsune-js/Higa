@@ -16,7 +16,9 @@ import {
   RESTPatchAPIChannelResult,
   RESTGetAPIChannelResult,
   RESTPostAPIChannelInviteJSONBody,
-  RESTPostAPIChannelInviteResult
+  RESTPostAPIChannelInviteResult,
+  RESTPostAPIChannelFollowersResult,
+  RESTPostAPIChannelFollowersJSONBody
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -332,6 +334,26 @@ class ChannelManager {
         }
       }
     );
+  }
+
+  public async followNewsChannel(
+    channelID: string,
+    options: RESTPostAPIChannelFollowersJSONBody
+  ): Promise<RESTPostAPIChannelFollowersResult> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/followers`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        },
+        body: JSON.stringify(options)
+      }
+    );
+    return await res.json();
   }
 }
 

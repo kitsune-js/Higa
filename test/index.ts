@@ -33,6 +33,14 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case ":follow":
+      client.channel.followNewsChannel(
+        "932886951349071913",
+        {
+          webhook_channel_id: message.channel_id
+        }
+      )
+      break
     case ":invite":
       client.channel.createChannelInvite(
         message.channel_id
