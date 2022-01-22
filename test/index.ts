@@ -74,6 +74,9 @@ client.on("MESSAGE_CREATE", async message => {
         content: "Pong ! 🏓",
         message_reference: {
           message_id: message.id
+        },
+        allowed_mentions: {
+          replied_user: false
         }
       })
       break
@@ -88,6 +91,9 @@ client.on("MESSAGE_CREATE", async message => {
         content: "Getting things, check console",
         message_reference: {
           message_id: message.id
+        },
+        allowed_mentions: {
+          replied_user: false
         }
       })
       switch (args[0]) {
