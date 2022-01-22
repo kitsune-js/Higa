@@ -546,6 +546,21 @@ class ChannelManager {
       }
     );
   }
+
+  public async leaveThread(channelID: string): Promise<void> {
+    await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/thread-members/@me`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
 }
 
 export { ChannelManager };
