@@ -135,7 +135,7 @@ class Client extends EventEmitter {
           })
         );
       }
-      this.emit('DEBUG', parsedData, this.sequence_number);
+      this.emit('DEBUG', parsedData);
       if (parsedData.t == 'READY') this.session_id = parsedData.d.session_id;
       if (parsedData.t) this.handleEvent(parsedData.t, parsedData.d);
     });
