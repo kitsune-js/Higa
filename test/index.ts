@@ -33,6 +33,16 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case ":lock":
+      client.channel.editChannelPermissions(
+        message.channel_id, message.author.id,
+        {
+          type: 1,
+          deny: String(1 << 0),
+          allow: "0"
+        }
+      )
+      break
     case ":clear":
       client.channel.bulkDeleteMessages(message.channel_id, 10)
       break

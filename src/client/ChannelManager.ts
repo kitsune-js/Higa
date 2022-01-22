@@ -6,6 +6,7 @@ import {
   RESTPostAPIChannelMessageJSONBody,
   RESTPatchAPIChannelMessageJSONBody,
   RESTPostAPIChannelMessagesBulkDeleteJSONBody,
+  RESTPutAPIChannelPermissionJSONBody,
   RESTPatchAPIChannelMessageResult,
   RESTPostAPIChannelMessageResult,
   RESTPostAPIChannelMessageCrosspostResult,
@@ -235,6 +236,28 @@ class ChannelManager {
       `https://discord.com/api/v9/channels/${channelID}/messages/bulk-delete`,
       {
         method: 'POST',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        },
+        body: JSON.stringify(options)
+      }
+    );
+  }
+
+  public async editChannelPermissions(
+    channelID: string,
+    overwriteID: string,
+    options: RESTPutAPIChannelPermissionJSONBody,
+    reason?: string
+  ): Promise<void> {
+    await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/permissions/${overwriteID}`,
+      {
+        method: 'PUT',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
