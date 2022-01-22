@@ -41,8 +41,6 @@
 						</div>
 						<input type="checkbox" id="tsd-filter-inherited" checked />
 						<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-						<input type="checkbox" id="tsd-filter-externals" checked />
-						<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 					</div>
 				</div>
 				<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -183,7 +181,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:591</li>
+									<li>Defined in client/ChannelManager.ts:591</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -203,13 +201,13 @@
 					<a name="bulkDeleteMessages" class="tsd-anchor"></a>
 					<h3>bulk<wbr>Delete<wbr>Messages</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">bulk<wbr>Delete<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/RESTPostAPIChannelMessagesBulkDeleteJSONBody.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTPostAPIChannelMessagesBulkDeleteJSONBody</a>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">bulk<wbr>Delete<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RESTPostAPIChannelMessagesBulkDeleteJSONBody</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:293</li>
+									<li>Defined in client/ChannelManager.ts:293</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -218,7 +216,7 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/RESTPostAPIChannelMessagesBulkDeleteJSONBody.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTPostAPIChannelMessagesBulkDeleteJSONBody</a></h5>
+									<h5>options: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RESTPostAPIChannelMessagesBulkDeleteJSONBody</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">string</span></h5>
@@ -232,13 +230,13 @@
 					<a name="createChannelInvite" class="tsd-anchor"></a>
 					<h3>create<wbr>Channel<wbr>Invite</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Channel<wbr>Invite<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>max_age<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>max_uses<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>target_application_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>target_type<span class="tsd-signature-symbol">?: </span><a href="../enums/InviteTargetType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">InviteTargetType</a><span class="tsd-signature-symbol">; </span>target_user_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>temporary<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>unique<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIExtendedInvite.html" class="tsd-signature-type" data-tsd-kind="Interface">APIExtendedInvite</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Channel<wbr>Invite<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIExtendedInvite</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:361</li>
+									<li>Defined in client/ChannelManager.ts:361</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -247,13 +245,13 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>max_age<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>max_uses<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>target_application_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>target_type<span class="tsd-signature-symbol">?: </span><a href="../enums/InviteTargetType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">InviteTargetType</a><span class="tsd-signature-symbol">; </span>target_user_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>temporary<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>unique<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIExtendedInvite.html" class="tsd-signature-type" data-tsd-kind="Interface">APIExtendedInvite</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIExtendedInvite</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -261,13 +259,13 @@
 					<a name="createMessage" class="tsd-anchor"></a>
 					<h3>create<wbr>Message</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Message<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>allowed_mentions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/APIAllowedMentions.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAllowedMentions</a><span class="tsd-signature-symbol">; </span>attachments<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIAttachment.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAttachment</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;id&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;description&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIAttachment.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAttachment</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;filename&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>components<span class="tsd-signature-symbol">?: </span><a href="../interfaces/APIActionRowComponent.html" class="tsd-signature-type" data-tsd-kind="Interface">APIActionRowComponent</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>content<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>embed<span class="tsd-signature-symbol">?: </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">; </span>embeds<span class="tsd-signature-symbol">?: </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>message_reference<span class="tsd-signature-symbol">?: </span><a href="../modules.html#APIMessageReferenceSend" class="tsd-signature-type" data-tsd-kind="Type alias">APIMessageReferenceSend</a><span class="tsd-signature-symbol">; </span>nonce<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>sticker_ids<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">; </span>tts<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIMessage.html" class="tsd-signature-type" data-tsd-kind="Interface">APIMessage</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Message<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIMessage</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:213</li>
+									<li>Defined in client/ChannelManager.ts:213</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -284,13 +282,13 @@
 									</div>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>allowed_mentions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/APIAllowedMentions.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAllowedMentions</a><span class="tsd-signature-symbol">; </span>attachments<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIAttachment.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAttachment</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;id&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;description&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIAttachment.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAttachment</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;filename&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>components<span class="tsd-signature-symbol">?: </span><a href="../interfaces/APIActionRowComponent.html" class="tsd-signature-type" data-tsd-kind="Interface">APIActionRowComponent</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>content<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>embed<span class="tsd-signature-symbol">?: </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">; </span>embeds<span class="tsd-signature-symbol">?: </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>message_reference<span class="tsd-signature-symbol">?: </span><a href="../modules.html#APIMessageReferenceSend" class="tsd-signature-type" data-tsd-kind="Type alias">APIMessageReferenceSend</a><span class="tsd-signature-symbol">; </span>nonce<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>sticker_ids<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">; </span>tts<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Options for the message sending</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIMessage.html" class="tsd-signature-type" data-tsd-kind="Interface">APIMessage</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIMessage</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<ul>
 								<li>Message Object</li>
 							</ul>
@@ -301,13 +299,13 @@
 					<a name="crosspostMessage" class="tsd-anchor"></a>
 					<h3>crosspost<wbr>Message</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">crosspost<wbr>Message<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, messageID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIMessage.html" class="tsd-signature-type" data-tsd-kind="Interface">APIMessage</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">crosspost<wbr>Message<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, messageID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIMessage</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:233</li>
+									<li>Defined in client/ChannelManager.ts:233</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -319,7 +317,7 @@
 									<h5>messageID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIMessage.html" class="tsd-signature-type" data-tsd-kind="Interface">APIMessage</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIMessage</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -333,7 +331,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:140</li>
+									<li>Defined in client/ChannelManager.ts:140</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -370,7 +368,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:384</li>
+									<li>Defined in client/ChannelManager.ts:384</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -399,7 +397,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:273</li>
+									<li>Defined in client/ChannelManager.ts:273</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -422,13 +420,13 @@
 					<a name="editChannelPermissions" class="tsd-anchor"></a>
 					<h3>edit<wbr>Channel<wbr>Permissions</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">edit<wbr>Channel<wbr>Permissions<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, overwriteID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="../interfaces/RESTPutAPIChannelPermissionJSONBody.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTPutAPIChannelPermissionJSONBody</a>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">edit<wbr>Channel<wbr>Permissions<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, overwriteID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RESTPutAPIChannelPermissionJSONBody</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:321</li>
+									<li>Defined in client/ChannelManager.ts:321</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -440,7 +438,7 @@
 									<h5>overwriteID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <a href="../interfaces/RESTPutAPIChannelPermissionJSONBody.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTPutAPIChannelPermissionJSONBody</a></h5>
+									<h5>options: <span class="tsd-signature-type">RESTPutAPIChannelPermissionJSONBody</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">string</span></h5>
@@ -454,13 +452,13 @@
 					<a name="editMessage" class="tsd-anchor"></a>
 					<h3>edit<wbr>Message</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">edit<wbr>Message<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, messageID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>allowed_mentions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIAllowedMentions.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAllowedMentions</a><span class="tsd-signature-symbol">; </span>attachments<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIAttachment.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAttachment</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;id&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIAttachment.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAttachment</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;description&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;filename&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>components<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIActionRowComponent.html" class="tsd-signature-type" data-tsd-kind="Interface">APIActionRowComponent</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>content<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>embed<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">; </span>embeds<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>flags<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../enums/MessageFlags.html" class="tsd-signature-type" data-tsd-kind="Enumeration">MessageFlags</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIMessage.html" class="tsd-signature-type" data-tsd-kind="Interface">APIMessage</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">edit<wbr>Message<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, messageID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIMessage</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:252</li>
+									<li>Defined in client/ChannelManager.ts:252</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -472,10 +470,10 @@
 									<h5>messageID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>allowed_mentions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIAllowedMentions.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAllowedMentions</a><span class="tsd-signature-symbol">; </span>attachments<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIAttachment.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAttachment</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;id&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIAttachment.html" class="tsd-signature-type" data-tsd-kind="Interface">APIAttachment</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">&quot;description&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;filename&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>components<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIActionRowComponent.html" class="tsd-signature-type" data-tsd-kind="Interface">APIActionRowComponent</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>content<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>embed<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">; </span>embeds<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>flags<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../enums/MessageFlags.html" class="tsd-signature-type" data-tsd-kind="Enumeration">MessageFlags</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIMessage.html" class="tsd-signature-type" data-tsd-kind="Interface">APIMessage</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIMessage</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -483,13 +481,13 @@
 					<a name="followNewsChannel" class="tsd-anchor"></a>
 					<h3>follow<wbr>News<wbr>Channel</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">follow<wbr>News<wbr>Channel<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="../interfaces/RESTPostAPIChannelFollowersJSONBody.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTPostAPIChannelFollowersJSONBody</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIFollowedChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIFollowedChannel</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">follow<wbr>News<wbr>Channel<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RESTPostAPIChannelFollowersJSONBody</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIFollowedChannel</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:404</li>
+									<li>Defined in client/ChannelManager.ts:404</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -498,10 +496,10 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <a href="../interfaces/RESTPostAPIChannelFollowersJSONBody.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTPostAPIChannelFollowersJSONBody</a></h5>
+									<h5>options: <span class="tsd-signature-type">RESTPostAPIChannelFollowersJSONBody</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIFollowedChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIFollowedChannel</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIFollowedChannel</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -509,13 +507,13 @@
 					<a name="getChannel" class="tsd-anchor"></a>
 					<h3>get<wbr>Channel</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Channel<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIChannel</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Channel<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIChannel</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:82</li>
+									<li>Defined in client/ChannelManager.ts:82</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -532,7 +530,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIChannel</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIChannel</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>Channel Object</p>
 						</li>
 					</ul>
@@ -541,13 +539,13 @@
 					<a name="getChannelInvites" class="tsd-anchor"></a>
 					<h3>get<wbr>Channel<wbr>Invites</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Channel<wbr>Invites<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules.html#RESTGetAPIChannelInvitesResult" class="tsd-signature-type" data-tsd-kind="Type alias">RESTGetAPIChannelInvitesResult</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Channel<wbr>Invites<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RESTGetAPIChannelInvitesResult</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:343</li>
+									<li>Defined in client/ChannelManager.ts:343</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -556,7 +554,7 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules.html#RESTGetAPIChannelInvitesResult" class="tsd-signature-type" data-tsd-kind="Type alias">RESTGetAPIChannelInvitesResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RESTGetAPIChannelInvitesResult</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -564,13 +562,13 @@
 					<a name="getChannelMessage" class="tsd-anchor"></a>
 					<h3>get<wbr>Channel<wbr>Message</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Channel<wbr>Message<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, messageID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIMessage.html" class="tsd-signature-type" data-tsd-kind="Interface">APIMessage</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Channel<wbr>Message<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, messageID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIMessage</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:188</li>
+									<li>Defined in client/ChannelManager.ts:188</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -593,7 +591,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIMessage.html" class="tsd-signature-type" data-tsd-kind="Interface">APIMessage</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIMessage</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<ul>
 								<li>Message Object</li>
 							</ul>
@@ -604,13 +602,13 @@
 					<a name="getChannelMessages" class="tsd-anchor"></a>
 					<h3>get<wbr>Channel<wbr>Messages</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Channel<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/RESTGetAPIChannelMessagesQuery.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTGetAPIChannelMessagesQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules.html#RESTGetAPIChannelMessagesResult" class="tsd-signature-type" data-tsd-kind="Type alias">RESTGetAPIChannelMessagesResult</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Channel<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">RESTGetAPIChannelMessagesQuery</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RESTGetAPIChannelMessagesResult</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:162</li>
+									<li>Defined in client/ChannelManager.ts:162</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -627,13 +625,13 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/RESTGetAPIChannelMessagesQuery.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTGetAPIChannelMessagesQuery</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">RESTGetAPIChannelMessagesQuery</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Options for the query search</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules.html#RESTGetAPIChannelMessagesResult" class="tsd-signature-type" data-tsd-kind="Type alias">RESTGetAPIChannelMessagesResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RESTGetAPIChannelMessagesResult</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>Array of messages</p>
 						</li>
 					</ul>
@@ -642,13 +640,13 @@
 					<a name="getPinnedMessages" class="tsd-anchor"></a>
 					<h3>get<wbr>Pinned<wbr>Messages</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Pinned<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules.html#RESTGetAPIChannelPinsResult" class="tsd-signature-type" data-tsd-kind="Type alias">RESTGetAPIChannelPinsResult</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Pinned<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RESTGetAPIChannelPinsResult</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:435</li>
+									<li>Defined in client/ChannelManager.ts:435</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -657,7 +655,7 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules.html#RESTGetAPIChannelPinsResult" class="tsd-signature-type" data-tsd-kind="Type alias">RESTGetAPIChannelPinsResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RESTGetAPIChannelPinsResult</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -665,13 +663,13 @@
 					<a name="getThreadMember" class="tsd-anchor"></a>
 					<h3>get<wbr>Thread<wbr>Member</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Thread<wbr>Member<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIThreadMember.html" class="tsd-signature-type" data-tsd-kind="Interface">APIThreadMember</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Thread<wbr>Member<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIThreadMember</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:642</li>
+									<li>Defined in client/ChannelManager.ts:642</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -683,7 +681,7 @@
 									<h5>userID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIThreadMember.html" class="tsd-signature-type" data-tsd-kind="Interface">APIThreadMember</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIThreadMember</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -691,13 +689,13 @@
 					<a name="groupDMAddRecipient" class="tsd-anchor"></a>
 					<h3>groupDMAdd<wbr>Recipient</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">groupDMAdd<wbr>Recipient<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>access_token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>nick<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">groupDMAdd<wbr>Recipient<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:493</li>
+									<li>Defined in client/ChannelManager.ts:493</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -709,7 +707,7 @@
 									<h5>userID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>access_token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>nick<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -726,7 +724,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:513</li>
+									<li>Defined in client/ChannelManager.ts:513</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -752,7 +750,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:576</li>
+									<li>Defined in client/ChannelManager.ts:576</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -775,7 +773,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:609</li>
+									<li>Defined in client/ChannelManager.ts:609</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -792,13 +790,13 @@
 					<a name="listJoinedPrivateArchivedThreads" class="tsd-anchor"></a>
 					<h3>list<wbr>Joined<wbr>Private<wbr>Archived<wbr>Threads</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">list<wbr>Joined<wbr>Private<wbr>Archived<wbr>Threads<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="../interfaces/RESTGetAPIChannelThreadsArchivedQuery.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTGetAPIChannelThreadsArchivedQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIThreadList.html" class="tsd-signature-type" data-tsd-kind="Interface">APIThreadList</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Joined<wbr>Private<wbr>Archived<wbr>Threads<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RESTGetAPIChannelThreadsArchivedQuery</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIThreadList</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:719</li>
+									<li>Defined in client/ChannelManager.ts:719</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -807,10 +805,10 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <a href="../interfaces/RESTGetAPIChannelThreadsArchivedQuery.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTGetAPIChannelThreadsArchivedQuery</a></h5>
+									<h5>options: <span class="tsd-signature-type">RESTGetAPIChannelThreadsArchivedQuery</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIThreadList.html" class="tsd-signature-type" data-tsd-kind="Interface">APIThreadList</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIThreadList</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -818,13 +816,13 @@
 					<a name="listPrivateArchivedThreads" class="tsd-anchor"></a>
 					<h3>list<wbr>Private<wbr>Archived<wbr>Threads</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">list<wbr>Private<wbr>Archived<wbr>Threads<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="../interfaces/RESTGetAPIChannelThreadsArchivedQuery.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTGetAPIChannelThreadsArchivedQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIThreadList.html" class="tsd-signature-type" data-tsd-kind="Interface">APIThreadList</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Private<wbr>Archived<wbr>Threads<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RESTGetAPIChannelThreadsArchivedQuery</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIThreadList</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:699</li>
+									<li>Defined in client/ChannelManager.ts:699</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -833,10 +831,10 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <a href="../interfaces/RESTGetAPIChannelThreadsArchivedQuery.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTGetAPIChannelThreadsArchivedQuery</a></h5>
+									<h5>options: <span class="tsd-signature-type">RESTGetAPIChannelThreadsArchivedQuery</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIThreadList.html" class="tsd-signature-type" data-tsd-kind="Interface">APIThreadList</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIThreadList</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -844,13 +842,13 @@
 					<a name="listPublicArchivedThreads" class="tsd-anchor"></a>
 					<h3>list<wbr>Public<wbr>Archived<wbr>Threads</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">list<wbr>Public<wbr>Archived<wbr>Threads<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="../interfaces/RESTGetAPIChannelThreadsArchivedQuery.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTGetAPIChannelThreadsArchivedQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIThreadList.html" class="tsd-signature-type" data-tsd-kind="Interface">APIThreadList</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Public<wbr>Archived<wbr>Threads<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RESTGetAPIChannelThreadsArchivedQuery</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIThreadList</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:679</li>
+									<li>Defined in client/ChannelManager.ts:679</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -859,10 +857,10 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <a href="../interfaces/RESTGetAPIChannelThreadsArchivedQuery.html" class="tsd-signature-type" data-tsd-kind="Interface">RESTGetAPIChannelThreadsArchivedQuery</a></h5>
+									<h5>options: <span class="tsd-signature-type">RESTGetAPIChannelThreadsArchivedQuery</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIThreadList.html" class="tsd-signature-type" data-tsd-kind="Interface">APIThreadList</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIThreadList</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -870,13 +868,13 @@
 					<a name="listThreadMembers" class="tsd-anchor"></a>
 					<h3>list<wbr>Thread<wbr>Members</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">list<wbr>Thread<wbr>Members<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules.html#RESTGetAPIChannelThreadMembersResult" class="tsd-signature-type" data-tsd-kind="Type alias">RESTGetAPIChannelThreadMembersResult</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Thread<wbr>Members<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RESTGetAPIChannelThreadMembersResult</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:661</li>
+									<li>Defined in client/ChannelManager.ts:661</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -885,7 +883,7 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules.html#RESTGetAPIChannelThreadMembersResult" class="tsd-signature-type" data-tsd-kind="Type alias">RESTGetAPIChannelThreadMembersResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RESTGetAPIChannelThreadMembersResult</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -893,13 +891,13 @@
 					<a name="modifyChannel" class="tsd-anchor"></a>
 					<h3>modify<wbr>Channel</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">modify<wbr>Channel<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>archived<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>auto_archive_duration<span class="tsd-signature-symbol">?: </span><a href="../enums/ThreadAutoArchiveDuration.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ThreadAutoArchiveDuration</a><span class="tsd-signature-symbol">; </span>bitrate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>default_auto_archive_duration<span class="tsd-signature-symbol">?: </span><a href="../enums/ThreadAutoArchiveDuration.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ThreadAutoArchiveDuration</a><span class="tsd-signature-symbol">; </span>invitable<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>locked<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>nsfw<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>parent_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>permission_overwrites<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIOverwrite.html" class="tsd-signature-type" data-tsd-kind="Interface">APIOverwrite</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>position<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>rate_limit_per_user<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>rtc_region<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>topic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">?: </span><a href="../enums/ChannelType.html#GuildText" class="tsd-signature-type" data-tsd-kind="Enumeration member">GuildText</a><span class="tsd-signature-symbol"> | </span><a href="../enums/ChannelType.html#GuildNews" class="tsd-signature-type" data-tsd-kind="Enumeration member">GuildNews</a><span class="tsd-signature-symbol">; </span>user_limit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>video_quality_mode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../enums/VideoQualityMode.html" class="tsd-signature-type" data-tsd-kind="Enumeration">VideoQualityMode</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIChannel</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">modify<wbr>Channel<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIChannel</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:110</li>
+									<li>Defined in client/ChannelManager.ts:110</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -916,7 +914,7 @@
 									</div>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>archived<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>auto_archive_duration<span class="tsd-signature-symbol">?: </span><a href="../enums/ThreadAutoArchiveDuration.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ThreadAutoArchiveDuration</a><span class="tsd-signature-symbol">; </span>bitrate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>default_auto_archive_duration<span class="tsd-signature-symbol">?: </span><a href="../enums/ThreadAutoArchiveDuration.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ThreadAutoArchiveDuration</a><span class="tsd-signature-symbol">; </span>invitable<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>locked<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>nsfw<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>parent_id<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>permission_overwrites<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/APIOverwrite.html" class="tsd-signature-type" data-tsd-kind="Interface">APIOverwrite</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>position<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>rate_limit_per_user<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>rtc_region<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>topic<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">?: </span><a href="../enums/ChannelType.html#GuildText" class="tsd-signature-type" data-tsd-kind="Enumeration member">GuildText</a><span class="tsd-signature-symbol"> | </span><a href="../enums/ChannelType.html#GuildNews" class="tsd-signature-type" data-tsd-kind="Enumeration member">GuildNews</a><span class="tsd-signature-symbol">; </span>user_limit<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>video_quality_mode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../enums/VideoQualityMode.html" class="tsd-signature-type" data-tsd-kind="Enumeration">VideoQualityMode</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Option object</p>
 									</div>
@@ -928,7 +926,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIChannel</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIChannel</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<ul>
 								<li>New Channel Object</li>
 							</ul>
@@ -945,7 +943,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:453</li>
+									<li>Defined in client/ChannelManager.ts:453</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -974,7 +972,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:624</li>
+									<li>Defined in client/ChannelManager.ts:624</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -994,13 +992,13 @@
 					<a name="startThreadWithMessages" class="tsd-anchor"></a>
 					<h3>start<wbr>Thread<wbr>With<wbr>Messages</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">start<wbr>Thread<wbr>With<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, messageID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>auto_archive_duration<span class="tsd-signature-symbol">: </span><a href="../enums/ThreadAutoArchiveDuration.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ThreadAutoArchiveDuration</a><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>rate_limit_per_user<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIChannel</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">start<wbr>Thread<wbr>With<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, messageID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIChannel</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:531</li>
+									<li>Defined in client/ChannelManager.ts:531</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1012,13 +1010,13 @@
 									<h5>messageID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>auto_archive_duration<span class="tsd-signature-symbol">: </span><a href="../enums/ThreadAutoArchiveDuration.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ThreadAutoArchiveDuration</a><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>rate_limit_per_user<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>options: <span class="tsd-signature-type">AddUndefinedToPossiblyUndefinedPropertiesOfInterface</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIChannel</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIChannel</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1026,13 +1024,13 @@
 					<a name="startThreadWithoutMessages" class="tsd-anchor"></a>
 					<h3>start<wbr>Thread<wbr>Without<wbr>Messages</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">start<wbr>Thread<wbr>Without<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><a href="../modules.html#RESTPostAPIChannelThreadsJSONBody" class="tsd-signature-type" data-tsd-kind="Type alias">RESTPostAPIChannelThreadsJSONBody</a>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIChannel</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">start<wbr>Thread<wbr>Without<wbr>Messages<span class="tsd-signature-symbol">(</span>channelID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RESTPostAPIChannelThreadsJSONBody</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIChannel</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:554</li>
+									<li>Defined in client/ChannelManager.ts:554</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1041,13 +1039,13 @@
 									<h5>channelID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>options: <a href="../modules.html#RESTPostAPIChannelThreadsJSONBody" class="tsd-signature-type" data-tsd-kind="Type alias">RESTPostAPIChannelThreadsJSONBody</a></h5>
+									<h5>options: <span class="tsd-signature-type">RESTPostAPIChannelThreadsJSONBody</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIChannel.html" class="tsd-signature-type" data-tsd-kind="Interface">APIChannel</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIChannel</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1061,7 +1059,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:424</li>
+									<li>Defined in client/ChannelManager.ts:424</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1084,7 +1082,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:473</li>
+									<li>Defined in client/ChannelManager.ts:473</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1113,7 +1111,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:67</li>
+									<li>Defined in client/ChannelManager.ts:67</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1148,7 +1146,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/client/ChannelManager.ts:56</li>
+									<li>Defined in client/ChannelManager.ts:56</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1191,7 +1189,7 @@
 					<div class="tsd-signature tsd-kind-icon">cache<span class="tsd-signature-symbol">:</span> <a href="CacheManager.html" class="tsd-signature-type" data-tsd-kind="Class">CacheManager</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client/ChannelManager.ts:45</li>
+							<li>Defined in client/ChannelManager.ts:45</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1206,7 +1204,7 @@
 					<div class="tsd-signature tsd-kind-icon">client<span class="tsd-signature-symbol">:</span> <a href="Client.html" class="tsd-signature-type" data-tsd-kind="Class">Client</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client/ChannelManager.ts:49</li>
+							<li>Defined in client/ChannelManager.ts:49</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1221,7 +1219,7 @@
 					<div class="tsd-signature tsd-kind-icon">token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/client/ChannelManager.ts:41</li>
+							<li>Defined in client/ChannelManager.ts:41</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1242,6 +1240,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="CacheManager.html" class="tsd-kind-icon">Cache<wbr>Manager</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
@@ -1362,6 +1363,12 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="Client.html" class="tsd-kind-icon">Client</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../modules.html#resolveHexaColor" class="tsd-kind-icon">resolve<wbr>Hexa<wbr>Color</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
