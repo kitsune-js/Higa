@@ -1,34 +1,37 @@
-import { CacheManager } from './CacheManager';
 import {
   APIChannel,
-  RESTGetAPIChannelMessagesQuery,
-  RESTPatchAPIChannelJSONBody,
-  RESTPostAPIChannelMessageJSONBody,
-  RESTPatchAPIChannelMessageJSONBody,
-  RESTPostAPIChannelMessagesBulkDeleteJSONBody,
-  RESTPutAPIChannelPermissionJSONBody,
+  APIThreadMember,
   RESTGetAPIChannelInvitesResult,
-  RESTPatchAPIChannelMessageResult,
-  RESTPostAPIChannelMessageResult,
-  RESTPostAPIChannelMessageCrosspostResult,
   RESTGetAPIChannelMessageResult,
+  RESTGetAPIChannelMessagesQuery,
   RESTGetAPIChannelMessagesResult,
-  RESTPatchAPIChannelResult,
+  RESTGetAPIChannelPinsResult,
   RESTGetAPIChannelResult,
+  RESTGetAPIChannelThreadMembersResult,
+  RESTGetAPIChannelThreadsArchivedQuery,
+  RESTGetAPIChannelUsersThreadsArchivedResult,
+  RESTPatchAPIChannelJSONBody,
+  RESTPatchAPIChannelMessageJSONBody,
+  RESTPatchAPIChannelMessageResult,
+  RESTPatchAPIChannelResult,
+  RESTPostAPIChannelFollowersJSONBody,
+  RESTPostAPIChannelFollowersResult,
   RESTPostAPIChannelInviteJSONBody,
   RESTPostAPIChannelInviteResult,
-  RESTPostAPIChannelFollowersResult,
-  RESTPostAPIChannelFollowersJSONBody,
-  RESTGetAPIChannelPinsResult,
-  RESTPutAPIChannelRecipientJSONBody,
+  RESTPostAPIChannelMessageCrosspostResult,
+  RESTPostAPIChannelMessageJSONBody,
+  RESTPostAPIChannelMessageResult,
+  RESTPostAPIChannelMessagesBulkDeleteJSONBody,
   RESTPostAPIChannelMessagesThreadsJSONBody,
   RESTPostAPIChannelMessagesThreadsResult,
   RESTPostAPIChannelThreadsJSONBody,
   RESTPostAPIChannelThreadsResult,
-  RESTGetAPIChannelThreadMembersResult,
-  APIThreadMember
+  RESTPutAPIChannelPermissionJSONBody,
+  RESTPutAPIChannelRecipientJSONBody
 } from 'discord-api-types';
 import fetch from 'node-fetch';
+
+import { CacheManager } from './CacheManager';
 import { Client } from './Client';
 
 class ChannelManager {
@@ -606,6 +609,66 @@ class ChannelManager {
   ): Promise<RESTGetAPIChannelThreadMembersResult> {
     const res = await fetch(
       `https://discord.com/api/v9/channels/${channelID}/thread-members`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return await res.json();
+  }
+
+  public async listPublicArchivedThreads(
+    channelID: string,
+    options: RESTGetAPIChannelThreadsArchivedQuery
+  ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
+    const params = options ? this.optionsToQueryStringParams(options) : '';
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/threads/archived/public${params}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return await res.json();
+  }
+
+  public async listPrivateArchivedThreads(
+    channelID: string,
+    options: RESTGetAPIChannelThreadsArchivedQuery
+  ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
+    const params = options ? this.optionsToQueryStringParams(options) : '';
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/threads/archived/private${params}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return await res.json();
+  }
+
+  public async listJoinedPrivateArchivedThreads(
+    channelID: string,
+    options: RESTGetAPIChannelThreadsArchivedQuery
+  ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
+    const params = options ? this.optionsToQueryStringParams(options) : '';
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/users/@me/threads/archived/private${params}`,
       {
         method: 'GET',
         headers: {
