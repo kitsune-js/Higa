@@ -14,7 +14,9 @@ import {
   RESTGetAPIChannelMessageResult,
   RESTGetAPIChannelMessagesResult,
   RESTPatchAPIChannelResult,
-  RESTGetAPIChannelResult
+  RESTGetAPIChannelResult,
+  RESTPostAPIChannelInviteJSONBody,
+  RESTPostAPIChannelInviteResult
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -286,6 +288,29 @@ class ChannelManager {
         }
       }
     );
+    return await res.json();
+  }
+
+  public async createChannelInvite(
+    channelID: string,
+    options: RESTPostAPIChannelInviteJSONBody = {},
+    reason?: string
+  ): Promise<RESTPostAPIChannelInviteResult> {
+    const res = await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/invites`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        },
+        body: JSON.stringify(options)
+      }
+    );
+
     return await res.json();
   }
 }

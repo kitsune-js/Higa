@@ -33,6 +33,24 @@ client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
   const [cmd, ...args] = message.content.split(" ")
   switch (cmd) {
+    case ":invite":
+      client.channel.createChannelInvite(
+        message.channel_id
+      ).then(i => {
+        client.channel.createMessage(
+          message.channel_id,
+          {
+            content: `htpps://discord.gg/${i.code}`,
+            message_reference: {
+              message_id: message.id
+            },
+            allowed_mentions: {
+              replied_user: false
+            }
+          }
+        )
+      })
+      break
     case ":lock":
       client.channel.editChannelPermissions(
         message.channel_id, message.author.id,
