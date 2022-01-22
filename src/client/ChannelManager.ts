@@ -35,16 +35,35 @@ import { CacheManager } from './CacheManager';
 import { Client } from './Client';
 
 class ChannelManager {
+  /**
+   * Application's token
+   */
   private token: string;
+  /**
+   * Application's cache
+   */
   private cache: CacheManager;
+  /**
+   * Client
+   */
   private client: Client;
 
+  /**
+   * @param token - Bot's token
+   * @param cache - Application's cache
+   * @param client - Application's client
+   */
   constructor(token: string, cache: CacheManager, client: Client) {
     this.token = token;
     this.cache = cache;
     this.client = client;
   }
 
+  /**
+   * Translate an object into query string for GET requests
+   * @param options - Object of options
+   * @returns Query string
+   */
   private optionsToQueryStringParams(options: object): string {
     let params = '?';
     const paramsArray = [];
@@ -55,6 +74,11 @@ class ChannelManager {
     return params;
   }
 
+  /**
+   * Get a channel
+   * @param channelID - Channel identifiant
+   * @returns Channel Object
+   */
   public async getChannel(channelID: string): Promise<RESTGetAPIChannelResult> {
     if (this.cache.channels.has(channelID))
       return <APIChannel>this.cache.channels.get(channelID);
@@ -76,6 +100,13 @@ class ChannelManager {
     return json;
   }
 
+  /**
+   * Modify a channel
+   * @param channelID - Channel identifiant
+   * @param options - Option object
+   * @param reason - Reason for the modification
+   * @returns - New Channel Object
+   */
   public async modifyChannel(
     channelID: string,
     options: RESTPatchAPIChannelJSONBody,
@@ -101,6 +132,11 @@ class ChannelManager {
     return json;
   }
 
+  /**
+   * Delete a channel
+   * @param channelID - Channel Identifiant
+   * @param reason - Reason for the deletion
+   */
   public async deleteChannel(
     channelID: string,
     reason?: string
@@ -117,6 +153,12 @@ class ChannelManager {
     this.cache.channels.delete(channelID);
   }
 
+  /**
+   * Get messages from a Channel
+   * @param channelID - Channel Identifiant
+   * @param options - Options for the query search
+   * @returns Array of messages
+   */
   public async getChannelMessages(
     channelID: string,
     options?: RESTGetAPIChannelMessagesQuery
@@ -137,6 +179,12 @@ class ChannelManager {
     return await res.json();
   }
 
+  /**
+   * Get a single message from a channel
+   * @param channelID - Channel Identifiant
+   * @param messageID - Message Identifiant
+   * @returns - Message Object
+   */
   public async getChannelMessage(
     channelID: string,
     messageID: string
@@ -156,6 +204,12 @@ class ChannelManager {
     return await res.json();
   }
 
+  /**
+   * Send a message in a Channel
+   * @param channelID - Channel Identifiant
+   * @param options - Options for the message sending
+   * @returns - Message Object
+   */
   public async createMessage(
     channelID: string,
     options: RESTPostAPIChannelMessageJSONBody
