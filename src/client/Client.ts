@@ -4,10 +4,10 @@ import {
   GatewayPresenceUpdateData
 } from 'discord-api-types/gateway';
 import fetch from 'node-fetch';
-import WebSocket from 'ws';
 import { EventEmitter } from 'node:events';
-import { CacheManager } from './CacheManager';
-import { ChannelManager } from './ChannelManager';
+import WebSocket from 'ws';
+
+import { AuditLogManager, CacheManager, ChannelManager } from '.';
 
 const ClientIntents = {
   GUILDS: 1 << 0,
@@ -69,6 +69,8 @@ class Client extends EventEmitter {
    */
   public channel: ChannelManager;
 
+  public auditLog: AuditLogManager;
+
   /**
    *
    * @param token - Bot token
@@ -105,6 +107,7 @@ class Client extends EventEmitter {
     });
 
     this.channel = new ChannelManager(this.token, this.cache, this);
+    this.auditLog = new AuditLogManager(this.token);
   }
 
   public override on<K extends keyof ClientEvents>(
