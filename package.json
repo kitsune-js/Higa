@@ -40,7 +40,8 @@
   "auto-changelog": {
     "output": "HISTORY.md",
     "template": "changelog-template.hbs",
-    "package": true
+    "package": true,
+    "commitLimit": false
   },
   "author": "fantomitechno",
   "license": "ISC",
