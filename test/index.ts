@@ -42,6 +42,9 @@ client.on("MESSAGE_CREATE", async message => {
     case ":join-thread":
       client.channel.addThreadMember(message.channel_id, "933287043663003668")
       break
+    case ":leave-thread":
+      client.channel.removeThreadMember(message.channel_id, "933287043663003668")
+      break  
     case ":leave":
       client.channel.leaveThread(message.channel_id)
       break
