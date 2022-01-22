@@ -38,9 +38,18 @@ interface ClientEvents {
 }
 
 class Client extends EventEmitter {
+  /**
+   * Application's token
+   */
   private readonly token: string;
+  /**
+   * Intents the application has activated
+   */
   public readonly intents: number;
 
+  /**
+   * Websocket to connect the application to the Discord Gateway
+   */
   private ws: WebSocket = new WebSocket(
     'wss://gateway.discord.gg/?v=9&encoding=json'
   );
@@ -50,10 +59,21 @@ class Client extends EventEmitter {
   private sequence_number: number | null = null;
   private session_id = '';
 
+  /**
+   * Application's cache
+   */
   private cache = new CacheManager();
 
+  /**
+   * Channel Manager to interact with the REST API
+   */
   public channel: ChannelManager;
 
+  /**
+   *
+   * @param token - Bot token
+   * @param intents - Array of intents the bot will be listening to
+   */
   constructor(token?: string, intents: (keyof typeof ClientIntents)[] = []) {
     super();
     if (!token) throw new Error('NO TOKEN PROVIDED');
@@ -109,6 +129,11 @@ class Client extends EventEmitter {
     return super.emit(eventName, ...args);
   }
 
+  /**
+   * Convert an intents' array to a number
+   * @param intents - Intents' array
+   * @returns - Intent number
+   */
   private intentsToNumber(intents: (keyof typeof ClientIntents)[]) {
     let counter = 0;
     for (const i of intents) {
@@ -173,6 +198,10 @@ class Client extends EventEmitter {
     this.emit(event, object);
   }
 
+  /**
+   * Interact with the Discord Gateway to add a Presence to the Bot User
+   * @param presence - New presence to set
+   */
   public setStatus(presence: GatewayPresenceUpdateData) {
     this.ws.send(
       JSON.stringify({
@@ -184,6 +213,9 @@ class Client extends EventEmitter {
 
   /**
    * Create a DM channel with someone and return it
+   * @deprecated - Will be changed to a method in a futur Manager
+   * @param user - User
+   * @returns DMChannel
    */
   public createDM = async (user: string) => {
     const res = await fetch('https://discord.com/api/v9/users/@me/channels', {
