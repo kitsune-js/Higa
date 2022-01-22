@@ -19,7 +19,8 @@ import {
   RESTPostAPIChannelInviteResult,
   RESTPostAPIChannelFollowersResult,
   RESTPostAPIChannelFollowersJSONBody,
-  RESTGetAPIChannelPinsResult
+  RESTGetAPIChannelPinsResult,
+  RESTPutAPIChannelRecipientJSONBody,
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 import { Client } from './Client';
@@ -422,6 +423,26 @@ class ChannelManager {
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
           'X-Audit-Log-Reason': reason ?? ''
         }
+      }
+    );
+  }
+
+  public async groupDMAddRecipient(
+    channelID: string,
+    userID: string,
+    options: RESTPutAPIChannelRecipientJSONBody
+  ): Promise<void> {
+    await fetch(
+      `https://discord.com/api/v9/channels/${channelID}/recipients/${userID}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        },
+        body: JSON.stringify(options)
       }
     );
   }
