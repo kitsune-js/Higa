@@ -1,7 +1,7 @@
 {
   "name": "higa",
   "version": "0.0.3",
-  "description": "",
+  "description": "A package to interract with the Discord API coded by myself with randomness",
   "main": "build",
   "typings": "types",
   "scripts": {
