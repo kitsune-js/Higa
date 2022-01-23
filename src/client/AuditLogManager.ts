@@ -32,6 +32,12 @@ class AuditLogManager {
     return params;
   }
 
+  /**
+   * Get the Audit Logs from a guild
+   * @param guildID - Guild Identifiant
+   * @param options - Options for the query string
+   * @returns - Guild Audit Log Object
+   */
   public async getGuildAuditLog(
     guildID: string,
     options: RESTGetAPIAuditLogQuery

@@ -33,6 +33,12 @@ class InviteManager {
     return params;
   }
 
+  /**
+   * Get an invitation
+   * @param code - Invite Code
+   * @param options - Options for the query string
+   * @returns - Invite Object
+   */
   public async getInvite(
     code: string,
     options?: RESTGetAPIInviteQuery
@@ -53,6 +59,12 @@ class InviteManager {
     return await res.json();
   }
 
+  /**
+   * Remove an invitation
+   * @param code - Invite Code
+   * @param reason - Reason for the deletion
+   * @returns - Invite Object
+   */
   public async deleteInvite(
     code: string,
     reason?: string
