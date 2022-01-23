@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AuditLogManager
+	<title>InviteManager
 	| Higa - v0.0.3</title>
 	<meta name="description" content="Documentation for Higa - v0.0.3">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">Higa - v0.0.3</a>
 				</li>
 				<li>
-					<a href="AuditLogManager.html">AuditLogManager</a>
+					<a href="InviteManager.html">InviteManager</a>
 				</li>
 			</ul>
-			<h1>Class AuditLogManager</h1>
+			<h1>Class InviteManager</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">AuditLogManager</span>
+						<span class="target">InviteManager</span>
 					</li>
 				</ul>
 			</section>
@@ -80,23 +80,25 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="AuditLogManager.html#constructor"
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="InviteManager.html#constructor"
 								class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="AuditLogManager.html#getGuildAuditLog"
-								class="tsd-kind-icon">get<wbr>Guild<wbr>Audit<wbr>Log</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="AuditLogManager.html#optionsToQueryStringParams"
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="InviteManager.html#deleteInvite"
+								class="tsd-kind-icon">delete<wbr>Invite</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="InviteManager.html#getInvite"
+								class="tsd-kind-icon">get<wbr>Invite</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="InviteManager.html#optionsToQueryStringParams"
 								class="tsd-kind-icon">options<wbr>ToQuery<wbr>String<wbr>Params</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="AuditLogManager.html#token"
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="InviteManager.html#token"
 								class="tsd-kind-icon">token</a></li>
 							</ul>
 						</section>
@@ -109,13 +111,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Audit<wbr>Log<wbr>Manager<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="AuditLogManager.html" class="tsd-signature-type" data-tsd-kind="Class">AuditLogManager</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Invite<wbr>Manager<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="InviteManager.html" class="tsd-signature-type" data-tsd-kind="Class">InviteManager</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in client/AuditLogManager.ts:16</li>
+									<li>Defined in client/InviteManager.ts:17</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -129,7 +131,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="AuditLogManager.html" class="tsd-signature-type" data-tsd-kind="Class">AuditLogManager</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="InviteManager.html" class="tsd-signature-type" data-tsd-kind="Class">InviteManager</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -137,41 +139,81 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getGuildAuditLog" class="tsd-anchor"></a>
-					<h3>get<wbr>Guild<wbr>Audit<wbr>Log</h3>
+					<a name="deleteInvite" class="tsd-anchor"></a>
+					<h3>delete<wbr>Invite</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Guild<wbr>Audit<wbr>Log<span class="tsd-signature-symbol">(</span>guildID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RESTGetAPIAuditLogQuery</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIAuditLog</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Invite<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, reason<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIInvite</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in client/AuditLogManager.ts:41</li>
+									<li>Defined in client/InviteManager.ts:68</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get the Audit Logs from a guild</p>
+									<p>Remove an invitation</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>guildID: <span class="tsd-signature-type">string</span></h5>
+									<h5>code: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Guild Identifiant</p>
+										<p>Invite Code</p>
 									</div>
 								</li>
 								<li>
-									<h5>options: <span class="tsd-signature-type">RESTGetAPIAuditLogQuery</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> reason: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Reason for the deletion</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIInvite</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<ul>
+								<li>Invite Object</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getInvite" class="tsd-anchor"></a>
+					<h3>get<wbr>Invite</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Invite<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">RESTGetAPIInviteQuery</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIInvite</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in client/InviteManager.ts:42</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get an invitation</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>code: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Invite Code</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">RESTGetAPIInviteQuery</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Options for the query string</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIAuditLog</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">APIInvite</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<ul>
-								<li>Guild Audit Log Object</li>
+								<li>Invite Object</li>
 							</ul>
 						</li>
 					</ul>
@@ -186,7 +228,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in client/AuditLogManager.ts:25</li>
+									<li>Defined in client/InviteManager.ts:26</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -217,7 +259,7 @@
 					<div class="tsd-signature tsd-kind-icon">token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in client/AuditLogManager.ts:11</li>
+							<li>Defined in client/InviteManager.ts:12</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -238,27 +280,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="AuditLogManager.html" class="tsd-kind-icon">Audit<wbr>Log<wbr>Manager</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="AuditLogManager.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="AuditLogManager.html#getGuildAuditLog" class="tsd-kind-icon">get<wbr>Guild<wbr>Audit<wbr>Log</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="AuditLogManager.html#optionsToQueryStringParams" class="tsd-kind-icon">options<wbr>ToQuery<wbr>String<wbr>Params</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="AuditLogManager.html#token" class="tsd-kind-icon">token</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="CacheManager.html" class="tsd-kind-icon">Cache<wbr>Manager</a>
 					</li>
@@ -268,9 +292,30 @@
 					<li class=" tsd-kind-class">
 						<a href="Client.html" class="tsd-kind-icon">Client</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="InviteManager.html" class="tsd-kind-icon">Invite<wbr>Manager</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="InviteManager.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="InviteManager.html#deleteInvite" class="tsd-kind-icon">delete<wbr>Invite</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="InviteManager.html#getInvite" class="tsd-kind-icon">get<wbr>Invite</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="InviteManager.html#optionsToQueryStringParams" class="tsd-kind-icon">options<wbr>ToQuery<wbr>String<wbr>Params</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="InviteManager.html#token" class="tsd-kind-icon">token</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-function">
 						<a href="../modules.html#resolveHexaColor" class="tsd-kind-icon">resolve<wbr>Hexa<wbr>Color</a>
 					</li>
