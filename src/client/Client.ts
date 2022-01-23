@@ -7,7 +7,12 @@ import fetch from 'node-fetch';
 import { EventEmitter } from 'node:events';
 import WebSocket from 'ws';
 
-import { AuditLogManager, CacheManager, ChannelManager } from '.';
+import {
+  AuditLogManager,
+  CacheManager,
+  ChannelManager,
+  InviteManager
+} from '.';
 
 const ClientIntents = {
   GUILDS: 1 << 0,
@@ -71,6 +76,7 @@ class Client extends EventEmitter {
 
   public auditLog: AuditLogManager;
 
+  public invite: InviteManager;
   /**
    *
    * @param token - Bot token
@@ -108,6 +114,7 @@ class Client extends EventEmitter {
 
     this.channel = new ChannelManager(this.token, this.cache, this);
     this.auditLog = new AuditLogManager(this.token);
+    this.invite = new InviteManager(this.token);
   }
 
   public override on<K extends keyof ClientEvents>(
