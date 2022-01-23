@@ -5,7 +5,7 @@ import {
 } from 'discord-api-types';
 import fetch from 'node-fetch';
 
-class AuditLogManager {
+class InviteManager {
   /**
    * Application's token
    */
@@ -70,4 +70,4 @@ class AuditLogManager {
   }
 }
 
-export { AuditLogManager };
+export { InviteManager };
