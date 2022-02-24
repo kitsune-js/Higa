@@ -1,5 +1,2 @@
-export * from './CacheManager';
-export * from './ChannelManager';
 export * from './Client';
-export * from './AuditLogManager';
-export * from './InviteManager';
+export * from './managers';
