@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>AuditLogManager
-	| Higa - v0.0.3</title>
-	<meta name="description" content="Documentation for Higa - v0.0.3">
+	| Higa - v0.0.4</title>
+	<meta name="description" content="Documentation for Higa - v0.0.4">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -25,7 +25,7 @@
 					<li class="state loading">Preparing search index...</li>
 					<li class="state failure">The search index is not available</li>
 				</ul>
-				<a href="../index.html" class="title">Higa - v0.0.3</a>
+				<a href="../index.html" class="title">Higa - v0.0.4</a>
 			</div>
 			<div class="table-cell" id="tsd-widgets">
 				<div id="tsd-filter">
@@ -52,7 +52,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">Higa - v0.0.3</a>
+					<a href="../modules.html">Higa - v0.0.4</a>
 				</li>
 				<li>
 					<a href="AuditLogManager.html">AuditLogManager</a>
@@ -69,7 +69,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">AuditLogManager</span>
+						<span class="tsd-signature-type">Manager</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">AuditLogManager</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -80,7 +85,7 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="AuditLogManager.html#constructor"
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="AuditLogManager.html#constructor"
 								class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
@@ -89,14 +94,14 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="AuditLogManager.html#getGuildAuditLog"
 								class="tsd-kind-icon">get<wbr>Guild<wbr>Audit<wbr>Log</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="AuditLogManager.html#optionsToQueryStringParams"
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="AuditLogManager.html#optionsToQueryStringParams"
 								class="tsd-kind-icon">options<wbr>ToQuery<wbr>String<wbr>Params</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="AuditLogManager.html#token"
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="AuditLogManager.html#token"
 								class="tsd-kind-icon">token</a></li>
 							</ul>
 						</section>
@@ -105,17 +110,18 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 						<li class="tsd-signature tsd-kind-icon">new <wbr>Audit<wbr>Log<wbr>Manager<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="AuditLogManager.html" class="tsd-signature-type" data-tsd-kind="Class">AuditLogManager</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Overrides Manager.constructor</p>
 								<ul>
-									<li>Defined in client/AuditLogManager.ts:16</li>
+									<li>Defined in client/managers/AuditLogManager.ts:12</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -146,7 +152,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in client/AuditLogManager.ts:41</li>
+									<li>Defined in client/managers/AuditLogManager.ts:22</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -176,17 +182,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="optionsToQueryStringParams" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> options<wbr>ToQuery<wbr>String<wbr>Params</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> options<wbr>ToQuery<wbr>String<wbr>Params</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon">options<wbr>ToQuery<wbr>String<wbr>Params<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Inherited from Manager.optionsToQueryStringParams</p>
 								<ul>
-									<li>Defined in client/AuditLogManager.ts:25</li>
+									<li>Defined in client/managers/DefaultManager.ts:15</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -209,15 +216,16 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="token" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> token</h3>
+					<h3>token</h3>
 					<div class="tsd-signature tsd-kind-icon">token<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from Manager.token</p>
 						<ul>
-							<li>Defined in client/AuditLogManager.ts:11</li>
+							<li>Defined in client/managers/DefaultManager.ts:5</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -243,17 +251,17 @@
 					<li class="current tsd-kind-class">
 						<a href="AuditLogManager.html" class="tsd-kind-icon">Audit<wbr>Log<wbr>Manager</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="AuditLogManager.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="AuditLogManager.html#getGuildAuditLog" class="tsd-kind-icon">get<wbr>Guild<wbr>Audit<wbr>Log</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="AuditLogManager.html#optionsToQueryStringParams" class="tsd-kind-icon">options<wbr>ToQuery<wbr>String<wbr>Params</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="AuditLogManager.html#token" class="tsd-kind-icon">token</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="AuditLogManager.html#optionsToQueryStringParams" class="tsd-kind-icon">options<wbr>ToQuery<wbr>String<wbr>Params</a>
 							</li>
 						</ul>
 					</li>
@@ -270,6 +278,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="InviteManager.html" class="tsd-kind-icon">Invite<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="VoiceManager.html" class="tsd-kind-icon">Voice<wbr>Manager</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../modules.html#resolveHexaColor" class="tsd-kind-icon">resolve<wbr>Hexa<wbr>Color</a>
@@ -296,6 +307,10 @@
 				class="tsd-kind-icon">Private property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span
 				class="tsd-kind-icon">Private method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span
+				class="tsd-kind-icon">Inherited property</span></li>
 			</ul>
 		</div>
 	</div>
