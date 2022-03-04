@@ -1,4 +1,4 @@
-import { PresenceUpdateStatus, ThreadAutoArchiveDuration } from 'discord-api-types';
+import { PresenceUpdateStatus, RESTGetAPIChannelMessagesQuery, ThreadAutoArchiveDuration } from 'discord-api-types';
 import { Client } from 'higa';
 require("dotenv").config()
 
