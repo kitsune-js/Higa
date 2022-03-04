@@ -1,5 +1,5 @@
 export * from './client';
-export * from 'discord-api-types';
+export * from 'discord-api-types/v9';
 
 /**
  * @param color - A color in Hexadecimal

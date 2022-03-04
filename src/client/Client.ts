@@ -1,9 +1,8 @@
-import { APIApplication, APIChannel, APIMessage } from 'discord-api-types';
+import { APIApplication, APIChannel, APIMessage } from 'discord-api-types/v9';
 import {
   GatewayChannelDeleteDispatchData,
   GatewayPresenceUpdateData
 } from 'discord-api-types/gateway';
-import fetch from 'node-fetch';
 import { EventEmitter } from 'node:events';
 import WebSocket from 'ws';
 
@@ -227,6 +226,7 @@ class Client extends EventEmitter {
    * @param user - User
    * @returns DMChannel
    */
+  /**
   public createDM = async (user: string) => {
     const res = await fetch('https://discord.com/api/v9/users/@me/channels', {
       headers: {
@@ -240,7 +240,7 @@ class Client extends EventEmitter {
     });
     const json: APIChannel = await res.json();
     return json;
-  };
+  };*/
 }
 
 export { Client };

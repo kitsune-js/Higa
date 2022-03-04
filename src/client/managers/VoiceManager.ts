@@ -1,15 +1,12 @@
-import { RESTGetAPIGuildVoiceRegionsResult } from 'discord-api-types';
-import fetch from 'node-fetch';
-import { Manager } from './DefaultManager';
+import { RESTGetAPIGuildVoiceRegionsResult } from 'discord-api-types/v9';
+import axios from 'axios';
 
-class VoiceManager extends Manager {
-  constructor() {
-    super('');
-  }
-
+class VoiceManager {
   public async listVoiceRegions(): Promise<RESTGetAPIGuildVoiceRegionsResult> {
-    const res = await fetch(`https://discord.com/api/v9/voice/regions`);
-    return await res.json();
+    const res = await axios.get<RESTGetAPIGuildVoiceRegionsResult>(
+      `https://discord.com/api/v9/voice/regions`
+    );
+    return res.data;
   }
 }
 

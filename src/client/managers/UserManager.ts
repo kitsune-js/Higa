@@ -1,49 +1,70 @@
-import { RESTPatchAPICurrentUserJSONBody } from 'discord-api-types';
-import { Manager } from './DefaultManager';
+import axios from 'axios';
+import {
+  RESTGetAPICurrentUserResult,
+  RESTGetAPIUserResult,
+  RESTPatchAPICurrentUserJSONBody,
+  RESTPatchAPICurrentUserResult
+} from 'discord-api-types/v9';
 
-class UserManager extends Manager {
+class UserManager {
+  /**
+   * Bot's token
+   */
+  private token: string;
+
   /**
    * @param token - Bot's token
    */
   constructor(token: string) {
-    super(token);
+    this.token = token;
   }
 
-  async getCurrentUser() {
-    const res = await fetch(`https://discord.com/api/v9/users/@me`, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+  async getCurrentUser(): Promise<RESTGetAPICurrentUserResult> {
+    const res = await axios.get<RESTGetAPICurrentUserResult>(
+      `https://discord.com/api/v9/users/@me`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
       }
-    });
-    return await res.json();
+    );
+    return res.data;
   }
 
-  async getUser(userID: string) {
-    const res = await fetch(`https://discord.com/api/v9/users/${userID}`, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+  async getUser(userID: string): Promise<RESTGetAPIUserResult> {
+    const res = await axios.get<RESTGetAPIUserResult>(
+      `https://discord.com/api/v9/users/${userID}`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
       }
-    });
-    return await res.json();
+    );
+    return res.data;
   }
 
-  async modifyCurrentUser(options: RESTPatchAPICurrentUserJSONBody) {
-    const res = await fetch(`https://discord.com/api/v9/users/@me`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-      },
-      body: JSON.stringify(options)
-    });
-    return await res.json();
+  async modifyCurrentUser(
+    options: RESTPatchAPICurrentUserJSONBody
+  ): Promise<RESTPatchAPICurrentUserResult> {
+    const res = await axios.patch<RESTPatchAPICurrentUserResult>(
+      `https://discord.com/api/v9/users/@me`,
+      JSON.stringify(options),
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return res.data;
   }
 }
 

@@ -1,17 +1,21 @@
+import axios from 'axios';
 import {
   RESTDeleteAPIInviteResult,
   RESTGetAPIInviteQuery,
   RESTGetAPIInviteResult
-} from 'discord-api-types';
-import fetch from 'node-fetch';
-import { Manager } from './DefaultManager';
+} from 'discord-api-types/v9';
 
-class InviteManager extends Manager {
+class InviteManager {
+  /**
+   * Bot's token
+   */
+  private token: string;
+
   /**
    * @param token - Bot's token
    */
   constructor(token: string) {
-    super(token);
+    this.token = token;
   }
 
   /**
@@ -24,20 +28,19 @@ class InviteManager extends Manager {
     code: string,
     options?: RESTGetAPIInviteQuery
   ): Promise<RESTGetAPIInviteResult> {
-    const params = options ? this.optionsToQueryStringParams(options) : '';
-    const res = await fetch(
-      `https://discord.com/api/v9/invites/${code}${params}`,
+    const res = await axios.get<RESTGetAPIInviteResult>(
+      `https://discord.com/api/v9/invites/${code}`,
       {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        }
+        },
+        params: options
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   /**
@@ -50,16 +53,20 @@ class InviteManager extends Manager {
     code: string,
     reason?: string
   ): Promise<RESTDeleteAPIInviteResult> {
-    const res = await fetch(`https://discord.com/api/v9/invites/${code}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
-        'X-Audit-Log-Reason': reason ?? ''
+    const res = await axios.delete<RESTDeleteAPIInviteResult>(
+      `https://discord.com/api/v9/invites/${code}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        }
       }
-    });
-    return await res.json();
+    );
+    return res.data;
   }
 }
 

@@ -1,16 +1,20 @@
 import {
   RESTGetAPIAuditLogQuery,
   RESTGetAPIAuditLogResult
-} from 'discord-api-types';
-import fetch from 'node-fetch';
-import { Manager } from './DefaultManager';
+} from 'discord-api-types/v9';
+import axios from 'axios';
 
-class AuditLogManager extends Manager {
+class AuditLogManager {
+  /**
+   * Bot's token
+   */
+  private token: string;
+
   /**
    * @param token - Bot's token
    */
   constructor(token: string) {
-    super(token);
+    this.token = token;
   }
 
   /**
@@ -23,20 +27,19 @@ class AuditLogManager extends Manager {
     guildID: string,
     options: RESTGetAPIAuditLogQuery
   ): Promise<RESTGetAPIAuditLogResult> {
-    const params = this.optionsToQueryStringParams(options);
-    const res = await fetch(
-      `https://discord.com/api/v9/guilds/${guildID}/audit-logs${params}`,
+    const res = await axios.get<RESTGetAPIAuditLogResult>(
+      `https://discord.com/api/v9/guilds/${guildID}/audit-logs`,
       {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        }
+        },
+        params: options
       }
     );
-    return await res.json();
+    return res.data;
   }
 }
 

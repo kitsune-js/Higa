@@ -28,14 +28,17 @@ import {
   RESTPostAPIChannelThreadsResult,
   RESTPutAPIChannelPermissionJSONBody,
   RESTPutAPIChannelRecipientJSONBody
-} from 'discord-api-types';
-import fetch from 'node-fetch';
+} from 'discord-api-types/v9';
+import axios from 'axios';
 
 import { CacheManager } from '.';
 import { Client } from '../';
-import { Manager } from './DefaultManager';
 
-class ChannelManager extends Manager {
+class ChannelManager {
+  /**
+   * Bot's token
+   */
+  private token: string;
   /**
    * Application's cache
    */
@@ -51,7 +54,7 @@ class ChannelManager extends Manager {
    * @param client - Application's client
    */
   constructor(token: string, cache: CacheManager, client: Client) {
-    super(token);
+    this.token = token;
     this.cache = cache;
     this.client = client;
   }
@@ -64,7 +67,7 @@ class ChannelManager extends Manager {
   public async getChannel(channelID: string): Promise<RESTGetAPIChannelResult> {
     if (this.cache.channels.has(channelID))
       return <APIChannel>this.cache.channels.get(channelID);
-    const res = await fetch(
+    const res = await axios.get<RESTGetAPIChannelResult>(
       `https://discord.com/api/v9/channels/${channelID}`,
       {
         headers: {
@@ -72,14 +75,12 @@ class ChannelManager extends Manager {
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        },
-        method: 'GET'
+        }
       }
     );
 
-    const json = await res.json();
-    this.cache.channels.set(channelID, json);
-    return json;
+    this.cache.channels.set(channelID, res.data);
+    return res.data;
   }
 
   /**
@@ -94,8 +95,11 @@ class ChannelManager extends Manager {
     options: RESTPatchAPIChannelJSONBody,
     reason?: string
   ): Promise<RESTPatchAPIChannelResult> {
-    const res = await fetch(
+    const res = await axios.patch<RESTPatchAPIChannelResult>(
       `https://discord.com/api/v9/channels/${channelID}`,
+      {
+        options
+      },
       {
         method: 'PATCH',
         headers: {
@@ -104,14 +108,12 @@ class ChannelManager extends Manager {
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
           'X-Audit-Log-Reason': reason ?? ''
-        },
-        body: JSON.stringify(options)
+        }
       }
     );
 
-    const json = await res.json();
-    this.cache.channels.set(channelID, json);
-    return json;
+    this.cache.channels.set(channelID, res.data);
+    return res.data;
   }
 
   /**
@@ -123,8 +125,7 @@ class ChannelManager extends Manager {
     channelID: string,
     reason?: string
   ): Promise<void> {
-    await fetch(`https://discord.com/api/v9/channels/${channelID}`, {
-      method: 'DELETE',
+    await axios.delete(`https://discord.com/api/v9/channels/${channelID}`, {
       headers: {
         Authorization: 'Bot ' + this.token,
         'Content-Type': 'application/json',
@@ -145,9 +146,8 @@ class ChannelManager extends Manager {
     channelID: string,
     options?: RESTGetAPIChannelMessagesQuery
   ): Promise<RESTGetAPIChannelMessagesResult> {
-    const params = options ? this.optionsToQueryStringParams(options) : '';
-    const res = await fetch(
-      `https://discord.com/api/v9/channels/${channelID}/messages${params}`,
+    const res = await axios.get<RESTGetAPIChannelMessagesResult>(
+      `https://discord.com/api/v9/channels/${channelID}/messages`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -155,10 +155,10 @@ class ChannelManager extends Manager {
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
         },
-        method: 'GET'
+        params: options
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   /**
@@ -171,7 +171,7 @@ class ChannelManager extends Manager {
     channelID: string,
     messageID: string
   ): Promise<RESTGetAPIChannelMessageResult> {
-    const res = await fetch(
+    const res = await axios.get<RESTGetAPIChannelMessageResult>(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
@@ -179,11 +179,10 @@ class ChannelManager extends Manager {
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        },
-        method: 'GET'
+        }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   /**
@@ -196,27 +195,26 @@ class ChannelManager extends Manager {
     channelID: string,
     options: RESTPostAPIChannelMessageJSONBody
   ): Promise<RESTPostAPIChannelMessageResult> {
-    const res = await fetch(
+    const res = await axios.post<RESTPostAPIChannelMessageResult>(
       `https://discord.com/api/v9/channels/${channelID}/messages`,
+      JSON.stringify(options),
       {
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        },
-        body: JSON.stringify(options),
-        method: 'POST'
+        }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async crosspostMessage(
     channelID: string,
     messageID: string
   ): Promise<RESTPostAPIChannelMessageCrosspostResult> {
-    const res = await fetch(
+    const res = await axios.post<RESTPostAPIChannelMessageCrosspostResult>(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
@@ -224,11 +222,10 @@ class ChannelManager extends Manager {
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        },
-        method: 'POST'
+        }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async editMessage(
@@ -236,20 +233,19 @@ class ChannelManager extends Manager {
     messageID: string,
     options: RESTPatchAPIChannelMessageJSONBody
   ): Promise<RESTPatchAPIChannelMessageResult> {
-    const res = await fetch(
+    const res = await axios.patch<RESTPatchAPIChannelMessageResult>(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
+      JSON.stringify(options),
       {
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        },
-        body: JSON.stringify(options),
-        method: 'PATCH'
+        }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async deleteMessage(
@@ -257,7 +253,7 @@ class ChannelManager extends Manager {
     messageID: string,
     reason?: string
   ): Promise<void> {
-    await fetch(
+    await axios.delete(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
@@ -266,8 +262,7 @@ class ChannelManager extends Manager {
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
           'X-Audit-Log-Reason': reason ?? ''
-        },
-        method: 'DELETE'
+        }
       }
     );
   }
@@ -284,18 +279,17 @@ class ChannelManager extends Manager {
         ).map((m) => m.id)
       };
     }
-    await fetch(
+    await axios.post(
       `https://discord.com/api/v9/channels/${channelID}/messages/bulk-delete`,
+      JSON.stringify(options),
       {
-        method: 'POST',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
           'X-Audit-Log-Reason': reason ?? ''
-        },
-        body: JSON.stringify(options)
+        }
       }
     );
   }
@@ -306,18 +300,17 @@ class ChannelManager extends Manager {
     options: RESTPutAPIChannelPermissionJSONBody,
     reason?: string
   ): Promise<void> {
-    await fetch(
+    await axios.put(
       `https://discord.com/api/v9/channels/${channelID}/permissions/${overwriteID}`,
+      JSON.stringify(options),
       {
-        method: 'PUT',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
           'X-Audit-Log-Reason': reason ?? ''
-        },
-        body: JSON.stringify(options)
+        }
       }
     );
   }
@@ -325,10 +318,9 @@ class ChannelManager extends Manager {
   public async getChannelInvites(
     channelID: string
   ): Promise<RESTGetAPIChannelInvitesResult> {
-    const res = await fetch(
+    const res = await axios.get<RESTGetAPIChannelInvitesResult>(
       `https://discord.com/api/v9/channels/${channelID}/invites`,
       {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -337,7 +329,7 @@ class ChannelManager extends Manager {
         }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async createChannelInvite(
@@ -345,22 +337,21 @@ class ChannelManager extends Manager {
     options: RESTPostAPIChannelInviteJSONBody = {},
     reason?: string
   ): Promise<RESTPostAPIChannelInviteResult> {
-    const res = await fetch(
+    const res = await axios.post<RESTPostAPIChannelInviteResult>(
       `https://discord.com/api/v9/channels/${channelID}/invites`,
+      JSON.stringify(options),
       {
-        method: 'POST',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
           'X-Audit-Log-Reason': reason ?? ''
-        },
-        body: JSON.stringify(options)
+        }
       }
     );
 
-    return await res.json();
+    return res.data;
   }
 
   public async deleteChannelPermission(
@@ -368,10 +359,9 @@ class ChannelManager extends Manager {
     overwriteID: string,
     reason?: string
   ): Promise<void> {
-    await fetch(
+    await axios.delete(
       `https://discord.com/api/v9/channels/${channelID}/permissions/${overwriteID}`,
       {
-        method: 'DELETE',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -387,40 +377,10 @@ class ChannelManager extends Manager {
     channelID: string,
     options: RESTPostAPIChannelFollowersJSONBody
   ): Promise<RESTPostAPIChannelFollowersResult> {
-    const res = await fetch(
+    const res = await axios.post<RESTPostAPIChannelFollowersResult>(
       `https://discord.com/api/v9/channels/${channelID}/followers`,
+      JSON.stringify(options),
       {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bot ' + this.token,
-          'Content-Type': 'application/json',
-          'User-Agent':
-            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        },
-        body: JSON.stringify(options)
-      }
-    );
-    return await res.json();
-  }
-
-  public async triggerTypingIndicator(channelID: string): Promise<void> {
-    await fetch(`https://discord.com/api/v9/channels/${channelID}/typing`, {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-      }
-    });
-  }
-
-  public async getPinnedMessages(
-    channelID: string
-  ): Promise<RESTGetAPIChannelPinsResult> {
-    const res = await fetch(
-      `https://discord.com/api/v9/channels/${channelID}/pins`,
-      {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -429,7 +389,38 @@ class ChannelManager extends Manager {
         }
       }
     );
-    return await res.json();
+    return res.data;
+  }
+
+  public async triggerTypingIndicator(channelID: string): Promise<void> {
+    await axios.post(
+      `https://discord.com/api/v9/channels/${channelID}/typing`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
+
+  public async getPinnedMessages(
+    channelID: string
+  ): Promise<RESTGetAPIChannelPinsResult> {
+    const res = await axios.get<RESTGetAPIChannelPinsResult>(
+      `https://discord.com/api/v9/channels/${channelID}/pins`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return res.data;
   }
 
   public async pinMessage(
@@ -437,10 +428,10 @@ class ChannelManager extends Manager {
     messageID: string,
     reason?: string
   ): Promise<void> {
-    await fetch(
+    await axios.put(
       `https://discord.com/api/v9/channels/${channelID}/pins/${messageID}`,
+      '',
       {
-        method: 'PUT',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -457,10 +448,9 @@ class ChannelManager extends Manager {
     messageID: string,
     reason?: string
   ): Promise<void> {
-    await fetch(
+    await axios.delete(
       `https://discord.com/api/v9/channels/${channelID}/pins/${messageID}`,
       {
-        method: 'DELETE',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -477,17 +467,16 @@ class ChannelManager extends Manager {
     userID: string,
     options: RESTPutAPIChannelRecipientJSONBody
   ): Promise<void> {
-    await fetch(
+    await axios.put(
       `https://discord.com/api/v9/channels/${channelID}/recipients/${userID}`,
+      JSON.stringify(options),
       {
-        method: 'PUT',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        },
-        body: JSON.stringify(options)
+        }
       }
     );
   }
@@ -496,10 +485,9 @@ class ChannelManager extends Manager {
     channelID: string,
     userID: string
   ): Promise<void> {
-    await fetch(
+    await axios.delete(
       `https://discord.com/api/v9/channels/${channelID}/recipients/${userID}`,
       {
-        method: 'DELETE',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -516,8 +504,9 @@ class ChannelManager extends Manager {
     options: RESTPostAPIChannelMessagesThreadsJSONBody,
     reason?: string
   ): Promise<RESTPostAPIChannelMessagesThreadsResult> {
-    const res = await fetch(
+    const res = await axios.post<RESTPostAPIChannelMessagesThreadsResult>(
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}/threads`,
+      JSON.stringify(options),
       {
         method: 'POST',
         headers: {
@@ -526,11 +515,10 @@ class ChannelManager extends Manager {
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
           'X-Audit-Log-Reason': reason ?? ''
-        },
-        body: JSON.stringify(options)
+        }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async startThreadWithoutMessages(
@@ -538,26 +526,26 @@ class ChannelManager extends Manager {
     options: RESTPostAPIChannelThreadsJSONBody,
     reason?: string
   ): Promise<RESTPostAPIChannelThreadsResult> {
-    const res = await fetch(
+    const res = await axios.post<RESTPostAPIChannelThreadsResult>(
       `https://discord.com/api/v9/channels/${channelID}/threads`,
+      JSON.stringify(options),
       {
-        method: 'POST',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
           'X-Audit-Log-Reason': reason ?? ''
-        },
-        body: JSON.stringify(options)
+        }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async joinThread(channelID: string): Promise<void> {
-    await fetch(
+    await axios.put(
       `https://discord.com/api/v9/channels/${channelID}/thread-members/@me`,
+      '',
       {
         method: 'PUT',
         headers: {
@@ -574,10 +562,10 @@ class ChannelManager extends Manager {
     channelID: string,
     userID: string
   ): Promise<void> {
-    await fetch(
+    await axios.put(
       `https://discord.com/api/v9/channels/${channelID}/thread-members/${userID}`,
+      '',
       {
-        method: 'PUT',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -589,10 +577,9 @@ class ChannelManager extends Manager {
   }
 
   public async leaveThread(channelID: string): Promise<void> {
-    await fetch(
+    await axios.delete(
       `https://discord.com/api/v9/channels/${channelID}/thread-members/@me`,
       {
-        method: 'DELETE',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -607,10 +594,9 @@ class ChannelManager extends Manager {
     channelID: string,
     userID: string
   ): Promise<void> {
-    await fetch(
+    await axios.delete(
       `https://discord.com/api/v9/channels/${channelID}/thread-members/${userID}`,
       {
-        method: 'DELETE',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -625,10 +611,9 @@ class ChannelManager extends Manager {
     channelID: string,
     userID: string
   ): Promise<APIThreadMember> {
-    const res = await fetch(
+    const res = await axios.get<APIThreadMember>(
       `https://discord.com/api/v9/channels/${channelID}/thread-members/${userID}`,
       {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -637,16 +622,15 @@ class ChannelManager extends Manager {
         }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async listThreadMembers(
     channelID: string
   ): Promise<RESTGetAPIChannelThreadMembersResult> {
-    const res = await fetch(
+    const res = await axios.get<RESTGetAPIChannelThreadMembersResult>(
       `https://discord.com/api/v9/channels/${channelID}/thread-members`,
       {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -655,16 +639,15 @@ class ChannelManager extends Manager {
         }
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async listPublicArchivedThreads(
     channelID: string,
     options: RESTGetAPIChannelThreadsArchivedQuery
   ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
-    const params = options ? this.optionsToQueryStringParams(options) : '';
-    const res = await fetch(
-      `https://discord.com/api/v9/channels/${channelID}/threads/archived/public${params}`,
+    const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
+      `https://discord.com/api/v9/channels/${channelID}/threads/archived/public`,
       {
         method: 'GET',
         headers: {
@@ -672,19 +655,19 @@ class ChannelManager extends Manager {
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        }
+        },
+        params: options
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async listPrivateArchivedThreads(
     channelID: string,
     options: RESTGetAPIChannelThreadsArchivedQuery
   ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
-    const params = options ? this.optionsToQueryStringParams(options) : '';
-    const res = await fetch(
-      `https://discord.com/api/v9/channels/${channelID}/threads/archived/private${params}`,
+    const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
+      `https://discord.com/api/v9/channels/${channelID}/threads/archived/private`,
       {
         method: 'GET',
         headers: {
@@ -692,19 +675,19 @@ class ChannelManager extends Manager {
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        }
+        },
+        params: options
       }
     );
-    return await res.json();
+    return res.data;
   }
 
   public async listJoinedPrivateArchivedThreads(
     channelID: string,
     options: RESTGetAPIChannelThreadsArchivedQuery
   ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
-    const params = options ? this.optionsToQueryStringParams(options) : '';
-    const res = await fetch(
-      `https://discord.com/api/v9/channels/${channelID}/users/@me/threads/archived/private${params}`,
+    const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
+      `https://discord.com/api/v9/channels/${channelID}/users/@me/threads/archived/private`,
       {
         method: 'GET',
         headers: {
@@ -712,10 +695,11 @@ class ChannelManager extends Manager {
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        }
+        },
+        params: options
       }
     );
-    return await res.json();
+    return res.data;
   }
 }
 

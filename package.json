@@ -20,7 +20,7 @@
     "discord-api"
   ],
   "dependencies": {
-    "node-fetch": "2.6.6",
+    "axios": "^0.26.0",
     "discord-api-types": "^0.26.1",
     "ws": "^8.4.2"
   },
