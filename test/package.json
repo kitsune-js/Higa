@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "npm run build && npm run run",
     "run": "node .",
-    "dev": "nodemon --watch ./ --ext ts --exec npm run dev:serve",
+    "dev": "nodemon --watch ../ --ext ts --exec npm run dev:serve",
     "dev:serve": "ts-node --files index.ts -- true"
   },
   "dependencies": {
