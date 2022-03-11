@@ -41,6 +41,14 @@ interface ClientEvents {
   THREAD_DELETE: [thread: APIChannel];
 }
 
+type APIVersion = '6' | '7' | '8' | '9';
+
+interface ClientOptions {
+  token: string;
+  intents?: (keyof typeof ClientIntents)[];
+  version?: APIVersion;
+}
+
 class Client extends EventEmitter {
   /**
    * Application's token
@@ -50,6 +58,10 @@ class Client extends EventEmitter {
    * Intents the application has activated
    */
   public readonly intents: number;
+  /**
+   * API Version to use
+   */
+  public readonly version: APIVersion;
 
   /**
    * Websocket to connect the application to the Discord Gateway
@@ -81,14 +93,19 @@ class Client extends EventEmitter {
    * @param token - Bot token
    * @param intents - Array of intents the bot will be listening to
    */
-  constructor(token?: string, intents: (keyof typeof ClientIntents)[] = []) {
+  constructor(options: ClientOptions) {
     super();
-    if (!token) throw new Error('NO TOKEN PROVIDED');
-    this.token = token;
+    this.token = options.token;
 
     this.setupWebSocket();
 
-    this.intents = this.intentsToNumber(intents);
+    if (!options.intents) options.intents = [];
+
+    this.intents = this.intentsToNumber(options.intents);
+
+    if (!options.version) options.version = '9';
+
+    this.version = options.version;
 
     this.once('READY', () => {
       setInterval(() => {
@@ -243,4 +260,4 @@ class Client extends EventEmitter {
   };*/
 }
 
-export { Client };
+export { Client, ClientEvents, ClientOptions, ClientIntents, APIVersion };
