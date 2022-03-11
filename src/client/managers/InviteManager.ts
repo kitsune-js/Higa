@@ -56,7 +56,6 @@ class InviteManager {
     const res = await axios.delete<RESTDeleteAPIInviteResult>(
       `https://discord.com/api/v9/invites/${code}`,
       {
-        method: 'DELETE',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',

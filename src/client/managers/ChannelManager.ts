@@ -97,11 +97,8 @@ class ChannelManager {
   ): Promise<RESTPatchAPIChannelResult> {
     const res = await axios.patch<RESTPatchAPIChannelResult>(
       `https://discord.com/api/v9/channels/${channelID}`,
+      JSON.stringify(options),
       {
-        options
-      },
-      {
-        method: 'PATCH',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -508,7 +505,6 @@ class ChannelManager {
       `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}/threads`,
       JSON.stringify(options),
       {
-        method: 'POST',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -547,7 +543,6 @@ class ChannelManager {
       `https://discord.com/api/v9/channels/${channelID}/thread-members/@me`,
       '',
       {
-        method: 'PUT',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -649,7 +644,6 @@ class ChannelManager {
     const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
       `https://discord.com/api/v9/channels/${channelID}/threads/archived/public`,
       {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -669,7 +663,6 @@ class ChannelManager {
     const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
       `https://discord.com/api/v9/channels/${channelID}/threads/archived/private`,
       {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
@@ -689,7 +682,6 @@ class ChannelManager {
     const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
       `https://discord.com/api/v9/channels/${channelID}/users/@me/threads/archived/private`,
       {
-        method: 'GET',
         headers: {
           Authorization: 'Bot ' + this.token,
           'Content-Type': 'application/json',
