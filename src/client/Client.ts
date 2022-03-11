@@ -41,12 +41,12 @@ interface ClientEvents {
   THREAD_DELETE: [thread: APIChannel];
 }
 
-type APIVersion = '6' | '7' | '8' | '9';
+type APIVersions = '6' | '7' | '8' | '9';
 
 interface ClientOptions {
   token: string;
   intents?: (keyof typeof ClientIntents)[];
-  version?: APIVersion;
+  version?: APIVersions;
 }
 
 class Client extends EventEmitter {
@@ -61,7 +61,7 @@ class Client extends EventEmitter {
   /**
    * API Version to use
    */
-  public readonly version: APIVersion;
+  public readonly version: APIVersions;
 
   /**
    * Websocket to connect the application to the Discord Gateway
@@ -260,4 +260,4 @@ class Client extends EventEmitter {
   };*/
 }
 
-export { Client, ClientEvents, ClientOptions, ClientIntents, APIVersion };
+export { Client, ClientEvents, ClientOptions, ClientIntents, APIVersions };

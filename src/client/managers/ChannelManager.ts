@@ -32,7 +32,7 @@ import {
 import axios from 'axios';
 
 import { CacheManager } from '.';
-import { APIVersion } from '../';
+import { APIVersions } from '../';
 
 class ChannelManager {
   /**
@@ -47,14 +47,14 @@ class ChannelManager {
   /**
    * API Version
    */
-  public readonly version: APIVersion;
+  public readonly version: APIVersions;
 
   /**
    * @param token - Bot's token
    * @param cache - Application's cache
-   * @param client - Application's client
+   * @param version - API Version
    */
-  constructor(token: string, cache: CacheManager, version: APIVersion) {
+  constructor(token: string, cache: CacheManager, version: APIVersions) {
     this.token = token;
     this.cache = cache;
     this.version = version;

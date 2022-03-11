@@ -1,6 +1,6 @@
 import { RESTGetAPIGuildVoiceRegionsResult } from 'discord-api-types/v9';
 import axios from 'axios';
-import { APIVersion } from '../..';
+import { APIVersions } from '../..';
 
 class VoiceManager {
   /**
@@ -11,12 +11,13 @@ class VoiceManager {
   /**
    * API Version
    */
-  public readonly version: APIVersion;
+  public readonly version: APIVersions;
 
   /**
    * @param token - Bot's token
+   * @param version - API Version
    */
-  constructor(token: string, version: APIVersion) {
+  constructor(token: string, version: APIVersions) {
     this.token = token;
     this.version = version;
   }
