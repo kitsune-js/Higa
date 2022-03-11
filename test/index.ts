@@ -1,14 +1,15 @@
-import { PresenceUpdateStatus, RESTGetAPIChannelMessagesQuery, ThreadAutoArchiveDuration } from 'discord-api-types/v9';
+import { PresenceUpdateStatus, ThreadAutoArchiveDuration } from 'discord-api-types/v9';
 import { Client } from 'higa';
 require("dotenv").config()
 
-const client = new Client(
-  process.env.DISCORD,
-  [
+const client = new Client({
+  token: process.env.DISCORD ?? "",
+  version: "9",
+  intents: [
     'GUILD_MESSAGES',
     'GUILDS'
   ]
-)
+})
 
 client.on('READY', () => {
   console.log("Connected !")
