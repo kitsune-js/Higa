@@ -4,6 +4,7 @@ import {
   RESTGetAPIInviteQuery,
   RESTGetAPIInviteResult
 } from 'discord-api-types/v9';
+import { APIVersion } from '../..';
 
 class InviteManager {
   /**
@@ -12,10 +13,16 @@ class InviteManager {
   private token: string;
 
   /**
+   * API Version
+   */
+  public readonly version: APIVersion;
+
+  /**
    * @param token - Bot's token
    */
-  constructor(token: string) {
+  constructor(token: string, version: APIVersion) {
     this.token = token;
+    this.version = version;
   }
 
   /**
@@ -29,7 +36,7 @@ class InviteManager {
     options?: RESTGetAPIInviteQuery
   ): Promise<RESTGetAPIInviteResult> {
     const res = await axios.get<RESTGetAPIInviteResult>(
-      `https://discord.com/api/v9/invites/${code}`,
+      `https://discord.com/api/v${this.version}/invites/${code}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -54,7 +61,7 @@ class InviteManager {
     reason?: string
   ): Promise<RESTDeleteAPIInviteResult> {
     const res = await axios.delete<RESTDeleteAPIInviteResult>(
-      `https://discord.com/api/v9/invites/${code}`,
+      `https://discord.com/api/v${this.version}/invites/${code}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,

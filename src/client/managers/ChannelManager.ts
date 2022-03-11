@@ -32,7 +32,7 @@ import {
 import axios from 'axios';
 
 import { CacheManager } from '.';
-import { Client } from '../';
+import { APIVersion } from '../';
 
 class ChannelManager {
   /**
@@ -43,20 +43,21 @@ class ChannelManager {
    * Application's cache
    */
   private cache: CacheManager;
+
   /**
-   * Client
+   * API Version
    */
-  private client: Client;
+  public readonly version: APIVersion;
 
   /**
    * @param token - Bot's token
    * @param cache - Application's cache
    * @param client - Application's client
    */
-  constructor(token: string, cache: CacheManager, client: Client) {
+  constructor(token: string, cache: CacheManager, version: APIVersion) {
     this.token = token;
     this.cache = cache;
-    this.client = client;
+    this.version = version;
   }
 
   /**
@@ -68,7 +69,7 @@ class ChannelManager {
     if (this.cache.channels.has(channelID))
       return <APIChannel>this.cache.channels.get(channelID);
     const res = await axios.get<RESTGetAPIChannelResult>(
-      `https://discord.com/api/v9/channels/${channelID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -96,7 +97,7 @@ class ChannelManager {
     reason?: string
   ): Promise<RESTPatchAPIChannelResult> {
     const res = await axios.patch<RESTPatchAPIChannelResult>(
-      `https://discord.com/api/v9/channels/${channelID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}`,
       JSON.stringify(options),
       {
         headers: {
@@ -122,14 +123,18 @@ class ChannelManager {
     channelID: string,
     reason?: string
   ): Promise<void> {
-    await axios.delete(`https://discord.com/api/v9/channels/${channelID}`, {
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
-        'X-Audit-Log-Reason': reason ?? ''
+    await axios.delete(
+      `https://discord.com/api/v${this.version}/channels/${channelID}`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        }
       }
-    });
+    );
     this.cache.channels.delete(channelID);
   }
 
@@ -144,7 +149,7 @@ class ChannelManager {
     options?: RESTGetAPIChannelMessagesQuery
   ): Promise<RESTGetAPIChannelMessagesResult> {
     const res = await axios.get<RESTGetAPIChannelMessagesResult>(
-      `https://discord.com/api/v9/channels/${channelID}/messages`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -169,7 +174,7 @@ class ChannelManager {
     messageID: string
   ): Promise<RESTGetAPIChannelMessageResult> {
     const res = await axios.get<RESTGetAPIChannelMessageResult>(
-      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -193,7 +198,7 @@ class ChannelManager {
     options: RESTPostAPIChannelMessageJSONBody
   ): Promise<RESTPostAPIChannelMessageResult> {
     const res = await axios.post<RESTPostAPIChannelMessageResult>(
-      `https://discord.com/api/v9/channels/${channelID}/messages`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages`,
       JSON.stringify(options),
       {
         headers: {
@@ -212,7 +217,7 @@ class ChannelManager {
     messageID: string
   ): Promise<RESTPostAPIChannelMessageCrosspostResult> {
     const res = await axios.post<RESTPostAPIChannelMessageCrosspostResult>(
-      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -231,7 +236,7 @@ class ChannelManager {
     options: RESTPatchAPIChannelMessageJSONBody
   ): Promise<RESTPatchAPIChannelMessageResult> {
     const res = await axios.patch<RESTPatchAPIChannelMessageResult>(
-      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       JSON.stringify(options),
       {
         headers: {
@@ -251,7 +256,7 @@ class ChannelManager {
     reason?: string
   ): Promise<void> {
     await axios.delete(
-      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -277,7 +282,7 @@ class ChannelManager {
       };
     }
     await axios.post(
-      `https://discord.com/api/v9/channels/${channelID}/messages/bulk-delete`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/bulk-delete`,
       JSON.stringify(options),
       {
         headers: {
@@ -298,7 +303,7 @@ class ChannelManager {
     reason?: string
   ): Promise<void> {
     await axios.put(
-      `https://discord.com/api/v9/channels/${channelID}/permissions/${overwriteID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/permissions/${overwriteID}`,
       JSON.stringify(options),
       {
         headers: {
@@ -316,7 +321,7 @@ class ChannelManager {
     channelID: string
   ): Promise<RESTGetAPIChannelInvitesResult> {
     const res = await axios.get<RESTGetAPIChannelInvitesResult>(
-      `https://discord.com/api/v9/channels/${channelID}/invites`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/invites`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -335,7 +340,7 @@ class ChannelManager {
     reason?: string
   ): Promise<RESTPostAPIChannelInviteResult> {
     const res = await axios.post<RESTPostAPIChannelInviteResult>(
-      `https://discord.com/api/v9/channels/${channelID}/invites`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/invites`,
       JSON.stringify(options),
       {
         headers: {
@@ -357,7 +362,7 @@ class ChannelManager {
     reason?: string
   ): Promise<void> {
     await axios.delete(
-      `https://discord.com/api/v9/channels/${channelID}/permissions/${overwriteID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/permissions/${overwriteID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -375,7 +380,7 @@ class ChannelManager {
     options: RESTPostAPIChannelFollowersJSONBody
   ): Promise<RESTPostAPIChannelFollowersResult> {
     const res = await axios.post<RESTPostAPIChannelFollowersResult>(
-      `https://discord.com/api/v9/channels/${channelID}/followers`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/followers`,
       JSON.stringify(options),
       {
         headers: {
@@ -391,7 +396,7 @@ class ChannelManager {
 
   public async triggerTypingIndicator(channelID: string): Promise<void> {
     await axios.post(
-      `https://discord.com/api/v9/channels/${channelID}/typing`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/typing`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -407,7 +412,7 @@ class ChannelManager {
     channelID: string
   ): Promise<RESTGetAPIChannelPinsResult> {
     const res = await axios.get<RESTGetAPIChannelPinsResult>(
-      `https://discord.com/api/v9/channels/${channelID}/pins`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/pins`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -426,7 +431,7 @@ class ChannelManager {
     reason?: string
   ): Promise<void> {
     await axios.put(
-      `https://discord.com/api/v9/channels/${channelID}/pins/${messageID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/pins/${messageID}`,
       '',
       {
         headers: {
@@ -446,7 +451,7 @@ class ChannelManager {
     reason?: string
   ): Promise<void> {
     await axios.delete(
-      `https://discord.com/api/v9/channels/${channelID}/pins/${messageID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/pins/${messageID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -465,7 +470,7 @@ class ChannelManager {
     options: RESTPutAPIChannelRecipientJSONBody
   ): Promise<void> {
     await axios.put(
-      `https://discord.com/api/v9/channels/${channelID}/recipients/${userID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/recipients/${userID}`,
       JSON.stringify(options),
       {
         headers: {
@@ -483,7 +488,7 @@ class ChannelManager {
     userID: string
   ): Promise<void> {
     await axios.delete(
-      `https://discord.com/api/v9/channels/${channelID}/recipients/${userID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/recipients/${userID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -502,7 +507,7 @@ class ChannelManager {
     reason?: string
   ): Promise<RESTPostAPIChannelMessagesThreadsResult> {
     const res = await axios.post<RESTPostAPIChannelMessagesThreadsResult>(
-      `https://discord.com/api/v9/channels/${channelID}/messages/${messageID}/threads`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/threads`,
       JSON.stringify(options),
       {
         headers: {
@@ -523,7 +528,7 @@ class ChannelManager {
     reason?: string
   ): Promise<RESTPostAPIChannelThreadsResult> {
     const res = await axios.post<RESTPostAPIChannelThreadsResult>(
-      `https://discord.com/api/v9/channels/${channelID}/threads`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/threads`,
       JSON.stringify(options),
       {
         headers: {
@@ -540,7 +545,7 @@ class ChannelManager {
 
   public async joinThread(channelID: string): Promise<void> {
     await axios.put(
-      `https://discord.com/api/v9/channels/${channelID}/thread-members/@me`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/@me`,
       '',
       {
         headers: {
@@ -558,7 +563,7 @@ class ChannelManager {
     userID: string
   ): Promise<void> {
     await axios.put(
-      `https://discord.com/api/v9/channels/${channelID}/thread-members/${userID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/${userID}`,
       '',
       {
         headers: {
@@ -573,7 +578,7 @@ class ChannelManager {
 
   public async leaveThread(channelID: string): Promise<void> {
     await axios.delete(
-      `https://discord.com/api/v9/channels/${channelID}/thread-members/@me`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/@me`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -590,7 +595,7 @@ class ChannelManager {
     userID: string
   ): Promise<void> {
     await axios.delete(
-      `https://discord.com/api/v9/channels/${channelID}/thread-members/${userID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/${userID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -607,7 +612,7 @@ class ChannelManager {
     userID: string
   ): Promise<APIThreadMember> {
     const res = await axios.get<APIThreadMember>(
-      `https://discord.com/api/v9/channels/${channelID}/thread-members/${userID}`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/${userID}`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -624,7 +629,7 @@ class ChannelManager {
     channelID: string
   ): Promise<RESTGetAPIChannelThreadMembersResult> {
     const res = await axios.get<RESTGetAPIChannelThreadMembersResult>(
-      `https://discord.com/api/v9/channels/${channelID}/thread-members`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -642,7 +647,7 @@ class ChannelManager {
     options: RESTGetAPIChannelThreadsArchivedQuery
   ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
     const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
-      `https://discord.com/api/v9/channels/${channelID}/threads/archived/public`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/threads/archived/public`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -661,7 +666,7 @@ class ChannelManager {
     options: RESTGetAPIChannelThreadsArchivedQuery
   ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
     const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
-      `https://discord.com/api/v9/channels/${channelID}/threads/archived/private`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/threads/archived/private`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
@@ -680,7 +685,7 @@ class ChannelManager {
     options: RESTGetAPIChannelThreadsArchivedQuery
   ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
     const res = await axios.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
-      `https://discord.com/api/v9/channels/${channelID}/users/@me/threads/archived/private`,
+      `https://discord.com/api/v${this.version}/channels/${channelID}/users/@me/threads/archived/private`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,

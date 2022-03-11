@@ -121,16 +121,16 @@ class Client extends EventEmitter {
           this.ws.close();
           this.connection_closed = true;
           this.ws = new WebSocket(
-            'wss://gateway.discord.gg/?v=9&encoding=json'
+            `wss://gateway.discord.gg/?v=${this.version}&encoding=json'`
           );
           this.setupWebSocket();
         }
       }, this.heartbeat_interval);
     });
 
-    this.channel = new ChannelManager(this.token, this.cache, this);
-    this.auditLog = new AuditLogManager(this.token);
-    this.invite = new InviteManager(this.token);
+    this.channel = new ChannelManager(this.token, this.cache, this.version);
+    this.auditLog = new AuditLogManager(this.token, this.version);
+    this.invite = new InviteManager(this.token, this.version);
   }
 
   public override on<K extends keyof ClientEvents>(
@@ -197,9 +197,9 @@ class Client extends EventEmitter {
             d: {
               token: this.token,
               properties: {
-                $os: 'linux',
-                $browse: 'disco',
-                $device: 'disco'
+                $os: process.platform,
+                $browse: 'higa',
+                $device: 'higa'
               },
               intents: this.intents
             }

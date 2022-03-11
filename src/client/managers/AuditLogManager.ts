@@ -3,6 +3,7 @@ import {
   RESTGetAPIAuditLogResult
 } from 'discord-api-types/v9';
 import axios from 'axios';
+import { APIVersion } from '../..';
 
 class AuditLogManager {
   /**
@@ -11,10 +12,16 @@ class AuditLogManager {
   private token: string;
 
   /**
+   * API Version
+   */
+  public readonly version: APIVersion;
+
+  /**
    * @param token - Bot's token
    */
-  constructor(token: string) {
+  constructor(token: string, version: APIVersion) {
     this.token = token;
+    this.version = version;
   }
 
   /**
@@ -28,7 +35,7 @@ class AuditLogManager {
     options: RESTGetAPIAuditLogQuery
   ): Promise<RESTGetAPIAuditLogResult> {
     const res = await axios.get<RESTGetAPIAuditLogResult>(
-      `https://discord.com/api/v9/guilds/${guildID}/audit-logs`,
+      `https://discord.com/api/v${this.version}/guilds/${guildID}/audit-logs`,
       {
         headers: {
           Authorization: 'Bot ' + this.token,
