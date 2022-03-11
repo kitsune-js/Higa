@@ -3,7 +3,8 @@
     "src/index.ts"
   ],
   "gitRemote": "https://github.com/fantomitechno/Higa",
-	"highlightTheme": "github-dark",
+	"darkHighlightTheme ": "github-dark",
+	"lightHighlightTheme": "github-light",
 	"includeVersion": true,
 	"excludeExternals": true,
 	"name": "Higa",
