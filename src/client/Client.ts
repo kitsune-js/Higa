@@ -45,8 +45,10 @@ type APIVersions = '6' | '7' | '8' | '9';
 
 interface ClientOptions {
   token: string;
+  tokenType: 'Bearer' | 'Bot' | '';
   intents?: (keyof typeof ClientIntents)[];
   version?: APIVersions;
+  wsConnection?: boolean;
 }
 
 class Client extends EventEmitter {
@@ -54,6 +56,12 @@ class Client extends EventEmitter {
    * Application's token
    */
   private readonly token: string;
+
+  /**
+   * Token type
+   */
+  private readonly tokenType: 'Bearer' | 'Bot' | '';
+
   /**
    * Intents the application has activated
    */
@@ -96,8 +104,11 @@ class Client extends EventEmitter {
   constructor(options: ClientOptions) {
     super();
     this.token = options.token;
+    this.tokenType = options.tokenType;
+    if (options.wsConnection === undefined || this.tokenType !== 'Bot')
+      options.wsConnection = true;
 
-    this.setupWebSocket();
+    if (options.wsConnection) this.setupWebSocket();
 
     if (!options.intents) options.intents = [];
 
@@ -236,28 +247,6 @@ class Client extends EventEmitter {
       })
     );
   }
-
-  /**
-   * Create a DM channel with someone and return it
-   * @deprecated - Will be changed to a method in a futur Manager
-   * @param user - User
-   * @returns DMChannel
-   */
-  /**
-  public createDM = async (user: string) => {
-    const res = await fetch('https://discord.com/api/v9/users/@me/channels', {
-      headers: {
-        Authorization: 'Bot ' + this.token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        recipient_id: user
-      }),
-      method: 'POST'
-    });
-    const json: APIChannel = await res.json();
-    return json;
-  };*/
 }
 
 export { Client, ClientEvents, ClientOptions, ClientIntents, APIVersions };
