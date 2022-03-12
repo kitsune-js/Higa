@@ -21,6 +21,11 @@ class UserManager {
   private token: string;
 
   /**
+   * Token type
+   */
+  private readonly tokenType: string;
+
+  /**
    * API Version
    */
   public readonly version: APIVersions;
@@ -29,8 +34,9 @@ class UserManager {
    * @param token - Bot's token
    * @param version - API Version
    */
-  constructor(token: string, version: APIVersions) {
+  constructor(token: string, tokenType: string, version: APIVersions) {
     this.token = token;
+    this.tokenType = tokenType;
     this.version = version;
   }
 
@@ -43,7 +49,7 @@ class UserManager {
       `https://discord.com/api/v${this.version}/users/@me`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -63,7 +69,7 @@ class UserManager {
       `https://discord.com/api/v${this.version}/users/${userID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -86,7 +92,7 @@ class UserManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -108,7 +114,7 @@ class UserManager {
       `https://discord.com/api/v${this.version}/users/@me/guilds`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -129,7 +135,7 @@ class UserManager {
       `https://discord.com/api/v${this.version}/users/@me/guilds/${guildID}/member`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -149,7 +155,7 @@ class UserManager {
       `https://discord.com/api/v${this.version}/users/@me/guilds/${guildID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -171,7 +177,7 @@ class UserManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -196,7 +202,7 @@ class UserManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -206,12 +212,16 @@ class UserManager {
     return res.data;
   }
 
+  /**
+   * Get user connections
+   * @returns - List of User Connection
+   */
   async getUserConnections(): Promise<RESTGetAPICurrentUserConnectionsResult> {
     const res = await axios.get<RESTGetAPICurrentUserConnectionsResult>(
       `https://discord.com/api/v${this.version}/users/@me/connections`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'

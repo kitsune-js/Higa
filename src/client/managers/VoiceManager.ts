@@ -9,6 +9,11 @@ class VoiceManager {
   private token: string;
 
   /**
+   * Token type
+   */
+  private readonly tokenType: string;
+
+  /**
    * API Version
    */
   public readonly version: APIVersions;
@@ -17,8 +22,9 @@ class VoiceManager {
    * @param token - Bot's token
    * @param version - API Version
    */
-  constructor(token: string, version: APIVersions) {
+  constructor(token: string, tokenType: string, version: APIVersions) {
     this.token = token;
+    this.tokenType = tokenType;
     this.version = version;
   }
 
@@ -31,7 +37,7 @@ class VoiceManager {
       `https://discord.com/api/v9/voice/regions`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'

@@ -1,8 +1,8 @@
-import { APIApplication, APIChannel, APIMessage } from 'discord-api-types/v9';
 import {
   GatewayChannelDeleteDispatchData,
   GatewayPresenceUpdateData
 } from 'discord-api-types/gateway';
+import { APIApplication, APIChannel, APIMessage } from 'discord-api-types/v9';
 import { EventEmitter } from 'node:events';
 import WebSocket from 'ws';
 
@@ -10,7 +10,9 @@ import {
   AuditLogManager,
   CacheManager,
   ChannelManager,
-  InviteManager
+  InviteManager,
+  UserManager,
+  VoiceManager
 } from '.';
 
 const ClientIntents = {
@@ -89,13 +91,30 @@ class Client extends EventEmitter {
   private cache = new CacheManager();
 
   /**
+   * Audit Log Manager to interact with the REST API
+   */
+  public auditLog: AuditLogManager;
+
+  /**
    * Channel Manager to interact with the REST API
    */
   public channel: ChannelManager;
 
-  public auditLog: AuditLogManager;
-
+  /**
+   * Invite Manager to interact with the REST API
+   */
   public invite: InviteManager;
+
+  /**
+   * User Manager to interact with the REST API
+   */
+  public user: UserManager;
+
+  /**
+   * Voice Manager to interact with the REST API
+   */
+  public voice: VoiceManager;
+
   /**
    *
    * @param token - Bot token
@@ -105,6 +124,7 @@ class Client extends EventEmitter {
     super();
     this.token = options.token;
     this.tokenType = options.tokenType;
+
     if (options.wsConnection === undefined || this.tokenType !== 'Bot')
       options.wsConnection = true;
 
@@ -139,9 +159,20 @@ class Client extends EventEmitter {
       }, this.heartbeat_interval);
     });
 
-    this.channel = new ChannelManager(this.token, this.cache, this.version);
-    this.auditLog = new AuditLogManager(this.token, this.version);
-    this.invite = new InviteManager(this.token, this.version);
+    this.auditLog = new AuditLogManager(
+      this.token,
+      this.tokenType,
+      this.version
+    );
+    this.channel = new ChannelManager(
+      this.token,
+      this.tokenType,
+      this.cache,
+      this.version
+    );
+    this.invite = new InviteManager(this.token, this.tokenType, this.version);
+    this.user = new UserManager(this.token, this.tokenType, this.version);
+    this.voice = new VoiceManager(this.token, this.tokenType, this.version);
   }
 
   public override on<K extends keyof ClientEvents>(

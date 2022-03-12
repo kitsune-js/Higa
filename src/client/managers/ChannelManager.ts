@@ -39,6 +39,12 @@ class ChannelManager {
    * Bot's token
    */
   private token: string;
+
+  /**
+   * Token type
+   */
+  private readonly tokenType: string;
+
   /**
    * Application's cache
    */
@@ -54,8 +60,14 @@ class ChannelManager {
    * @param cache - Application's cache
    * @param version - API Version
    */
-  constructor(token: string, cache: CacheManager, version: APIVersions) {
+  constructor(
+    token: string,
+    tokenType: string,
+    cache: CacheManager,
+    version: APIVersions
+  ) {
     this.token = token;
+    this.tokenType = tokenType;
     this.cache = cache;
     this.version = version;
   }
@@ -72,7 +84,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -101,7 +113,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -127,7 +139,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -152,7 +164,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -177,7 +189,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -202,7 +214,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -226,7 +238,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -253,7 +265,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -278,7 +290,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -311,7 +323,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -339,7 +351,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -361,7 +373,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/invites`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -388,7 +400,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -415,7 +427,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/permissions/${overwriteID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -440,7 +452,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -459,7 +471,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/typing`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -480,7 +492,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/pins`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -506,7 +518,7 @@ class ChannelManager {
       '',
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -531,7 +543,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/pins/${messageID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -557,7 +569,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -579,7 +591,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/recipients/${userID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -607,7 +619,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -635,7 +647,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -656,7 +668,7 @@ class ChannelManager {
       '',
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -679,7 +691,7 @@ class ChannelManager {
       '',
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -697,7 +709,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/@me`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -719,7 +731,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/${userID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -742,7 +754,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/${userID}`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -764,7 +776,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -788,7 +800,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/threads/archived/public`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -813,7 +825,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/threads/archived/private`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -838,7 +850,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/users/@me/threads/archived/private`,
       {
         headers: {
-          Authorization: 'Bot ' + this.token,
+          Authorization: `${this.tokenType} ${this.token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
