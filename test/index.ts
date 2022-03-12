@@ -4,6 +4,7 @@ require("dotenv").config()
 
 const client = new Client({
   token: process.env.DISCORD ?? "",
+  tokenType: '',
   version: "9",
   intents: [
     'GUILD_MESSAGES',
