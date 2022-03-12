@@ -8,7 +8,9 @@ import {
   RESTPatchAPICurrentUserResult,
   APIGuildMember,
   RESTPostAPICurrentUserCreateDMChannelJSONBody,
-  RESTPostAPICurrentUserCreateDMChannelResult
+  RESTPostAPICurrentUserCreateDMChannelResult,
+  APIGroupDMChannel,
+  RESTGetAPICurrentUserConnectionsResult
 } from 'discord-api-types/v9';
 import { APIVersions } from '../..';
 
@@ -112,6 +114,108 @@ class UserManager {
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
         },
         params: options
+      }
+    );
+    return res.data;
+  }
+
+  /**
+   * Get current user guild member
+   * @param guildID - Guild Identifiant
+   * @returns - Member Object
+   */
+  async getCurrentUserGuildMember(guildID: string): Promise<APIGuildMember> {
+    const res = await axios.get<APIGuildMember>(
+      `https://discord.com/api/v${this.version}/users/@me/guilds/${guildID}/member`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+
+    return res.data;
+  }
+
+  /**
+   * Leave a guild
+   * @param guildID - Guild Identifiant
+   */
+  async leaveGuild(guildID: string): Promise<void> {
+    await axios.delete(
+      `https://discord.com/api/v${this.version}/users/@me/guilds/${guildID}`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
+
+  /**
+   * Create a DM channel
+   * @param options - Options to create a DM channel
+   * @returns - DM Channel Object
+   */
+  async createDM(
+    options: RESTPostAPICurrentUserCreateDMChannelJSONBody
+  ): Promise<RESTPostAPICurrentUserCreateDMChannelResult> {
+    const res = await axios.post(
+      `https://discord.com/api/v${this.version}/users/@me/channels`,
+      JSON.stringify(options),
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return res.data;
+  }
+
+  /**
+   * Create a DM Group
+   * @param options - Options to create a DM group
+   * @see {@link https://discord.com/developers/docs/resources/user#create-group-dm}
+   * @returns - DM Group Object
+   */
+  async createGroupDM(options: {
+    access_tokens: string[];
+    nicks: { [userID: string]: string };
+  }): Promise<APIGroupDMChannel> {
+    const res = await axios.post(
+      `https://discord.com/api/v${this.version}/users/@me/channels`,
+      JSON.stringify(options),
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+    return res.data;
+  }
+
+  async getUserConnections(): Promise<RESTGetAPICurrentUserConnectionsResult> {
+    const res = await axios.get<RESTGetAPICurrentUserConnectionsResult>(
+      `https://discord.com/api/v${this.version}/users/@me/connections`,
+      {
+        headers: {
+          Authorization: 'Bot ' + this.token,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
       }
     );
     return res.data;
