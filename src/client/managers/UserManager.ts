@@ -5,7 +5,10 @@ import {
   RESTGetAPICurrentUserResult,
   RESTGetAPIUserResult,
   RESTPatchAPICurrentUserJSONBody,
-  RESTPatchAPICurrentUserResult
+  RESTPatchAPICurrentUserResult,
+  APIGuildMember,
+  RESTPostAPICurrentUserCreateDMChannelJSONBody,
+  RESTPostAPICurrentUserCreateDMChannelResult
 } from 'discord-api-types/v9';
 import { APIVersions } from '../..';
 
@@ -29,6 +32,10 @@ class UserManager {
     this.version = version;
   }
 
+  /**
+   * Get current user
+   * @returns - User Object
+   */
   async getCurrentUser(): Promise<RESTGetAPICurrentUserResult> {
     const res = await axios.get<RESTGetAPICurrentUserResult>(
       `https://discord.com/api/v${this.version}/users/@me`,
@@ -44,6 +51,11 @@ class UserManager {
     return res.data;
   }
 
+  /**
+   * Get user
+   * @param userID - User Identifiant
+   * @returns - User Object
+   */
   async getUser(userID: string): Promise<RESTGetAPIUserResult> {
     const res = await axios.get<RESTGetAPIUserResult>(
       `https://discord.com/api/v${this.version}/users/${userID}`,
@@ -59,6 +71,11 @@ class UserManager {
     return res.data;
   }
 
+  /**
+   * Modify the current user
+   * @param options - Option to modify current user
+   * @returns - User Object
+   */
   async modifyCurrentUser(
     options: RESTPatchAPICurrentUserJSONBody
   ): Promise<RESTPatchAPICurrentUserResult> {
@@ -77,6 +94,11 @@ class UserManager {
     return res.data;
   }
 
+  /**
+   * Get current user guilds
+   * @param options - Option to get current user guilds
+   * @returns - List of Guilds Object
+   */
   async getCurrentUserGuilds(
     options: RESTGetAPICurrentUserGuildsQuery
   ): Promise<RESTGetAPICurrentUserGuildsResult> {

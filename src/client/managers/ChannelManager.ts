@@ -212,6 +212,12 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Crosspost a message during the channels who follow the channel
+   * @param channelID - Channel Identifiant
+   * @param messageID - Message Identifiant
+   * @returns - Message Object
+   */
   public async crosspostMessage(
     channelID: string,
     messageID: string
@@ -230,6 +236,13 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Edit a specific message in a channel
+   * @param channelID - Channel Identifiant
+   * @param messageID - Message Identifiant
+   * @param options - Options for the message edition
+   * @returns - Message Object
+   */
   public async editMessage(
     channelID: string,
     messageID: string,
@@ -250,6 +263,12 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Delete a message
+   * @param channelID - Channel Identifiant
+   * @param messageID - Message Identifiant
+   * @param reason - Reason
+   */
   public async deleteMessage(
     channelID: string,
     messageID: string,
@@ -269,6 +288,12 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Delete a group of messages
+   * @param channelID - Channel Identifiant
+   * @param options - Options for deleting a group of messages
+   * @param reason - Reason
+   */
   public async bulkDeleteMessages(
     channelID: string,
     options: RESTPostAPIChannelMessagesBulkDeleteJSONBody | number,
@@ -296,6 +321,13 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Edit a permission
+   * @param channelID - Channel Identifiant
+   * @param overwriteID - Role or User Identifiant
+   * @param options - Options to edit a permission
+   * @param reason - Reason
+   */
   public async editChannelPermissions(
     channelID: string,
     overwriteID: string,
@@ -317,6 +349,11 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Get all channel invitations
+   * @param channelID - Channel Identifiant
+   * @returns - List of Invitation Object
+   */
   public async getChannelInvites(
     channelID: string
   ): Promise<RESTGetAPIChannelInvitesResult> {
@@ -334,6 +371,13 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Create an invitation
+   * @param channelID - Channel Invitation
+   * @param options - Options to create an invitation
+   * @param reason - Reason
+   * @returns - Invitation Object
+   */
   public async createChannelInvite(
     channelID: string,
     options: RESTPostAPIChannelInviteJSONBody = {},
@@ -356,6 +400,12 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Delete a permission
+   * @param channelID - Channel Identification
+   * @param overwriteID - User or Role Identification
+   * @param reason - Reason
+   */
   public async deleteChannelPermission(
     channelID: string,
     overwriteID: string,
@@ -375,6 +425,12 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Follow a news channel
+   * @param channelID - Channel Identifiant
+   * @param options - Options to follow a news channel
+   * @returns - Followed Channel Object
+   */
   public async followNewsChannel(
     channelID: string,
     options: RESTPostAPIChannelFollowersJSONBody
@@ -394,6 +450,10 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Trigger typing indicator in a channel
+   * @param channelID - Channel Identifiant
+   */
   public async triggerTypingIndicator(channelID: string): Promise<void> {
     await axios.post(
       `https://discord.com/api/v${this.version}/channels/${channelID}/typing`,
@@ -408,6 +468,11 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Get the list of pinned messages
+   * @param channelID - Channel Identifiant
+   * @returns - List of messages object
+   */
   public async getPinnedMessages(
     channelID: string
   ): Promise<RESTGetAPIChannelPinsResult> {
@@ -425,6 +490,12 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Pin a message
+   * @param channelID - Channel Identifiant
+   * @param messageID - Message Identifiant
+   * @param reason - Reason
+   */
   public async pinMessage(
     channelID: string,
     messageID: string,
@@ -445,6 +516,12 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Unpin a message
+   * @param channelID - Channel Identifiant
+   * @param messageID - Message Identifiant
+   * @param reason - Reason
+   */
   public async unpinMessage(
     channelID: string,
     messageID: string,
@@ -464,6 +541,12 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Add someone to a DM group
+   * @param channelID - Channel Identifiant
+   * @param userID - User Identifiant
+   * @param options - Options to add someone to a DM group
+   */
   public async groupDMAddRecipient(
     channelID: string,
     userID: string,
@@ -483,6 +566,11 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Remove someone to a DM group
+   * @param channelID - Channel Identifiant
+   * @param userID - User Identifiant
+   */
   public async groupDMRemoveRecipient(
     channelID: string,
     userID: string
@@ -500,6 +588,14 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Create a thread with a message
+   * @param channelID - Channel Identifiant
+   * @param messageID - Message Identifiant
+   * @param options - Options to create a thread
+   * @param reason - Reason
+   * @returns - ThreadChannel Object
+   */
   public async startThreadWithMessages(
     channelID: string,
     messageID: string,
@@ -522,6 +618,13 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Create a thread
+   * @param channelID - Channel Identifiant
+   * @param options - Option to create a thread
+   * @param reason - Reason
+   * @returns - ThreadChannel Object
+   */
   public async startThreadWithoutMessages(
     channelID: string,
     options: RESTPostAPIChannelThreadsJSONBody,
@@ -543,6 +646,10 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * Join a thread
+   * @param channelID - Channel Identifiant
+   */
   public async joinThread(channelID: string): Promise<void> {
     await axios.put(
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/@me`,
@@ -558,6 +665,11 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Add someone to a thread
+   * @param channelID - Channel Identifiant
+   * @param userID - User Identifiant
+   */
   public async addThreadMember(
     channelID: string,
     userID: string
@@ -576,6 +688,10 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Leave a thread
+   * @param channelID - Channel Identifiant
+   */
   public async leaveThread(channelID: string): Promise<void> {
     await axios.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/@me`,
@@ -590,6 +706,11 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Remove someone to a thread
+   * @param channelID - Channel Identifiant
+   * @param userID - User Identifant
+   */
   public async removeThreadMember(
     channelID: string,
     userID: string
@@ -607,6 +728,12 @@ class ChannelManager {
     );
   }
 
+  /**
+   * Get the thread of a member
+   * @param channelID - Channel Identifiant
+   * @param userID - User Identifiant
+   * @returns - Thread Member Object
+   */
   public async getThreadMember(
     channelID: string,
     userID: string
@@ -625,6 +752,11 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * List all the members of a thread
+   * @param channelID - Channel Identifiant
+   * @returns - List of Thread Member Object
+   */
   public async listThreadMembers(
     channelID: string
   ): Promise<RESTGetAPIChannelThreadMembersResult> {
@@ -642,6 +774,12 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * List all public the archived public thread
+   * @param channelID - Channel Identifiant
+   * @param options - Option to list all the archived public thread
+   * @returns - List of Thread Channels
+   */
   public async listPublicArchivedThreads(
     channelID: string,
     options: RESTGetAPIChannelThreadsArchivedQuery
@@ -661,6 +799,12 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * List all public the archived private thread
+   * @param channelID - Channel Identifiant
+   * @param options - Option to list all the archived private thread
+   * @returns - List of Thread Channels
+   */
   public async listPrivateArchivedThreads(
     channelID: string,
     options: RESTGetAPIChannelThreadsArchivedQuery
@@ -680,6 +824,12 @@ class ChannelManager {
     return res.data;
   }
 
+  /**
+   * List all public the archived private joined thread
+   * @param channelID - Channel Identifiant
+   * @param options - Option to list all the archived private joined thread
+   * @returns - List of Thread Channels
+   */
   public async listJoinedPrivateArchivedThreads(
     channelID: string,
     options: RESTGetAPIChannelThreadsArchivedQuery
