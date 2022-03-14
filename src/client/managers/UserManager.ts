@@ -60,9 +60,9 @@ class UserManager {
   }
 
   /**
-   * Get user
-   * @param userID - User Identifiant
-   * @returns - User Object
+   * It makes a GET request to the Discord API to get the user with the given ID
+   * @param {string} userID - The ID of the user you want to get.
+   * @returns User
    */
   async getUser(userID: string): Promise<RESTGetAPIUserResult> {
     const res = await axios.get<RESTGetAPIUserResult>(
@@ -80,9 +80,9 @@ class UserManager {
   }
 
   /**
-   * Modify the current user
-   * @param options - Option to modify current user
-   * @returns - User Object
+   * It modifies the current user's data
+   * @param {RESTPatchAPICurrentUserJSONBody} options - Option to modify current user
+   * @returns User
    */
   async modifyCurrentUser(
     options: RESTPatchAPICurrentUserJSONBody
@@ -103,9 +103,9 @@ class UserManager {
   }
 
   /**
-   * Get current user guilds
-   * @param options - Option to get current user guilds
-   * @returns - List of Guilds Object
+   * Get the current user's guilds
+   * @param {RESTGetAPICurrentUserGuildsQuery} options - Option to get current user guilds
+   * @returns Guilds' Array
    */
   async getCurrentUserGuilds(
     options: RESTGetAPICurrentUserGuildsQuery
@@ -126,9 +126,9 @@ class UserManager {
   }
 
   /**
-   * Get current user guild member
-   * @param guildID - Guild Identifiant
-   * @returns - Member Object
+   * Get the current user's guild member object
+   * @param {string} guildID - The ID of the guild you want to get the member of.
+   * @returns The guild member object.
    */
   async getCurrentUserGuildMember(guildID: string): Promise<APIGuildMember> {
     const res = await axios.get<APIGuildMember>(
@@ -147,8 +147,8 @@ class UserManager {
   }
 
   /**
-   * Leave a guild
-   * @param guildID - Guild Identifiant
+   * It leaves a guild.
+   * @param {string} guildID - The ID of the guild you want to leave.
    */
   async leaveGuild(guildID: string): Promise<void> {
     await axios.delete(
@@ -165,9 +165,9 @@ class UserManager {
   }
 
   /**
-   * Create a DM channel
-   * @param options - Options to create a DM channel
-   * @returns - DM Channel Object
+   * Create a DM channel with another user
+   * @param {RESTPostAPICurrentUserCreateDMChannelJSONBody} options - Options to create a DM channel
+   * @returns DM Channel
    */
   async createDM(
     options: RESTPostAPICurrentUserCreateDMChannelJSONBody
@@ -188,10 +188,10 @@ class UserManager {
   }
 
   /**
-   * Create a DM Group
+   * It creates a group DM channel with the users specified in the `access_tokens` array
    * @param options - Options to create a DM group
    * @see {@link https://discord.com/developers/docs/resources/user#create-group-dm}
-   * @returns - DM Group Object
+   * @returns Group DM Channel
    */
   async createGroupDM(options: {
     access_tokens: string[];
@@ -213,8 +213,8 @@ class UserManager {
   }
 
   /**
-   * Get user connections
-   * @returns - List of User Connection
+   * It gets the current user's connections
+   * @returns Connections' Array
    */
   async getUserConnections(): Promise<RESTGetAPICurrentUserConnectionsResult> {
     const res = await axios.get<RESTGetAPICurrentUserConnectionsResult>(

@@ -15,6 +15,7 @@ import {
   VoiceManager
 } from '.';
 
+/* It's a constant that contains all the intents the bot can listen to. */
 const ClientIntents = {
   GUILDS: 1 << 0,
   GUILD_MEMBERS: 1 << 1,
@@ -175,6 +176,12 @@ class Client extends EventEmitter {
     this.voice = new VoiceManager(this.token, this.tokenType, this.version);
   }
 
+  /**
+   * The `on` function is a method that adds a listener to the client's event emitter
+   * @param {K} eventName - The name of the event you want to listen to.
+   * @param listener - The listener function that will be called when the event is emitted.
+   * @returns The `this` object.
+   */
   public override on<K extends keyof ClientEvents>(
     eventName: K,
     listener: (...args: ClientEvents[K]) => void
@@ -182,6 +189,12 @@ class Client extends EventEmitter {
     return super.on(eventName, listener);
   }
 
+  /**
+   * The `once` method is a method that allows you to listen to an event only once.
+   * @param {K} eventName - The name of the event you want to listen to.
+   * @param listener - The listener function that will be called when the event is emitted.
+   * @returns The client.
+   */
   public override once<K extends keyof ClientEvents>(
     eventName: K,
     listener: (...args: ClientEvents[K]) => void
@@ -189,6 +202,13 @@ class Client extends EventEmitter {
     return super.once(eventName, listener);
   }
 
+  /**
+   * It takes an event name and any number of arguments, and calls the `emit` method on the `Client`
+   * class with the event name and arguments
+   * @param {K | string} eventName - The name of the event to emit.
+   * @param {ClientEvents[K] | any} args - The arguments to pass to the event handler.
+   * @returns The return value is a boolean that indicates whether the event was emitted.
+   */
   public override emit<K extends keyof ClientEvents>(
     eventName: K | string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -198,9 +218,9 @@ class Client extends EventEmitter {
   }
 
   /**
-   * Convert an intents' array to a number
-   * @param intents - Intents' array
-   * @returns - Intent number
+   * Given a list of intents, return the number that represents them
+   * @param {(keyof typeof ClientIntents)[]} intents - An array of intents to be added to the client.
+   * @returns The number of intents in the array.
    */
   private intentsToNumber(intents: (keyof typeof ClientIntents)[]) {
     let counter = 0;
@@ -210,6 +230,9 @@ class Client extends EventEmitter {
     return counter;
   }
 
+  /**
+   * It sets up the WebSocket connection and listens for messages from Discord
+   */
   private async setupWebSocket() {
     this.ws.on('message', (data) => {
       const parsedData = JSON.parse(data.toString());
@@ -254,6 +277,11 @@ class Client extends EventEmitter {
     });
   }
 
+  /**
+   * When a Gateway event is received, emit it to the client
+   * @param {K | string} event - The event name.
+   * @param {unknown} object - The object that was dispatched.
+   */
   private handleEvent<K extends keyof ClientEvents>(
     event: K | string,
     object: unknown

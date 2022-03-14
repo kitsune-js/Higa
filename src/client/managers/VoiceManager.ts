@@ -29,8 +29,8 @@ class VoiceManager {
   }
 
   /**
-   * List all the Voice Regions
-   * @returns - Array of voice regions
+   * It returns a list of voice regions
+   * @returns Voice Regions' Array
    */
   public async listVoiceRegions(): Promise<RESTGetAPIGuildVoiceRegionsResult> {
     const res = await axios.get<RESTGetAPIGuildVoiceRegionsResult>(
