@@ -14,5 +14,6 @@
 		"alphabetical",
 		"enum-value-descending"
 	],
-	"tsconfig": "tsconfig.json"
+	"tsconfig": "tsconfig.json",
+	"githubPages": false
 }
