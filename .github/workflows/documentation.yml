@@ -39,4 +39,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           email: arnaud@ligny.org
-          build_dir: _site
+          build_dir: docs
