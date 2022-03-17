@@ -2,6 +2,8 @@ import {
   APIChannel,
   APIThreadMember,
   RESTGetAPIChannelInvitesResult,
+  RESTGetAPIChannelMessageReactionUsersQuery,
+  RESTGetAPIChannelMessageReactionUsersResult,
   RESTGetAPIChannelMessageResult,
   RESTGetAPIChannelMessagesQuery,
   RESTGetAPIChannelMessagesResult,
@@ -246,6 +248,168 @@ class ChannelManager {
       }
     );
     return res.data;
+  }
+
+  /**
+   * Create a reaction to a message
+   * @param {string} channelID - The ID of the channel the message is in.
+   * @param {string} messageID - The ID of the message you want to react to.
+   * @param {string} emoji - The emoji to react with.
+   */
+  public async createReaction(
+    channelID: string,
+    messageID: string,
+    emoji: string
+  ): Promise<void> {
+    await axios.put(
+      `https://discord.com/api/v${
+        this.version
+      }/channels/${channelID}/messages/${messageID}/reactions/${encodeURIComponent(
+        emoji
+      )}/@me`,
+      '',
+      {
+        headers: {
+          Authorization: `${this.tokenType} ${this.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
+
+  /**
+   * Delete your own reaction
+   * @param {string} channelID - The ID of the channel the message is in.
+   * @param {string} messageID - The ID of the message you want to delete a reaction from.
+   * @param {string} emoji - The emoji to delete.
+   */
+  public async deleteOwnReaction(
+    channelID: string,
+    messageID: string,
+    emoji: string
+  ): Promise<void> {
+    await axios.delete(
+      `https://discord.com/api/v${
+        this.version
+      }/channels/${channelID}/messages/${messageID}/reactions/${encodeURIComponent(
+        emoji
+      )}/@me`,
+      {
+        headers: {
+          Authorization: `${this.tokenType} ${this.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
+
+  /**
+   * Delete a user's reaction from a message
+   * @param {string} channelID - The ID of the channel the message is in.
+   * @param {string} messageID - The ID of the message you want to delete a reaction from.
+   * @param {string} userID - The ID of the user who reacted to the message.
+   * @param {string} emoji - The emoji to delete.
+   */
+  public async deleteUserReaction(
+    channelID: string,
+    messageID: string,
+    userID: string,
+    emoji: string
+  ): Promise<void> {
+    await axios.delete(
+      `https://discord.com/api/v${
+        this.version
+      }/channels/${channelID}/messages/${messageID}/reactions/${encodeURIComponent(
+        emoji
+      )}/^${userID}`,
+      {
+        headers: {
+          Authorization: `${this.tokenType} ${this.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
+
+  /**
+   * Get all users who reacted to a message with a certain emoji
+   * @param {string} channelID - The ID of the channel the message is in.
+   * @param {string} messageID - The ID of the message you want to get reactions for.
+   * @param {string} emoji - The emoji you want to get the users for.
+   * @param {RESTGetAPIChannelMessageReactionUsersQuery} options -
+   * @returns
+   */
+  public async getReactions(
+    channelID: string,
+    messageID: string,
+    emoji: string,
+    options: RESTGetAPIChannelMessageReactionUsersQuery
+  ): Promise<RESTGetAPIChannelMessageReactionUsersResult> {
+    const res = await axios.get<RESTGetAPIChannelMessageReactionUsersResult>(
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/reactions/${emoji}`,
+      {
+        headers: {
+          Authorization: `${this.tokenType} ${this.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        },
+        params: options
+      }
+    );
+    return res.data;
+  }
+
+  /**
+   * Delete all reactions from a message
+   * @param {string} channelID - The ID of the channel the message is in.
+   * @param {string} messageID - The ID of the message you want to delete all reactions from.
+   */
+  public async deleteAllReactions(
+    channelID: string,
+    messageID: string
+  ): Promise<void> {
+    await axios.delete(
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/reactions/`,
+      {
+        headers: {
+          Authorization: `${this.tokenType} ${this.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
+  }
+
+  /**
+   * Delete all reactions for a specific emoji
+   * @param {string} channelID - The ID of the channel the message is in.
+   * @param {string} messageID - The ID of the message you want to delete all reactions from.
+   * @param {string} emoji - The emoji you want to delete all reactions for.
+   */
+  public async deleteAllReactionsForEmoji(
+    channelID: string,
+    messageID: string,
+    emoji: string
+  ): Promise<void> {
+    await axios.delete(
+      `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/reactions/${emoji}`,
+      {
+        headers: {
+          Authorization: `${this.tokenType} ${this.token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
+        }
+      }
+    );
   }
 
   /**

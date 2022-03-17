@@ -4,7 +4,7 @@ require("dotenv").config()
 
 const client = new Client({
   token: process.env.DISCORD ?? "",
-  tokenType: '',
+  tokenType: 'Bot',
   version: "9",
   intents: [
     'GUILD_MESSAGES',
@@ -37,20 +37,22 @@ client.on("THREAD_CREATE", async thread => {
 })
 
 // quick command handler to test features
+const prefix = '?'
 client.on("MESSAGE_CREATE", async message => {
   if (message.author.bot) return
-  const [cmd, ...args] = message.content.split(" ")
+  if (!message.content.startsWith(prefix)) return
+  const [cmd, ...args] = message.content.replace(prefix, '').split(" ")
   switch (cmd) {
-    case ":join-thread":
+    case "join-thread":
       client.channel.addThreadMember(message.channel_id, "933287043663003668")
       break
-    case ":leave-thread":
+    case "leave-thread":
       client.channel.removeThreadMember(message.channel_id, "933287043663003668")
       break  
-    case ":leave":
+    case "leave":
       client.channel.leaveThread(message.channel_id)
       break
-    case ":thread":
+    case "thread":
       client.channel.createMessage(message.channel_id,
         {
           content: "Creating thread...",
@@ -81,16 +83,16 @@ client.on("MESSAGE_CREATE", async message => {
           break;
       }
       break
-    case ":pin":
+    case "pin":
       client.channel.pinMessage(message.channel_id, message.id)
       break
-    case ":unpin":
+    case "unpin":
       client.channel.unpinMessage(message.channel_id, args[0])
       break
-    case ":typing":
+    case "typing":
       client.channel.triggerTypingIndicator(message.channel_id)
       break
-    case ":follow":
+    case "follow":
       client.channel.followNewsChannel(
         "932886951349071913",
         {
@@ -98,7 +100,7 @@ client.on("MESSAGE_CREATE", async message => {
         }
       )
       break
-    case ":invite":
+    case "invite":
       client.channel.createChannelInvite(
         message.channel_id
       ).then(i => {
@@ -116,7 +118,7 @@ client.on("MESSAGE_CREATE", async message => {
         )
       })
       break
-    case ":lock":
+    case "lock":
       client.channel.editChannelPermissions(
         message.channel_id, message.author.id,
         {
@@ -126,22 +128,22 @@ client.on("MESSAGE_CREATE", async message => {
         }
       )
       break
-    case ":unlock":
+    case "unlock":
       client.channel.deleteChannelPermission(
         message.channel_id, message.author.id, "Il s'est calmé le vilain"
       ) 
       break
-    case ":clear":
+    case "clear":
       client.channel.bulkDeleteMessages(message.channel_id, 10)
       break
-    case ":random":
+    case "random":
       client.channel.createMessage(message.channel_id,
         {
           content: Math.random() > 0.5 ? "Pile !" : "Face !"
         }
       )
       break
-    case ":edit":
+    case "edit":
       client.channel.createMessage(message.channel_id,
         {
           content: "Premier message"
@@ -157,7 +159,7 @@ client.on("MESSAGE_CREATE", async message => {
         }, 3000);
       })
       break
-    case ":ping":
+    case "ping":
       client.channel.createMessage(message.channel_id, {
         content: "Pong ! 🏓",
         message_reference: {
@@ -168,13 +170,13 @@ client.on("MESSAGE_CREATE", async message => {
         }
       })
       break
-    case ":say":
+    case "say":
       client.channel.deleteMessage(message.channel_id, message.id)
       client.channel.createMessage(message.channel_id, {
         content: args.join(" ")
       })
       break
-    case ":get":
+    case "get":
       client.channel.createMessage(message.channel_id, {
         content: "Getting things, check console",
         message_reference: {
@@ -202,13 +204,18 @@ client.on("MESSAGE_CREATE", async message => {
           break
       }
       break
-    case ":modify":
+    case "modify":
       client.channel.modifyChannel(message.channel_id, {
         topic: args.join(" ")
       })
       break
-    case ":del":
+    case "del":
       client.channel.deleteChannel(message.channel_id)
       break
+    case "react":
+      client.channel.createReaction(message.channel_id, message.id, "🏓")
+      break
+    case "react-custom":
+      client.channel.createReaction(message.channel_id, message.id, "shrug:954053771401510912")
   }
 }) 
