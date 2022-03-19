@@ -44,9 +44,18 @@
     "package": true,
     "commitLimit": false
   },
-  "author": "fantomitechno",
+  "contributors": [
+    "fantomitechno <fantomitechno@gmail.com>"
+  ],
+  "author": "fantomitechno <fantomitechno@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://discord.com/fantomitechno/Higa.git"
+  },
+  "homepage": "https://fantomitechno.github.io/Higa",
   "license": "ISC",
   "engines": {
     "node": ">=16.0.0"
-  }
+  },
+  "packageManager": "npm@8.0.0"
 }
