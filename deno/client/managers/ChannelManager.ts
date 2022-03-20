@@ -139,6 +139,7 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -296,6 +297,7 @@ class ChannelManager {
       }/channels/${channelID}/messages/${messageID}/reactions/${encodeURIComponent(
         emoji
       )}/@me`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -325,7 +327,8 @@ class ChannelManager {
         this.version
       }/channels/${channelID}/messages/${messageID}/reactions/${encodeURIComponent(
         emoji
-      )}/^${userID}`,
+      )}/${userID}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -377,6 +380,7 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/reactions/`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -401,6 +405,7 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/reactions/${emoji}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -452,6 +457,7 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -589,6 +595,7 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/permissions/${overwriteID}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -705,6 +712,7 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/pins/${messageID}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -753,6 +761,7 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/recipients/${userID}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -871,6 +880,7 @@ class ChannelManager {
   public async leaveThread(channelID: string): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/@me`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,
@@ -893,6 +903,7 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/${userID}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,

@@ -4,8 +4,7 @@ import {
   APIMessage,
   EventEmitter,
   GatewayChannelDeleteDispatchData,
-  GatewayPresenceUpdateData,
-  WS
+  GatewayPresenceUpdateData
 } from '../dep.ts';
 import {
   AuditLogManager,

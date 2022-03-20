@@ -154,6 +154,7 @@ class UserManager {
   async leaveGuild(guildID: string): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/users/@me/guilds/${guildID}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,

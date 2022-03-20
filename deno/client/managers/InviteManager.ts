@@ -70,6 +70,7 @@ class InviteManager {
   ): Promise<RESTDeleteAPIInviteResult> {
     const res = await axiod.delete<RESTDeleteAPIInviteResult>(
       `https://discord.com/api/v${this.version}/invites/${code}`,
+      '',
       {
         headers: {
           Authorization: `${this.tokenType} ${this.token}`,

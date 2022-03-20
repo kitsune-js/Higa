@@ -5,7 +5,6 @@ import {
 } from '../mod.ts';
 import 'https://deno.land/std@0.130.0/dotenv/load.ts';
 
-console.log(Deno.env.get('DISCORD'));
 const client = new Client({
   token: Deno.env.get('DISCORD') ?? '',
   tokenType: 'Bot',
@@ -162,7 +161,9 @@ client.on('MESSAGE_CREATE', async (message) => {
       });
       break;
     case 'say':
-      client.channel.deleteMessage(message.channel_id, message.id);
+      client.channel
+        .deleteMessage(message.channel_id, message.id)
+        .catch(console.error);
       client.channel.createMessage(message.channel_id, {
         content: args.join(' ')
       });
