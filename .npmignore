@@ -8,3 +8,5 @@ test
 .prettierrc.json
 tsconfig.json
 docs
+mod.ts
+deno
