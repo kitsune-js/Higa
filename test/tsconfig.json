@@ -13,7 +13,5 @@
   "ts-node": {
     "pretty": true
   },
-  "exclude": [
-    "build/*"
-  ]
+  "exclude": ["build/*"]
 }

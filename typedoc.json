@@ -1,19 +1,17 @@
 {
-  "entryPoints": [
-    "src/index.ts"
-  ],
+  "entryPoints": ["src/index.ts"],
   "gitRemote": "https://github.com/fantomitechno/Higa",
-	"includeVersion": true,
-	"excludeExternals": true,
-	"name": "Higa",
-	"out": "docs",
-	"readme": "https://github.com/fantomitechno/Higa/README.md",
-	"sort": [
-		"static-first",
-		"visibility",
-		"alphabetical",
-		"enum-value-descending"
-	],
-	"tsconfig": "tsconfig.json",
-	"githubPages": false
+  "includeVersion": true,
+  "excludeExternals": true,
+  "name": "Higa",
+  "out": "docs",
+  "readme": "https://github.com/fantomitechno/Higa/README.md",
+  "sort": [
+    "static-first",
+    "visibility",
+    "alphabetical",
+    "enum-value-descending"
+  ],
+  "tsconfig": "tsconfig.json",
+  "githubPages": false
 }
