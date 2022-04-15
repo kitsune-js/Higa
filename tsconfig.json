@@ -19,5 +19,5 @@
   "ts-node": {
     "pretty": true
   },
-  "exclude": ["test/*", "types/*", "deno/*" ]
+  "exclude": ["test/*", "types/*", "deno/*", "mod.ts"]
 }
