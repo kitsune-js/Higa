@@ -1,7 +1,7 @@
 # HIGA
 
 [![npm](https://img.shields.io/npm/v/higa?style=for-the-badge)](https://www.npmjs.com/package/higa)
-[![deno](https://img.shields.io/deno/v/higa?color=blue&label=deno&logo=deno)](https://deno.land/x/higa)
+[![deno](https://img.shields.io/github/v/release/fantomitechno/Higa?include_prereleases&color=blue&label=deno&style=for-the-badge)](https://deno.land/x/higa)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/fantomitechno/Higa?include_prereleases&style=for-the-badge)](https://github.com/fantomitechno/Higa/releases)
 
 [![Higa commit](https://img.shields.io/github/last-commit/fantomitechno/Higa?style=for-the-badge)](https://github.com/fantomitechno/Higa)
