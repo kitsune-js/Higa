@@ -1,5 +1,5 @@
 export * from './client';
-export * from 'discord-api-types/v9';
+export * from './structures';
 
 /**
  * Given a string representing a color in hexadecimal format, return the corresponding integer value
