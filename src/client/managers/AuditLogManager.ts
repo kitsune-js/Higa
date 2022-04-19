@@ -1,9 +1,14 @@
-import {
-  RESTGetAPIAuditLogQuery,
-  RESTGetAPIAuditLogResult
-} from 'discord-api-types/v9';
+import { RESTGetAPIAuditLogQuery } from 'discord-api-types/v9';
 import axios from 'axios';
 import { APIVersions } from '../..';
+import { AuditLog, AuditLogEvent } from '../../structures';
+
+interface GetAuditLogOptions {
+  user_id: string;
+  action_type: AuditLogEvent;
+  before: string;
+  limit: number;
+}
 
 class AuditLogManager {
   /**
@@ -39,9 +44,9 @@ class AuditLogManager {
    */
   public async getGuildAuditLog(
     guildID: string,
-    options: RESTGetAPIAuditLogQuery
-  ): Promise<RESTGetAPIAuditLogResult> {
-    const res = await axios.get<RESTGetAPIAuditLogResult>(
+    options: GetAuditLogOptions
+  ): Promise<AuditLog> {
+    const res = await axios.get<AuditLog>(
       `https://discord.com/api/v${this.version}/guilds/${guildID}/audit-logs`,
       {
         headers: {
