@@ -57,13 +57,15 @@ interface ClientOptions {
 class Client extends EventEmitter {
   /**
    * Application's token
+   * @private
    */
-  private readonly token: string;
+  readonly #token: string;
 
   /**
    * Token type
+   * @private
    */
-  private readonly tokenType: 'Bearer' | 'Bot' | '';
+  readonly #tokenType: 'Bearer' | 'Bot' | '';
 
   /**
    * Intents the application has activated
@@ -76,20 +78,20 @@ class Client extends EventEmitter {
 
   /**
    * Websocket to connect the application to the Discord Gateway
+   * @private
    */
-  private ws: WebSocket = new WebSocket(
-    'wss://gateway.discord.gg/?v=9&encoding=json'
-  );
-  private heartbeat_interval = 0;
-  private hearbeat_responded = false;
-  private connection_closed = false;
-  private sequence_number: number | null = null;
-  private session_id = '';
+  #ws: WebSocket = new WebSocket('wss://gateway.discord.gg/?v=9&encoding=json');
+  #heartbeat_interval = 0;
+  #hearbeat_responded = false;
+  #connection_closed = false;
+  #sequence_number: number | null = null;
+  #session_id = '';
 
   /**
    * Application's cache
+   * @private
    */
-  private cache = new CacheManager();
+  #cache = new CacheManager();
 
   /**
    * Audit Log Manager to interact with the REST API
@@ -123,10 +125,10 @@ class Client extends EventEmitter {
    */
   constructor(options: ClientOptions) {
     super();
-    this.token = options.token;
-    this.tokenType = options.tokenType;
+    this.#token = options.token;
+    this.#tokenType = options.tokenType;
 
-    if (options.wsConnection === undefined || this.tokenType !== 'Bot')
+    if (options.wsConnection === undefined || this.#tokenType !== 'Bot')
       options.wsConnection = true;
 
     if (options.wsConnection) this.setupWebSocket();
@@ -141,39 +143,39 @@ class Client extends EventEmitter {
 
     this.once('READY', () => {
       setInterval(() => {
-        if (this.hearbeat_responded) {
-          this.ws.send(
+        if (this.#hearbeat_responded) {
+          this.#ws.send(
             JSON.stringify({
               op: 1,
-              d: this.sequence_number
+              d: this.#sequence_number
             })
           );
-          this.hearbeat_responded = false;
+          this.#hearbeat_responded = false;
         } else {
-          this.ws.close();
-          this.connection_closed = true;
-          this.ws = new WebSocket(
+          this.#ws.close();
+          this.#connection_closed = true;
+          this.#ws = new WebSocket(
             `wss://gateway.discord.gg/?v=${this.version}&encoding=json'`
           );
           this.setupWebSocket();
         }
-      }, this.heartbeat_interval);
+      }, this.#heartbeat_interval);
     });
 
     this.auditLog = new AuditLogManager(
-      this.token,
-      this.tokenType,
+      this.#token,
+      this.#tokenType,
       this.version
     );
     this.channel = new ChannelManager(
-      this.token,
-      this.tokenType,
-      this.cache,
+      this.#token,
+      this.#tokenType,
+      this.#cache,
       this.version
     );
-    this.invite = new InviteManager(this.token, this.tokenType, this.version);
-    this.user = new UserManager(this.token, this.tokenType, this.version);
-    this.voice = new VoiceManager(this.token, this.tokenType, this.version);
+    this.invite = new InviteManager(this.#token, this.#tokenType, this.version);
+    this.user = new UserManager(this.#token, this.#tokenType, this.version);
+    this.voice = new VoiceManager(this.#token, this.#tokenType, this.version);
   }
 
   /**
@@ -234,33 +236,33 @@ class Client extends EventEmitter {
    * It sets up the WebSocket connection and listens for messages from Discord
    */
   private async setupWebSocket() {
-    this.ws.on('message', (data) => {
+    this.#ws.on('message', (data) => {
       const parsedData = JSON.parse(data.toString());
-      if (parsedData.s) this.sequence_number = parsedData.s;
-      if (parsedData.op) this.hearbeat_responded = true;
-      if (!parsedData.t && this.session_id !== '' && this.connection_closed) {
-        this.hearbeat_responded = true;
-        this.heartbeat_interval = parsedData.d.heartbeat_interval;
-        this.ws.send(
+      if (parsedData.s) this.#sequence_number = parsedData.s;
+      if (parsedData.op) this.#hearbeat_responded = true;
+      if (!parsedData.t && this.#session_id !== '' && this.#connection_closed) {
+        this.#hearbeat_responded = true;
+        this.#heartbeat_interval = parsedData.d.heartbeat_interval;
+        this.#ws.send(
           JSON.stringify({
             op: 6,
             d: {
-              token: this.token,
-              session_id: this.session_id,
-              seq: this.sequence_number
+              token: this.#token,
+              session_id: this.#session_id,
+              seq: this.#sequence_number
             }
           })
         );
-        this.connection_closed = false;
+        this.#connection_closed = false;
       }
-      if (!parsedData.t && !this.heartbeat_interval) {
-        this.hearbeat_responded = true;
-        this.heartbeat_interval = parsedData.d.heartbeat_interval;
-        this.ws.send(
+      if (!parsedData.t && !this.#heartbeat_interval) {
+        this.#hearbeat_responded = true;
+        this.#heartbeat_interval = parsedData.d.heartbeat_interval;
+        this.#ws.send(
           JSON.stringify({
             op: 2,
             d: {
-              token: this.token,
+              token: this.#token,
               properties: {
                 $os: process.platform,
                 $browse: 'higa',
@@ -272,7 +274,7 @@ class Client extends EventEmitter {
         );
       }
       this.emit('DEBUG', parsedData);
-      if (parsedData.t == 'READY') this.session_id = parsedData.d.session_id;
+      if (parsedData.t == 'READY') this.#session_id = parsedData.d.session_id;
       if (parsedData.t) this.handleEvent(parsedData.t, parsedData.d);
     });
   }
@@ -287,7 +289,7 @@ class Client extends EventEmitter {
     object: unknown
   ) {
     if (event === 'THREAD_DELETE') {
-      object = this.cache.channels.get(
+      object = this.#cache.channels.get(
         (<GatewayChannelDeleteDispatchData>object).id
       );
     }
@@ -299,7 +301,7 @@ class Client extends EventEmitter {
    * @param presence - New presence to set
    */
   public setStatus(presence: GatewayPresenceUpdateData) {
-    this.ws.send(
+    this.#ws.send(
       JSON.stringify({
         op: 3,
         d: presence
