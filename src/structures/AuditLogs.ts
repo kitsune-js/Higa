@@ -1,14 +1,17 @@
 import { Channel, Overwrite } from './Channel';
+import { Integration } from './Guild';
 import { GuildScheduledEvent } from './GuildScheduledEvent';
+import { Role } from './Role';
 import { User } from './User';
+import { Webhook } from './Webhook';
 
 interface AuditLog {
   audit_log_entries: AuditLogEntry[];
   guild_scheduled_events: GuildScheduledEvent[];
-  integrations: any[];
+  integrations: Integration[];
   threads: Channel[];
   users: User[];
-  webhooks: any[];
+  webhooks: Webhook[];
 }
 
 enum AuditLogEvent {
@@ -142,8 +145,8 @@ interface AuditLogKey {
   verification_level: number;
   widget_channel_id: string;
   widget_enabled: boolean;
-  $add: any[];
-  $remove: any[];
+  $add: Role[];
+  $remove: Role[];
 }
 
 type K = keyof AuditLogKey;

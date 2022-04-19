@@ -1,6 +1,7 @@
 import { Application } from './Application';
 import { Emoji } from './Emoji';
 import { GuildMember } from './Guild';
+import { Role } from './Role';
 import { Sticker, StickerItem } from './Sticker';
 import { User } from './User';
 
@@ -69,7 +70,7 @@ interface Message {
   tts: boolean;
   mention_everyone: boolean;
   mentions: User[];
-  mention_roles: any[];
+  mention_roles: Role[];
   mention_channels: ChannelMention[];
   attachments: Attachment[];
   embeds: Embed[];
@@ -86,7 +87,7 @@ interface Message {
   referenced_message?: Message;
   interaction?: any;
   thread?: Channel;
-  components?: any[];
+  components?: StickerItem[];
   sticker_items?: StickerItem[];
   stickers?: Sticker[];
 }

@@ -1,3 +1,4 @@
+import { Team } from './Team';
 import { User } from './User';
 
 interface Application {
@@ -12,7 +13,7 @@ interface Application {
   privacy_policy_url: string;
   owner?: User;
   verify_key: string;
-  team?: any;
+  team?: Team;
   guild_id?: string;
   primary_sku_id?: string;
   slug?: string;
