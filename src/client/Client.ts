@@ -2,7 +2,6 @@ import {
   GatewayChannelDeleteDispatchData,
   GatewayPresenceUpdateData
 } from 'discord-api-types/gateway';
-import { APIApplication, APIChannel, APIMessage } from 'discord-api-types/v9';
 import { EventEmitter } from 'node:events';
 import WebSocket from 'ws';
 
@@ -14,6 +13,7 @@ import {
   UserManager,
   VoiceManager
 } from '.';
+import { Message, Channel, Application } from '../structures';
 
 /* It's a constant that contains all the intents the bot can listen to. */
 enum ClientIntents {
@@ -36,12 +36,12 @@ enum ClientIntents {
 }
 
 interface ClientEvents {
-  READY: [client: APIApplication];
-  MESSAGE_CREATE: [message: APIMessage];
+  READY: [client: Application];
+  MESSAGE_CREATE: [message: Message];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   DEBUG: any;
-  THREAD_CREATE: [thread: APIChannel];
-  THREAD_DELETE: [thread: APIChannel];
+  THREAD_CREATE: [thread: Channel];
+  THREAD_DELETE: [thread: Channel];
 }
 
 type APIVersions = '6' | '7' | '8' | '9';
