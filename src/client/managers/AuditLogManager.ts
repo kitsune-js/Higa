@@ -1,4 +1,3 @@
-import { RESTGetAPIAuditLogQuery } from 'discord-api-types/v9';
 import axios from 'axios';
 import { APIVersions } from '../..';
 import { AuditLog, AuditLogEvent } from '../../structures';
@@ -14,12 +13,12 @@ class AuditLogManager {
   /**
    * Bot's token
    */
-  private readonly token: string;
+  readonly #token: string;
 
   /**
    * Token type
    */
-  private readonly tokenType: string;
+  readonly #tokenType: string;
 
   /**
    * API Version
@@ -31,8 +30,8 @@ class AuditLogManager {
    * @param version - API Version
    */
   constructor(token: string, tokenType: string, version: APIVersions) {
-    this.token = token;
-    this.tokenType = tokenType;
+    this.#token = token;
+    this.#tokenType = tokenType;
     this.version = version;
   }
 
@@ -50,7 +49,7 @@ class AuditLogManager {
       `https://discord.com/api/v${this.version}/guilds/${guildID}/audit-logs`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'

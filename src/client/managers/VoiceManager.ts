@@ -1,17 +1,18 @@
-import { RESTGetAPIGuildVoiceRegionsResult } from 'discord-api-types/v9';
 import axios from 'axios';
+
 import { APIVersions } from '../..';
+import { VoiceRegion } from '../../structures';
 
 class VoiceManager {
   /**
    * Bot's token
    */
-  private token: string;
+  #token: string;
 
   /**
    * Token type
    */
-  private readonly tokenType: string;
+  readonly #tokenType: string;
 
   /**
    * API Version
@@ -23,8 +24,8 @@ class VoiceManager {
    * @param version - API Version
    */
   constructor(token: string, tokenType: string, version: APIVersions) {
-    this.token = token;
-    this.tokenType = tokenType;
+    this.#token = token;
+    this.#tokenType = tokenType;
     this.version = version;
   }
 
@@ -32,12 +33,12 @@ class VoiceManager {
    * It returns a list of voice regions
    * @returns Voice Regions' Array
    */
-  public async listVoiceRegions(): Promise<RESTGetAPIGuildVoiceRegionsResult> {
-    const res = await axios.get<RESTGetAPIGuildVoiceRegionsResult>(
+  public async listVoiceRegions(): Promise<VoiceRegion[]> {
+    const res = await axios.get<VoiceRegion[]>(
       `https://discord.com/api/v9/voice/regions`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'

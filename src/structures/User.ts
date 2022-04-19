@@ -1,3 +1,5 @@
+import { Integration } from './Guild';
+
 interface User {
   id: string;
   username: string;
@@ -39,4 +41,21 @@ enum PremiumType {
   NITRO = 2
 }
 
-export { User, UserFlags, PremiumType };
+interface Connection {
+  id: string;
+  name: string;
+  type: string;
+  revoked?: boolean;
+  integrations?: Integration[];
+  verified: boolean;
+  friend_sync: boolean;
+  show_activity: boolean;
+  visibility: VisibilityType;
+}
+
+enum VisibilityType {
+  NONE = 0,
+  EVERYONE = 1
+}
+
+export { User, UserFlags, PremiumType, Connection, VisibilityType };

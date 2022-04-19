@@ -1,23 +1,29 @@
 import axios from 'axios';
-import { RESTPostAPIGuildEmojiResult } from 'discord-api-types/v10';
-import {
-  RESTGetAPIGuildEmojisResult,
-  RESTPatchAPIGuildEmojiJSONBody,
-  RESTPatchAPIGuildEmojiResult,
-  RESTPostAPIGuildEmojiJSONBody
-} from 'discord-api-types/v9';
+
 import { APIVersions } from '../..';
+import { Emoji } from '../../structures';
+
+interface CreateGuildEmojiOptions {
+  name: string;
+  image: any;
+  roles: string[];
+}
+
+interface ModifyGuildEmojiOptions {
+  name: string;
+  roles: string[];
+}
 
 class EmojiManager {
   /**
    * Bot's token
    */
-  private token: string;
+  #token: string;
 
   /**
    * Token type
    */
-  private readonly tokenType: string;
+  readonly #tokenType: string;
 
   /**
    * API Version
@@ -29,8 +35,8 @@ class EmojiManager {
    * @param version - API Version
    */
   constructor(token: string, tokenType: string, version: APIVersions) {
-    this.token = token;
-    this.tokenType = tokenType;
+    this.#token = token;
+    this.#tokenType = tokenType;
     this.version = version;
   }
 
@@ -39,14 +45,12 @@ class EmojiManager {
    * @param guildId - Guild ID
    * @returns - Emoji Array
    */
-  public async listEmojis(
-    guildId: string
-  ): Promise<RESTGetAPIGuildEmojisResult> {
-    const res = await axios.get<RESTGetAPIGuildEmojisResult>(
+  public async listEmojis(guildId: string): Promise<Emoji[]> {
+    const res = await axios.get<Emoji[]>(
       `https://discord.com/api/v${this.version}/guilds/${guildId}/emojis`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -62,15 +66,12 @@ class EmojiManager {
    * @param emojiId - Emoji ID
    * @returns - Emoji Object
    */
-  public async getEmoji(
-    guildId: string,
-    emojiId: string
-  ): Promise<RESTGetAPIGuildEmojisResult> {
-    const res = await axios.get<RESTGetAPIGuildEmojisResult>(
+  public async getEmoji(guildId: string, emojiId: string): Promise<Emoji> {
+    const res = await axios.get<Emoji>(
       `https://discord.com/api/v${this.version}/guilds/${guildId}/emojis/${emojiId}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -88,14 +89,14 @@ class EmojiManager {
    */
   public async createEmoji(
     guildId: string,
-    options: RESTPostAPIGuildEmojiJSONBody
-  ): Promise<RESTPostAPIGuildEmojiResult> {
-    const res = await axios.post<RESTPostAPIGuildEmojiResult>(
+    options: CreateGuildEmojiOptions
+  ): Promise<Emoji> {
+    const res = await axios.post<Emoji>(
       `https://discord.com/api/v${this.version}/guilds/${guildId}/emojis`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -115,14 +116,14 @@ class EmojiManager {
   public async modifyEmoji(
     guildId: string,
     emojiId: string,
-    options: RESTPatchAPIGuildEmojiJSONBody
-  ): Promise<RESTPatchAPIGuildEmojiResult> {
-    const res = await axios.patch<RESTPatchAPIGuildEmojiResult>(
+    options: ModifyGuildEmojiOptions
+  ): Promise<Emoji> {
+    const res = await axios.patch<Emoji>(
       `https://discord.com/api/v${this.version}/guilds/${guildId}/emojis/${emojiId}`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -148,7 +149,7 @@ class EmojiManager {
       `https://discord.com/api/v${this.version}/guilds/${guildId}/emojis/${emojiId}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -159,4 +160,4 @@ class EmojiManager {
   }
 }
 
-export { EmojiManager };
+export { EmojiManager, CreateGuildEmojiOptions, ModifyGuildEmojiOptions };

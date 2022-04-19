@@ -280,10 +280,10 @@ interface ChannelMention {
 }
 
 interface AllowedMentions {
-  parse: AllowedMentionsType[];
-  roles: string[];
-  users: string[];
-  replied_user: boolean;
+  parse?: AllowedMentionsType[];
+  roles?: string[];
+  users?: string[];
+  replied_user?: boolean;
 }
 
 enum AllowedMentionsType {

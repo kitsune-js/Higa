@@ -1,21 +1,24 @@
 import axios from 'axios';
-import {
-  RESTDeleteAPIInviteResult,
-  RESTGetAPIInviteQuery,
-  RESTGetAPIInviteResult
-} from 'discord-api-types/v9';
+
 import { APIVersions } from '../..';
+import { Invite } from '../../structures';
+
+interface GetInviteOptions {
+  with_counts?: boolean;
+  with_expiration?: boolean;
+  guild_scheduled_event_id?: string;
+}
 
 class InviteManager {
   /**
    * Bot's token
    */
-  private token: string;
+  #token: string;
 
   /**
    * Token type
    */
-  private readonly tokenType: string;
+  readonly #tokenType: string;
 
   /**
    * API Version
@@ -27,8 +30,8 @@ class InviteManager {
    * @param version - API Version
    */
   constructor(token: string, tokenType: string, version: APIVersions) {
-    this.token = token;
-    this.tokenType = tokenType;
+    this.#token = token;
+    this.#tokenType = tokenType;
     this.version = version;
   }
 
@@ -40,13 +43,13 @@ class InviteManager {
    */
   public async getInvite(
     code: string,
-    options?: RESTGetAPIInviteQuery
-  ): Promise<RESTGetAPIInviteResult> {
-    const res = await axios.get<RESTGetAPIInviteResult>(
+    options: GetInviteOptions = {}
+  ): Promise<Invite> {
+    const res = await axios.get<Invite>(
       `https://discord.com/api/v${this.version}/invites/${code}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -63,15 +66,12 @@ class InviteManager {
    * @param reason - Reason for the deletion
    * @returns - Invite Object
    */
-  public async deleteInvite(
-    code: string,
-    reason?: string
-  ): Promise<RESTDeleteAPIInviteResult> {
-    const res = await axios.delete<RESTDeleteAPIInviteResult>(
+  public async deleteInvite(code: string, reason?: string): Promise<Invite> {
+    const res = await axios.delete<Invite>(
       `https://discord.com/api/v${this.version}/invites/${code}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -83,4 +83,4 @@ class InviteManager {
   }
 }
 
-export { InviteManager };
+export { InviteManager, GetInviteOptions };
