@@ -48,7 +48,7 @@ type APIVersions = '6' | '7' | '8' | '9';
 
 interface ClientOptions {
   token: string;
-  tokenType: 'Bearer' | 'Bot' | '';
+  tokenType: 'Bearer' | 'Bot';
   intents?: (keyof typeof ClientIntents)[];
   version?: APIVersions;
   wsConnection?: boolean;
