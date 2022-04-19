@@ -240,4 +240,9 @@ class UserManager {
   }
 }
 
-export { UserManager };
+export {
+  UserManager,
+  ModifyUserOptions,
+  CreateDMOptions,
+  CreateGroupDMOptions
+};
