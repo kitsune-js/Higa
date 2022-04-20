@@ -623,4 +623,22 @@ class Client extends EventEmitter {
   }
 }
 
-export { Client, ClientEvents, ClientOptions, ClientIntents, APIVersions };
+export {
+  Client,
+  ClientEvents,
+  ClientIntents,
+  ClientOptions,
+  APIVersions,
+  ThreadListSyncData,
+  ThreadMembersUpdateData,
+  ChannelPinsUpdateData,
+  GuildBanData,
+  GuildEmojisUpdateData,
+  GuildStickersUpdateData,
+  GuildIntegrationsUpdateData,
+  GuildMemberRemoveData,
+  GuildMemberUpdateData,
+  GuildRoleCreateData,
+  GuildRoleDeleteData,
+  GuildScheduledEventUserData
+};
