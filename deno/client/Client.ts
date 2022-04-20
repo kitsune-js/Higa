@@ -4,6 +4,27 @@ import {
   GatewayPresenceUpdateData
 } from '../dep.ts';
 import {
+  Activity,
+  Application,
+  Channel,
+  ClientStatus,
+  Emoji,
+  Guild,
+  GuildMember,
+  GuildScheduledEvent,
+  Integration,
+  Interaction,
+  InviteTargetType,
+  Message,
+  Role,
+  StageInstance,
+  StatusType,
+  Sticker,
+  ThreadMember,
+  User,
+  VoiceState
+} from '../structures/index.ts';
+import {
   AuditLogManager,
   CacheManager,
   ChannelManager,
@@ -11,7 +32,6 @@ import {
   UserManager,
   VoiceManager
 } from './managers/index.ts';
-import { Application, Channel, Message } from '../structures/index.ts';
 
 /* It's a constant that contains all the intents the bot can listen to. */
 const ClientIntents = {
@@ -33,13 +53,230 @@ const ClientIntents = {
   GUILD_SCHEDULED_EVENTS: 1 << 16
 };
 
+interface ThreadListSyncData {
+  guild_id: string;
+  channel_ids?: string[];
+  threads: Channel[];
+  members: ThreadMember[];
+}
+
+interface ThreadMembersUpdateData {
+  id: string;
+  guild_id: string;
+  member_count: number;
+  added_members: ThreadMember[];
+  removed_member_ids: string[];
+}
+
+interface ChannelPinsUpdateData {
+  guild_id?: string;
+  channel_id: string;
+  last_pin_timestamp?: string;
+}
+
+interface GuildBanData {
+  guild_id: string;
+  user: User;
+}
+
+interface GuildEmojisUpdateData {
+  guild_id: string;
+  emojis: Emoji[];
+}
+
+interface GuildStickersUpdateData {
+  guild_id: string;
+  emojis: Sticker[];
+}
+
+interface GuildIntegrationsUpdateData {
+  guild_id: string;
+}
+
+interface GuildMemberRemoveData {
+  guild_id: string;
+  user: User;
+}
+
+interface GuildMemberUpdateData {
+  guild_id: string;
+  user: User;
+  roles: string[];
+  nick?: string;
+  avatar?: string;
+  joined_at?: string;
+  premium_since?: string;
+  deaf?: boolean;
+  mute?: boolean;
+  pending?: boolean;
+  communication_disabled_until?: number;
+}
+
+interface GuildRoleCreateData {
+  guild_id: string;
+  role: Role;
+}
+
+interface GuildRoleDeleteData {
+  guild_id: string;
+  role_id: string;
+}
+
+interface GuildScheduledEventUserData {
+  guild_scheduled_event_id: string;
+  guild_id: string;
+  user_id: string;
+}
+
+interface InteractionDeleteData {
+  id: string;
+  guild_id: string;
+  application_id?: string;
+}
+
+interface InviteCreateData {
+  channel_id: string;
+  code: string;
+  created_at: string;
+  guild_id?: string;
+  inviter?: User;
+  max_age: number;
+  max_uses: number;
+  target_type?: InviteTargetType;
+  target_user?: User;
+  target_application?: Application;
+  temporary: boolean;
+  uses: number;
+}
+
+interface InviteDeleteData {
+  channel_id: string;
+  code: string;
+  guild_id?: string;
+}
+
+interface MessageDeleteBulkData {
+  guild_id?: string;
+  channel_id: string;
+  ids: string[];
+}
+
+interface MessageReactionData {
+  user_id: string;
+  channel_id: string;
+  message_id: string;
+  guild_id?: string;
+  emoji: Emoji;
+  member?: GuildMember;
+}
+
+interface MessageReactionRemoveAllData {
+  channel_id: string;
+  message_id: string;
+  guild_id?: string;
+}
+
+interface MessageReactionRemoveEmojiData {
+  channel_id: string;
+  message_id: string;
+  guild_id?: string;
+  emoji: Emoji;
+}
+
+interface PresenceData {
+  user: User;
+  guild_id: string;
+  status: StatusType;
+  activities: Activity[];
+  client_status: ClientStatus;
+}
+
+interface TypingData {
+  channel_id: string;
+  guild_id?: string;
+  user_id: string;
+  timestamp: string;
+  member?: GuildMember;
+}
+
+interface VoiceServerData {
+  token: string;
+  guild_id: string;
+  endpoint?: string;
+}
+
+interface WebhooksData {
+  guild_id: string;
+  channel_id: string;
+}
+
 interface ClientEvents {
   READY: (client: Application) => void;
-  MESSAGE_CREATE: (message: Message) => void;
-  // deno-lint-ignore no-explicit-any
-  DEBUG: (args: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
+  DEBUG: any;
+  CHANNEL_CREATE: (channel: Channel) => void;
+  CHANNEL_UPDATE: (channelBefore: Channel, channelAfter: Channel) => void;
+  CHANNEL_DELETE: (channel: Channel) => void;
   THREAD_CREATE: (thread: Channel) => void;
+  THREAD_UPDATE: (threadBefore: Channel, threadAfter: Channel) => void;
   THREAD_DELETE: (thread: Channel) => void;
+  THREAD_LIST_SYNC: (data: ThreadListSyncData) => void;
+  THREAD_MEMBER_UPDATE: (member: ThreadMember & { guild_id: string }) => void;
+  THREAD_MEMBERS_UPDATE: (data: ThreadMembersUpdateData) => void;
+  CHANNEL_PINS_UPDATE: (data: ChannelPinsUpdateData) => void;
+  GUILD_CREATE: (guild: Guild) => void;
+  GUILD_UPDATE: (guildBefore: Guild, guildAfter: Guild) => void;
+  GUILD_DELETE: (guild: Guild) => void;
+  GUILD_BAN_ADD: (data: GuildBanData) => void;
+  GUILD_BAN_REMOVE: (data: GuildBanData) => void;
+  GUILD_EMOJIS_UPDATE: (data: GuildEmojisUpdateData) => void;
+  GUILD_STICKERS_UPDATE: (data: GuildStickersUpdateData) => void;
+  GUILD_INTEGRATIONS_UPDATE: (data: GuildIntegrationsUpdateData) => void;
+  GUILD_MEMBER_ADD: (member: GuildMember & { guild_id: string }) => void;
+  GUILD_MEMBER_REMOVE: (data: GuildMemberRemoveData) => void;
+  GUILD_MEMBER_UPDATE: (
+    memberBefore: GuildMemberUpdateData,
+    memberAfter: GuildMemberUpdateData
+  ) => void;
+  GUILD_ROLE_CREATE: (data: GuildRoleCreateData) => void;
+  GUILD_ROLE_UPDATE: (roleBefore: Role, data: GuildRoleCreateData) => void;
+  GUILD_ROLE_DELETE: (role: Role) => void;
+  GUILD_SCHEDULED_EVENT_CREATE: (
+    guildScheduledEvent: GuildScheduledEvent
+  ) => void;
+  GUILD_SCHEDULED_EVENT_UPDATE: (
+    guildScheduledEventBefore: GuildScheduledEvent,
+    guildScheduledEventAfter: GuildScheduledEvent
+  ) => void;
+  GUILD_SCHEDULED_EVENT_DELETE: (
+    guildScheduledEvent: GuildScheduledEvent
+  ) => void;
+  GUILD_SCHEDULED_EVENT_USER_ADD: (data: GuildScheduledEventUserData) => void;
+  GUILD_SCHEDULED_EVENT_USER_REMOVE: (
+    data: GuildScheduledEventUserData
+  ) => void;
+  INTEGRATION_CREATE: (integration: Integration & { guild_id: string }) => void;
+  INTEGRATION_UPDATE: (integration: Integration & { guild_id: string }) => void;
+  INTEGRATION_DELETE: (data: InteractionDeleteData) => void;
+  INVITE_CREATE: (invite: InviteCreateData) => void;
+  INVITE_DELETE: (invite: InviteDeleteData) => void;
+  MESSAGE_CREATE: (message: Message) => void;
+  MESSAGE_UPDATE: (messageBefore: Message, messageAfter: Message) => void;
+  MESSAGE_DELETE: (message: Message) => void;
+  MESSAGE_DELETE_BULK: (data: MessageDeleteBulkData) => void;
+  MESSAGE_REACTION_ADD: (reaction: MessageReactionData) => void;
+  MESSAGE_REACTION_REMOVE: (reaction: MessageReactionData) => void;
+  MESSAGE_REACTION_REMOVE_ALL: (data: MessageReactionRemoveAllData) => void;
+  MESSAGE_REACTION_REMOVE_EMOJI: (data: MessageReactionRemoveEmojiData) => void;
+  PRESENCE_UPDATE: (presence: PresenceData) => void;
+  TYPING_START: (data: TypingData) => void;
+  USER_UPDATE: (user: User) => void;
+  VOICE_STATE_UPDATE: (voiceState: VoiceState) => void;
+  VOICE_SERVER_UPDATE: (data: VoiceServerData) => void;
+  WEBHOOKS_UPDATE: (data: WebhooksData) => void;
+  INTERACTION_CREATE: (interaction: Interaction) => void;
+  STAGE_INSTANCE_CREATE: (stageInstance: StageInstance) => void;
+  STAGE_INSTANCE_UPDATE: (stageInstance: StageInstance) => void;
+  STAGE_INSTANCE_DELETE: (stageInstance: StageInstance) => void;
 }
 
 type APIVersions = '6' | '7' | '8' | '9';
@@ -276,4 +513,20 @@ class Client extends EventEmitter<ClientEvents> {
 }
 
 export { Client, ClientIntents };
-export type { ClientEvents, ClientOptions, APIVersions };
+export type {
+  ClientEvents,
+  ClientOptions,
+  APIVersions,
+  ThreadListSyncData,
+  ThreadMembersUpdateData,
+  ChannelPinsUpdateData,
+  GuildBanData,
+  GuildEmojisUpdateData,
+  GuildStickersUpdateData,
+  GuildIntegrationsUpdateData,
+  GuildMemberRemoveData,
+  GuildMemberUpdateData,
+  GuildRoleCreateData,
+  GuildRoleDeleteData,
+  GuildScheduledEventUserData
+};
