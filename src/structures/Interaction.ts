@@ -187,9 +187,9 @@ interface InteractionData {
   guild_id?: string;
   custom_id?: string;
   component_type?: number;
-  values: any[];
+  values: SelectMenuOption[];
   target_id?: string;
-  components?: any[];
+  components?: Component[];
 }
 
 interface ResolvedData {
