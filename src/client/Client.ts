@@ -1,7 +1,4 @@
-import {
-  GatewayChannelDeleteDispatchData,
-  GatewayPresenceUpdateData
-} from 'discord-api-types/gateway';
+import { GatewayPresenceUpdateData } from 'discord-api-types/gateway';
 import { EventEmitter } from 'node:events';
 import WebSocket from 'ws';
 
@@ -13,7 +10,27 @@ import {
   UserManager,
   VoiceManager
 } from '.';
-import { Message, Channel, Application } from '../structures';
+import {
+  Activity,
+  Application,
+  Channel,
+  ClientStatus,
+  Emoji,
+  Guild,
+  GuildMember,
+  GuildScheduledEvent,
+  Integration,
+  Interaction,
+  InviteTargetType,
+  Message,
+  Role,
+  StageInstance,
+  StatusType,
+  Sticker,
+  ThreadMember,
+  User,
+  VoiceState
+} from '../structures';
 
 /* It's a constant that contains all the intents the bot can listen to. */
 enum ClientIntents {
@@ -35,13 +52,224 @@ enum ClientIntents {
   GUILD_SCHEDULED_EVENTS = 1 << 16
 }
 
+interface ThreadListSyncData {
+  guild_id: string;
+  channel_ids?: string[];
+  threads: Channel[];
+  members: ThreadMember[];
+}
+
+interface ThreadMembersUpdateData {
+  id: string;
+  guild_id: string;
+  member_count: number;
+  added_members: ThreadMember[];
+  removed_member_ids: string[];
+}
+
+interface ChannelPinsUpdateData {
+  guild_id?: string;
+  channel_id: string;
+  last_pin_timestamp?: string;
+}
+
+interface GuildBanData {
+  guild_id: string;
+  user: User;
+}
+
+interface GuildEmojisUpdateData {
+  guild_id: string;
+  emojis: Emoji[];
+}
+
+interface GuildStickersUpdateData {
+  guild_id: string;
+  emojis: Sticker[];
+}
+
+interface GuildIntegrationsUpdateData {
+  guild_id: string;
+}
+
+interface GuildMemberRemoveData {
+  guild_id: string;
+  user: User;
+}
+
+interface GuildMemberUpdateData {
+  guild_id: string;
+  user: User;
+  roles: string[];
+  nick?: string;
+  avatar?: string;
+  joined_at?: string;
+  premium_since?: string;
+  deaf?: boolean;
+  mute?: boolean;
+  pending?: boolean;
+  communication_disabled_until?: number;
+}
+
+interface GuildRoleCreateData {
+  guild_id: string;
+  role: Role;
+}
+
+interface GuildRoleDeleteData {
+  guild_id: string;
+  role_id: string;
+}
+
+interface GuildScheduledEventUserData {
+  guild_scheduled_event_id: string;
+  guild_id: string;
+  user_id: string;
+}
+
+interface InteractionDeleteData {
+  id: string;
+  guild_id: string;
+  application_id?: string;
+}
+
+interface InviteCreateData {
+  channel_id: string;
+  code: string;
+  created_at: string;
+  guild_id?: string;
+  inviter?: User;
+  max_age: number;
+  max_uses: number;
+  target_type?: InviteTargetType;
+  target_user?: User;
+  target_application?: Application;
+  temporary: boolean;
+  uses: number;
+}
+
+interface InviteDeleteData {
+  channel_id: string;
+  code: string;
+  guild_id?: string;
+}
+
+interface MessageDeleteBulkData {
+  guild_id?: string;
+  channel_id: string;
+  ids: string[];
+}
+
+interface MessageReactionData {
+  user_id: string;
+  channel_id: string;
+  message_id: string;
+  guild_id?: string;
+  emoji: Emoji;
+  member?: GuildMember;
+}
+
+interface MessageReactionRemoveAllData {
+  channel_id: string;
+  message_id: string;
+  guild_id?: string;
+}
+
+interface MessageReactionRemoveEmojiData {
+  channel_id: string;
+  message_id: string;
+  guild_id?: string;
+  emoji: Emoji;
+}
+
+interface PresenceData {
+  user: User;
+  guild_id: string;
+  status: StatusType;
+  activities: Activity[];
+  client_status: ClientStatus;
+}
+
+interface TypingData {
+  channel_id: string;
+  guild_id?: string;
+  user_id: string;
+  timestamp: string;
+  member?: GuildMember;
+}
+
+interface VoiceServerData {
+  token: string;
+  guild_id: string;
+  endpoint?: string;
+}
+
+interface WebhooksData {
+  guild_id: string;
+  channel_id: string;
+}
+
 interface ClientEvents {
   READY: [client: Application];
-  MESSAGE_CREATE: [message: Message];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   DEBUG: any;
+  CHANNEL_CREATE: [channel: Channel];
+  CHANNEL_UPDATE: [channelBefore: Channel, channelAfter: Channel];
+  CHANNEL_DELETE: [channel: Channel];
   THREAD_CREATE: [thread: Channel];
+  THREAD_UPDATE: [threadBefore: Channel, threadAfter: Channel];
   THREAD_DELETE: [thread: Channel];
+  THREAD_LIST_SYNC: [data: ThreadListSyncData];
+  THREAD_MEMBER_UPDATE: [member: ThreadMember & { guild_id: string }];
+  THREAD_MEMBERS_UPDATE: [data: ThreadMembersUpdateData];
+  CHANNEL_PINS_UPDATE: [data: ChannelPinsUpdateData];
+  GUILD_CREATE: [guild: Guild];
+  GUILD_UPDATE: [guildBefore: Guild, guildAfter: Guild];
+  GUILD_DELETE: [guild: Guild];
+  GUILD_BAN_ADD: [data: GuildBanData];
+  GUILD_BAN_REMOVE: [data: GuildBanData];
+  GUILD_EMOJIS_UPDATE: [data: GuildEmojisUpdateData];
+  GUILD_STICKERS_UPDATE: [data: GuildStickersUpdateData];
+  GUILD_INTEGRATIONS_UPDATE: [data: GuildIntegrationsUpdateData];
+  GUILD_MEMBER_ADD: [member: GuildMember & { guild_id: string }];
+  GUILD_MEMBER_REMOVE: [data: GuildMemberRemoveData];
+  GUILD_MEMBER_UPDATE: [
+    memberBefore: GuildMemberUpdateData,
+    memberAfter: GuildMemberUpdateData
+  ];
+  GUILD_ROLE_CREATE: [data: GuildRoleCreateData];
+  GUILD_ROLE_UPDATE: [roleBefore: Role, data: GuildRoleCreateData];
+  GUILD_ROLE_DELETE: [role: Role];
+  GUILD_SCHEDULED_EVENT_CREATE: [guildScheduledEvent: GuildScheduledEvent];
+  GUILD_SCHEDULED_EVENT_UPDATE: [
+    guildScheduledEventBefore: GuildScheduledEvent,
+    guildScheduledEventAfter: GuildScheduledEvent
+  ];
+  GUILD_SCHEDULED_EVENT_DELETE: [guildScheduledEvent: GuildScheduledEvent];
+  GUILD_SCHEDULED_EVENT_USER_ADD: [data: GuildScheduledEventUserData];
+  GUILD_SCHEDULED_EVENT_USER_REMOVE: [data: GuildScheduledEventUserData];
+  INTEGRATION_CREATE: [integration: Integration & { guild_id: string }];
+  INTEGRATION_UPDATE: [integration: Integration & { guild_id: string }];
+  INTEGRATION_DELETE: [data: InteractionDeleteData];
+  INVITE_CREATE: [invite: InviteCreateData];
+  INVITE_DELETE: [invite: InviteDeleteData];
+  MESSAGE_CREATE: [message: Message];
+  MESSAGE_UPDATE: [messageBefore: Message, messageAfter: Message];
+  MESSAGE_DELETE: [message: Message];
+  MESSAGE_DELETE_BULK: [data: MessageDeleteBulkData];
+  MESSAGE_REACTION_ADD: [reaction: MessageReactionData];
+  MESSAGE_REACTION_REMOVE: [reaction: MessageReactionData];
+  MESSAGE_REACTION_REMOVE_ALL: [data: MessageReactionRemoveAllData];
+  MESSAGE_REACTION_REMOVE_EMOJI: [data: MessageReactionRemoveEmojiData];
+  PRESENCE_UPDATE: [presence: PresenceData];
+  TYPING_START: [data: TypingData];
+  USER_UPDATE: [user: User];
+  VOICE_STATE_UPDATE: [voiceState: VoiceState];
+  VOICE_SERVER_UPDATE: [data: VoiceServerData];
+  WEBHOOKS_UPDATE: [data: WebhooksData];
+  INTERACTION_CREATE: [interaction: Interaction];
+  STAGE_INSTANCE_CREATE: [stageInstance: StageInstance];
+  STAGE_INSTANCE_UPDATE: [stageInstance: StageInstance];
+  STAGE_INSTANCE_DELETE: [stageInstance: StageInstance];
 }
 
 type APIVersions = '6' | '7' | '8' | '9';
@@ -212,11 +440,11 @@ class Client extends EventEmitter {
    * @returns The return value is a boolean that indicates whether the event was emitted.
    */
   public override emit<K extends keyof ClientEvents>(
-    eventName: K | string,
+    eventName: K,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ...args: ClientEvents[K] | any
+    ...args: ClientEvents[K]
   ): boolean {
-    return super.emit(eventName, ...args);
+    return super.emit(eventName, ...(<unknown[]>args));
   }
 
   /**
@@ -284,15 +512,100 @@ class Client extends EventEmitter {
    * @param {K | string} event - The event name.
    * @param {unknown} object - The object that was dispatched.
    */
-  private handleEvent<K extends keyof ClientEvents>(
-    event: K | string,
-    object: unknown
-  ) {
-    if (event === 'THREAD_DELETE') {
-      object = this.#cache.channels.get(
-        (<GatewayChannelDeleteDispatchData>object).id
+  private handleEvent<K extends keyof ClientEvents>(event: K, object: unknown) {
+    if (event === 'CHANNEL_CREATE' || event === 'THREAD_CREATE') {
+      this.#cache.channels.set((<Channel>object).id, <Channel>object);
+    } else if (event === 'CHANNEL_UPDATE' || event === 'THREAD_UPDATE') {
+      const before = <Channel>this.#cache.channels.get((<Channel>object).id);
+      const after = <Channel>object;
+      this.#cache.channels.set(after.id, after);
+      return this.emit(event, before, after);
+    } else if (event === 'CHANNEL_DELETE' || event === 'THREAD_DELETE') {
+      object = this.#cache.channels.get((<Channel>object).id);
+      this.#cache.channels.delete((<Channel>object).id);
+    } else if (event === 'GUILD_CREATE') {
+      this.#cache.guilds.set((<Guild>object).id, <Guild>object);
+    } else if (event === 'GUILD_UPDATE') {
+      const before = <Guild>this.#cache.guilds.get((<Guild>object).id);
+      const after = <Guild>object;
+      this.#cache.guilds.set(after.id, after);
+      return this.emit(event, before, after);
+    } else if (event === 'GUILD_DELETE') {
+      object = this.#cache.guilds.get((<Guild>object).id);
+      this.#cache.guilds.delete((<Guild>object).id);
+    } else if (event === 'GUILD_MEMBER_ADD') {
+      this.#cache.guildMembers.set(
+        [
+          (<GuildMemberUpdateData>object).user.id,
+          (<GuildMemberUpdateData>object).guild_id
+        ],
+        <GuildMember & { guild_id: string }>object
       );
+    } else if (event === 'GUILD_MEMBER_UPDATE') {
+      const before = <GuildMemberUpdateData>(
+        (<unknown>(
+          this.#cache.guildMembers.get([
+            (<GuildMemberUpdateData>object).user.id,
+            (<GuildMemberUpdateData>object).guild_id
+          ])
+        ))
+      );
+      const after = <GuildMemberUpdateData>object;
+      this.#cache.guildMembers.set(
+        [after.user.id, after.guild_id],
+        <GuildMember & { guild_id: string }>(<unknown>after)
+      );
+      return this.emit(event, before, after);
+    } else if (event === 'GUILD_MEMBER_REMOVE') {
+      object = this.#cache.guildMembers.get([
+        (<GuildMemberUpdateData>object).user.id,
+        (<GuildMemberUpdateData>object).guild_id
+      ]);
+      this.#cache.guildMembers.delete([
+        (<GuildMemberUpdateData>object).user.id,
+        (<GuildMemberUpdateData>object).guild_id
+      ]);
+    } else if (event === 'GUILD_ROLE_CREATE') {
+      this.#cache.roles.set(
+        (<GuildRoleCreateData>object).role.id,
+        (<GuildRoleCreateData>object).role
+      );
+    } else if (event === 'GUILD_ROLE_UPDATE') {
+      const before = <Role>(
+        this.#cache.roles.get((<GuildRoleCreateData>object).role.id)
+      );
+      const after = <GuildRoleCreateData>object;
+      this.#cache.roles.set(before.id, after.role);
+      return this.emit(event, before, after);
+    } else if (event === 'GUILD_ROLE_DELETE') {
+      object = this.#cache.roles.get((<GuildRoleDeleteData>object).role_id);
+      this.#cache.roles.delete((<GuildRoleDeleteData>object).role_id);
+    } else if (event === 'GUILD_SCHEDULED_EVENT_CREATE') {
+      this.#cache.guildScheduledEvents.set(
+        (<GuildScheduledEvent>object).id,
+        <GuildScheduledEvent>object
+      );
+    } else if (event === 'GUILD_SCHEDULED_EVENT_UPDATE') {
+      const before = <GuildScheduledEvent>(
+        this.#cache.guildScheduledEvents.get((<GuildScheduledEvent>object).id)
+      );
+      const after = <GuildScheduledEvent>object;
+      this.#cache.guildScheduledEvents.set(after.id, after);
+      return this.emit(event, before, after);
+    } else if (event === 'GUILD_SCHEDULED_EVENT_DELETE') {
+      this.#cache.guildScheduledEvents.delete((<GuildScheduledEvent>object).id);
+    } else if (event === 'MESSAGE_CREATE') {
+      this.#cache.messages.set((<Message>object).id, <Message>object);
+    } else if (event === 'MESSAGE_UPDATE') {
+      const before = <Message>this.#cache.messages.get((<Message>object).id);
+      const after = <Message>object;
+      this.#cache.messages.set(after.id, after);
+      return this.emit(event, before, after);
+    } else if (event === 'MESSAGE_DELETE') {
+      object = this.#cache.messages.get((<Message>object).id);
+      this.#cache.messages.delete((<Message>object).id);
     }
+
     this.emit(event, object);
   }
 
