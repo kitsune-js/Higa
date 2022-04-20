@@ -1,21 +1,24 @@
-import {
-  axiod,
-  option,
-  RESTGetAPIAuditLogQuery,
-  RESTGetAPIAuditLogResult
-} from '../../dep.ts';
+import { axiod, option } from '../../dep.ts';
 import { APIVersions } from '../Client.ts';
+import { AuditLog, AuditLogEvent } from '../../structures/index.ts';
+
+interface GetAuditLogOptions {
+  user_id: string;
+  action_type: AuditLogEvent;
+  before: string;
+  limit: number;
+}
 
 class AuditLogManager {
   /**
    * Bot's token
    */
-  private readonly token: string;
+  readonly #token: string;
 
   /**
    * Token type
    */
-  private readonly tokenType: string;
+  readonly #tokenType: string;
 
   /**
    * API Version
@@ -27,8 +30,8 @@ class AuditLogManager {
    * @param version - API Version
    */
   constructor(token: string, tokenType: string, version: APIVersions) {
-    this.token = token;
-    this.tokenType = tokenType;
+    this.#token = token;
+    this.#tokenType = tokenType;
     this.version = version;
   }
 
@@ -40,18 +43,18 @@ class AuditLogManager {
    */
   public async getGuildAuditLog(
     guildID: string,
-    options: RESTGetAPIAuditLogQuery
-  ): Promise<RESTGetAPIAuditLogResult> {
-    const res = await axiod.get<RESTGetAPIAuditLogResult>(
+    options: GetAuditLogOptions
+  ): Promise<AuditLog> {
+    const res = await axiod.get<AuditLog>(
       `https://discord.com/api/v${this.version}/guilds/${guildID}/audit-logs`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
         },
-        params: <option>options
+        params: <option>(<unknown>options)
       }
     );
     return res.data;

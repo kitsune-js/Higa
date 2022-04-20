@@ -1,30 +1,44 @@
-import {
-  APIGroupDMChannel,
-  APIGuildMember,
-  axiod,
-  option,
-  RESTGetAPICurrentUserConnectionsResult,
-  RESTGetAPICurrentUserGuildsQuery,
-  RESTGetAPICurrentUserGuildsResult,
-  RESTGetAPICurrentUserResult,
-  RESTGetAPIUserResult,
-  RESTPatchAPICurrentUserJSONBody,
-  RESTPatchAPICurrentUserResult,
-  RESTPostAPICurrentUserCreateDMChannelJSONBody,
-  RESTPostAPICurrentUserCreateDMChannelResult
-} from '../../dep.ts';
+import { axiod, option } from '../../dep.ts';
+
 import { APIVersions } from '../Client.ts';
+import {
+  Channel,
+  Connection,
+  Guild,
+  GuildMember,
+  User
+} from '../../structures/index.ts';
+
+interface ModifyUserOptions {
+  username: string;
+  avatar?: any;
+}
+
+interface GetCurrentUserGuildsOptions {
+  limit?: number;
+  after?: string;
+  before?: string;
+}
+
+interface CreateDMOptions {
+  recipient_id: string;
+}
+
+interface CreateGroupDMOptions {
+  access_tokens: string[];
+  nicks: { [id: string]: string };
+}
 
 class UserManager {
   /**
    * Bot's token
    */
-  private token: string;
+  #token: string;
 
   /**
    * Token type
    */
-  private readonly tokenType: string;
+  readonly #tokenType: string;
 
   /**
    * API Version
@@ -36,8 +50,8 @@ class UserManager {
    * @param version - API Version
    */
   constructor(token: string, tokenType: string, version: APIVersions) {
-    this.token = token;
-    this.tokenType = tokenType;
+    this.#token = token;
+    this.#tokenType = tokenType;
     this.version = version;
   }
 
@@ -45,12 +59,12 @@ class UserManager {
    * Get current user
    * @returns - User Object
    */
-  async getCurrentUser(): Promise<RESTGetAPICurrentUserResult> {
-    const res = await axiod.get<RESTGetAPICurrentUserResult>(
+  async getCurrentUser(): Promise<User> {
+    const res = await axiod.get<User>(
       `https://discord.com/api/v${this.version}/users/@me`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -65,12 +79,12 @@ class UserManager {
    * @param {string} userID - The ID of the user you want to get.
    * @returns User
    */
-  async getUser(userID: string): Promise<RESTGetAPIUserResult> {
-    const res = await axiod.get<RESTGetAPIUserResult>(
+  async getUser(userID: string): Promise<User> {
+    const res = await axiod.get<User>(
       `https://discord.com/api/v${this.version}/users/${userID}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -82,18 +96,16 @@ class UserManager {
 
   /**
    * It modifies the current user's data
-   * @param {RESTPatchAPICurrentUserJSONBody} options - Option to modify current user
+   * @param {ModifyUserOptions} options - Option to modify current user
    * @returns User
    */
-  async modifyCurrentUser(
-    options: RESTPatchAPICurrentUserJSONBody
-  ): Promise<RESTPatchAPICurrentUserResult> {
-    const res = await axiod.patch<RESTPatchAPICurrentUserResult>(
+  async modifyCurrentUser(options: ModifyUserOptions): Promise<User> {
+    const res = await axiod.patch<User>(
       `https://discord.com/api/v${this.version}/users/@me`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -109,13 +121,13 @@ class UserManager {
    * @returns Guilds' Array
    */
   async getCurrentUserGuilds(
-    options: RESTGetAPICurrentUserGuildsQuery
-  ): Promise<RESTGetAPICurrentUserGuildsResult> {
-    const res = await axiod.get<RESTGetAPICurrentUserGuildsResult>(
+    options: GetCurrentUserGuildsOptions
+  ): Promise<Guild[]> {
+    const res = await axiod.get<Guild[]>(
       `https://discord.com/api/v${this.version}/users/@me/guilds`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -131,12 +143,12 @@ class UserManager {
    * @param {string} guildID - The ID of the guild you want to get the member of.
    * @returns The guild member object.
    */
-  async getCurrentUserGuildMember(guildID: string): Promise<APIGuildMember> {
-    const res = await axiod.get<APIGuildMember>(
+  async getCurrentUserGuildMember(guildID: string): Promise<GuildMember> {
+    const res = await axiod.get<GuildMember>(
       `https://discord.com/api/v${this.version}/users/@me/guilds/${guildID}/member`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -154,10 +166,9 @@ class UserManager {
   async leaveGuild(guildID: string): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/users/@me/guilds/${guildID}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -171,15 +182,13 @@ class UserManager {
    * @param {RESTPostAPICurrentUserCreateDMChannelJSONBody} options - Options to create a DM channel
    * @returns DM Channel
    */
-  async createDM(
-    options: RESTPostAPICurrentUserCreateDMChannelJSONBody
-  ): Promise<RESTPostAPICurrentUserCreateDMChannelResult> {
-    const res = await axiod.post(
+  async createDM(options: CreateDMOptions): Promise<Channel> {
+    const res = await axiod.post<Channel>(
       `https://discord.com/api/v${this.version}/users/@me/channels`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -195,16 +204,13 @@ class UserManager {
    * @see {@link https://discord.com/developers/docs/resources/user#create-group-dm}
    * @returns Group DM Channel
    */
-  async createGroupDM(options: {
-    access_tokens: string[];
-    nicks: { [userID: string]: string };
-  }): Promise<APIGroupDMChannel> {
-    const res = await axiod.post(
+  async createGroupDM(options: CreateGroupDMOptions): Promise<Channel> {
+    const res = await axiod.post<Channel>(
       `https://discord.com/api/v${this.version}/users/@me/channels`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -218,12 +224,12 @@ class UserManager {
    * It gets the current user's connections
    * @returns Connections' Array
    */
-  async getUserConnections(): Promise<RESTGetAPICurrentUserConnectionsResult> {
-    const res = await axiod.get<RESTGetAPICurrentUserConnectionsResult>(
+  async getUserConnections(): Promise<Connection> {
+    const res = await axiod.get<Connection>(
       `https://discord.com/api/v${this.version}/users/@me/connections`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -235,3 +241,4 @@ class UserManager {
 }
 
 export { UserManager };
+export type { ModifyUserOptions, CreateDMOptions, CreateGroupDMOptions };

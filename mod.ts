@@ -1,5 +1,5 @@
 export * from './deno/client/index.ts';
-export * from 'https://deno.land/x/discord_api_types@0.29.0/v9.ts';
+export * from './deno/structures/index.ts';
 
 /**
  * Given a string representing a color in hexadecimal format, return the corresponding integer value

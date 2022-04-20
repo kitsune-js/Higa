@@ -8,8 +8,8 @@
     "build": "tsc",
     "dev:build": "tsc -w",
     "prettier": "prettier **.json src deno --write",
-    "lint": "eslint src deno",
-    "lint:fix": "eslint src deno --fix",
+    "lint": "eslint src deno mod.ts",
+    "lint:fix": "eslint src deno mod.ts --fix",
     "generate:changelog": "auto-changelog",
     "generate:doc": "typedoc --options typedoc.json"
   },

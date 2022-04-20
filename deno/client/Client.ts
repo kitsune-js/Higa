@@ -1,7 +1,4 @@
 import {
-  APIApplication,
-  APIChannel,
-  APIMessage,
   EventEmitter,
   GatewayChannelDeleteDispatchData,
   GatewayPresenceUpdateData
@@ -14,6 +11,7 @@ import {
   UserManager,
   VoiceManager
 } from './managers/index.ts';
+import { Application, Channel, Message } from '../structures/index.ts';
 
 /* It's a constant that contains all the intents the bot can listen to. */
 const ClientIntents = {
@@ -36,12 +34,12 @@ const ClientIntents = {
 };
 
 interface ClientEvents {
-  READY: (client: APIApplication) => void;
-  MESSAGE_CREATE: (message: APIMessage) => void;
+  READY: (client: Application) => void;
+  MESSAGE_CREATE: (message: Message) => void;
   // deno-lint-ignore no-explicit-any
   DEBUG: (args: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
-  THREAD_CREATE: (thread: APIChannel) => void;
-  THREAD_DELETE: (thread: APIChannel) => void;
+  THREAD_CREATE: (thread: Channel) => void;
+  THREAD_DELETE: (thread: Channel) => void;
 }
 
 type APIVersions = '6' | '7' | '8' | '9';
@@ -57,6 +55,7 @@ interface ClientOptions {
 class Client extends EventEmitter<ClientEvents> {
   /**
    * Application's token
+   * @private
    */
   private readonly token: string;
 

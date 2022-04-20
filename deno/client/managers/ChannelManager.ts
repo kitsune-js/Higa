@@ -1,56 +1,137 @@
-import {
-  APIChannel,
-  APIThreadMember,
-  axiod,
-  option,
-  RESTGetAPIChannelInvitesResult,
-  RESTGetAPIChannelMessageReactionUsersQuery,
-  RESTGetAPIChannelMessageReactionUsersResult,
-  RESTGetAPIChannelMessageResult,
-  RESTGetAPIChannelMessagesQuery,
-  RESTGetAPIChannelMessagesResult,
-  RESTGetAPIChannelPinsResult,
-  RESTGetAPIChannelResult,
-  RESTGetAPIChannelThreadMembersResult,
-  RESTGetAPIChannelThreadsArchivedQuery,
-  RESTGetAPIChannelUsersThreadsArchivedResult,
-  RESTPatchAPIChannelJSONBody,
-  RESTPatchAPIChannelMessageJSONBody,
-  RESTPatchAPIChannelMessageResult,
-  RESTPatchAPIChannelResult,
-  RESTPostAPIChannelFollowersJSONBody,
-  RESTPostAPIChannelFollowersResult,
-  RESTPostAPIChannelInviteJSONBody,
-  RESTPostAPIChannelInviteResult,
-  RESTPostAPIChannelMessageCrosspostResult,
-  RESTPostAPIChannelMessageJSONBody,
-  RESTPostAPIChannelMessageResult,
-  RESTPostAPIChannelMessagesBulkDeleteJSONBody,
-  RESTPostAPIChannelMessagesThreadsJSONBody,
-  RESTPostAPIChannelMessagesThreadsResult,
-  RESTPostAPIChannelThreadsJSONBody,
-  RESTPostAPIChannelThreadsResult,
-  RESTPutAPIChannelPermissionJSONBody,
-  RESTPutAPIChannelRecipientJSONBody
-} from '../../dep.ts';
-import { APIVersions } from '../Client.ts';
+import { axiod, option } from '../../dep.ts';
+
 import { CacheManager } from './CacheManager.ts';
+import { APIVersions } from '../Client.ts';
+import {
+  AllowedMentions,
+  Channel,
+  ChannelType,
+  Embed,
+  FollowedChannel,
+  Invite,
+  InviteTargetType,
+  Message,
+  MessageReference,
+  Overwrite,
+  OverwriteType,
+  ThreadMember,
+  User,
+  VideoQualityMode
+} from '../../structures/index.ts';
+
+interface ModifyDMChannelOptions {
+  name: string;
+  icon: any;
+}
+
+interface ModifyGuildChannelOptions {
+  name: string;
+  type: ChannelType;
+  position?: number;
+  topic?: string;
+  nsfw?: boolean;
+  rate_limit_per_user?: number;
+  bitrate?: number;
+  user_limit?: number;
+  permission_overwrites?: Overwrite[];
+  parent_id?: string;
+  rtc_region?: string;
+  video_quality_mode?: VideoQualityMode;
+  default_auto_archive_duration?: number;
+}
+
+interface GetMessagesOptions {
+  around?: string;
+  before?: string;
+  after?: string;
+  limit?: number;
+}
+
+interface CreateMessageOptions {
+  content?: string;
+  tts?: boolean;
+  embeds?: Embed[];
+  allowed_mentions?: AllowedMentions;
+  message_reference?: MessageReference;
+  components?: any[];
+  sticker_ids?: string[];
+  flags?: number;
+}
+
+interface GetReactionsOptions {
+  after?: string;
+  limit?: number;
+}
+
+interface BulkDeleteMessagesOptions {
+  messages: string[];
+}
+
+interface EditChannelPermissionsOptions {
+  allow?: string;
+  deny?: string;
+  type: OverwriteType;
+}
+
+interface CreateChannelInviteOptions {
+  max_age?: number;
+  max_uses?: number;
+  temporary?: boolean;
+  unique?: boolean;
+  target_type?: InviteTargetType;
+  target_user_id?: string;
+  target_application_id?: string;
+}
+
+interface FollowNewsChannelOptions {
+  webhook_channel_id: string;
+}
+
+interface GroupDMAddRecipientOptions {
+  access_token: string;
+  nick: string;
+}
+
+interface StartThreadFromMessageOptions {
+  name: string;
+  auto_archive_duration?: number;
+  rate_limit_per_user?: number;
+}
+
+interface StartThreadWithoutMessageOptions {
+  name: string;
+  auto_archive_duration?: number;
+  type?: ChannelType;
+  invitable?: boolean;
+  rate_limit_per_user?: number;
+}
+
+interface ListArchivedThreadsOptions {
+  limit?: number;
+  before?: number;
+}
+
+interface ListArchivedThreadsResponse {
+  threads: Channel[];
+  members: ThreadMember[];
+  has_more: boolean;
+}
 
 class ChannelManager {
   /**
    * Bot's token
    */
-  private token: string;
+  #token: string;
 
   /**
    * Token type
    */
-  private readonly tokenType: string;
+  readonly #tokenType: string;
 
   /**
    * Application's cache
    */
-  private cache: CacheManager;
+  #cache: CacheManager;
 
   /**
    * API Version
@@ -68,9 +149,9 @@ class ChannelManager {
     cache: CacheManager,
     version: APIVersions
   ) {
-    this.token = token;
-    this.tokenType = tokenType;
-    this.cache = cache;
+    this.#token = token;
+    this.#tokenType = tokenType;
+    this.#cache = cache;
     this.version = version;
   }
 
@@ -79,14 +160,14 @@ class ChannelManager {
    * @param channelID - Channel identifiant
    * @returns Channel Object
    */
-  public async getChannel(channelID: string): Promise<RESTGetAPIChannelResult> {
-    if (this.cache.channels.has(channelID))
-      return <APIChannel>this.cache.channels.get(channelID);
-    const res = await axiod.get<RESTGetAPIChannelResult>(
+  public async getChannel(channelID: string): Promise<Channel> {
+    if (this.#cache.channels.has(channelID))
+      return <Channel>this.#cache.channels.get(channelID);
+    const res = await axiod.get<Channel>(
       `https://discord.com/api/v${this.version}/channels/${channelID}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -94,7 +175,7 @@ class ChannelManager {
       }
     );
 
-    this.cache.channels.set(channelID, res.data);
+    this.#cache.channels.set(channelID, res.data);
     return res.data;
   }
 
@@ -107,15 +188,15 @@ class ChannelManager {
    */
   public async modifyChannel(
     channelID: string,
-    options: RESTPatchAPIChannelJSONBody,
+    options: ModifyDMChannelOptions | ModifyGuildChannelOptions,
     reason?: string
-  ): Promise<RESTPatchAPIChannelResult> {
-    const res = await axiod.patch<RESTPatchAPIChannelResult>(
+  ): Promise<Channel> {
+    const res = await axiod.patch<Channel>(
       `https://discord.com/api/v${this.version}/channels/${channelID}`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -124,7 +205,7 @@ class ChannelManager {
       }
     );
 
-    this.cache.channels.set(channelID, res.data);
+    this.#cache.channels.set(channelID, res.data);
     return res.data;
   }
 
@@ -139,10 +220,9 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -150,7 +230,7 @@ class ChannelManager {
         }
       }
     );
-    this.cache.channels.delete(channelID);
+    this.#cache.channels.delete(channelID);
   }
 
   /**
@@ -161,13 +241,13 @@ class ChannelManager {
    */
   public async getChannelMessages(
     channelID: string,
-    options?: RESTGetAPIChannelMessagesQuery
-  ): Promise<RESTGetAPIChannelMessagesResult> {
-    const res = await axiod.get<RESTGetAPIChannelMessagesResult>(
+    options: GetMessagesOptions = {}
+  ): Promise<Message[]> {
+    const res = await axiod.get<Message[]>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -187,12 +267,12 @@ class ChannelManager {
   public async getChannelMessage(
     channelID: string,
     messageID: string
-  ): Promise<RESTGetAPIChannelMessageResult> {
-    const res = await axiod.get<RESTGetAPIChannelMessageResult>(
+  ): Promise<Message> {
+    const res = await axiod.get<Message>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -210,14 +290,14 @@ class ChannelManager {
    */
   public async createMessage(
     channelID: string,
-    options: RESTPostAPIChannelMessageJSONBody
-  ): Promise<RESTPostAPIChannelMessageResult> {
-    const res = await axiod.post<RESTPostAPIChannelMessageResult>(
+    options: CreateMessageOptions
+  ): Promise<Message> {
+    const res = await axiod.post<Message>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -236,12 +316,12 @@ class ChannelManager {
   public async crosspostMessage(
     channelID: string,
     messageID: string
-  ): Promise<RESTPostAPIChannelMessageCrosspostResult> {
-    const res = await axiod.post<RESTPostAPIChannelMessageCrosspostResult>(
+  ): Promise<Message> {
+    const res = await axiod.post<Message>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -271,7 +351,7 @@ class ChannelManager {
       '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -297,10 +377,9 @@ class ChannelManager {
       }/channels/${channelID}/messages/${messageID}/reactions/${encodeURIComponent(
         emoji
       )}/@me`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -327,11 +406,10 @@ class ChannelManager {
         this.version
       }/channels/${channelID}/messages/${messageID}/reactions/${encodeURIComponent(
         emoji
-      )}/${userID}`,
-      '',
+      )}/^${userID}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -352,13 +430,13 @@ class ChannelManager {
     channelID: string,
     messageID: string,
     emoji: string,
-    options: RESTGetAPIChannelMessageReactionUsersQuery
-  ): Promise<RESTGetAPIChannelMessageReactionUsersResult> {
-    const res = await axiod.get<RESTGetAPIChannelMessageReactionUsersResult>(
+    options: GetReactionsOptions = {}
+  ): Promise<User[]> {
+    const res = await axiod.get<User[]>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/reactions/${emoji}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -380,10 +458,9 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/reactions/`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -405,10 +482,9 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/reactions/${emoji}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -427,14 +503,14 @@ class ChannelManager {
   public async editMessage(
     channelID: string,
     messageID: string,
-    options: RESTPatchAPIChannelMessageJSONBody
-  ): Promise<RESTPatchAPIChannelMessageResult> {
-    const res = await axiod.patch<RESTPatchAPIChannelMessageResult>(
+    options: CreateMessageOptions
+  ): Promise<Message> {
+    const res = await axiod.patch<Message>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -457,10 +533,9 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -478,7 +553,7 @@ class ChannelManager {
    */
   public async bulkDeleteMessages(
     channelID: string,
-    options: RESTPostAPIChannelMessagesBulkDeleteJSONBody | number,
+    options: BulkDeleteMessagesOptions | number,
     reason?: string
   ): Promise<void> {
     if (typeof options == 'number') {
@@ -493,7 +568,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -513,7 +588,7 @@ class ChannelManager {
   public async editChannelPermissions(
     channelID: string,
     overwriteID: string,
-    options: RESTPutAPIChannelPermissionJSONBody,
+    options: EditChannelPermissionsOptions,
     reason?: string
   ): Promise<void> {
     await axiod.put(
@@ -521,7 +596,7 @@ class ChannelManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -536,14 +611,12 @@ class ChannelManager {
    * @param channelID - Channel Identifiant
    * @returns - List of Invitation Object
    */
-  public async getChannelInvites(
-    channelID: string
-  ): Promise<RESTGetAPIChannelInvitesResult> {
-    const res = await axiod.get<RESTGetAPIChannelInvitesResult>(
+  public async getChannelInvites(channelID: string): Promise<Invite[]> {
+    const res = await axiod.get<Invite[]>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/invites`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -562,15 +635,15 @@ class ChannelManager {
    */
   public async createChannelInvite(
     channelID: string,
-    options: RESTPostAPIChannelInviteJSONBody = {},
+    options: CreateChannelInviteOptions = {},
     reason?: string
-  ): Promise<RESTPostAPIChannelInviteResult> {
-    const res = await axiod.post<RESTPostAPIChannelInviteResult>(
+  ): Promise<Invite> {
+    const res = await axiod.post<Invite>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/invites`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -595,10 +668,9 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/permissions/${overwriteID}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -616,14 +688,14 @@ class ChannelManager {
    */
   public async followNewsChannel(
     channelID: string,
-    options: RESTPostAPIChannelFollowersJSONBody
-  ): Promise<RESTPostAPIChannelFollowersResult> {
-    const res = await axiod.post<RESTPostAPIChannelFollowersResult>(
+    options: FollowNewsChannelOptions
+  ): Promise<FollowedChannel> {
+    const res = await axiod.post<FollowedChannel>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/followers`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -642,7 +714,7 @@ class ChannelManager {
       `https://discord.com/api/v${this.version}/channels/${channelID}/typing`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -656,14 +728,12 @@ class ChannelManager {
    * @param channelID - Channel Identifiant
    * @returns - List of messages object
    */
-  public async getPinnedMessages(
-    channelID: string
-  ): Promise<RESTGetAPIChannelPinsResult> {
-    const res = await axiod.get<RESTGetAPIChannelPinsResult>(
+  public async getPinnedMessages(channelID: string): Promise<Message[]> {
+    const res = await axiod.get<Message[]>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/pins`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -689,7 +759,7 @@ class ChannelManager {
       '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -712,10 +782,9 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/pins/${messageID}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -734,14 +803,14 @@ class ChannelManager {
   public async groupDMAddRecipient(
     channelID: string,
     userID: string,
-    options: RESTPutAPIChannelRecipientJSONBody
+    options: GroupDMAddRecipientOptions
   ): Promise<void> {
     await axiod.put(
       `https://discord.com/api/v${this.version}/channels/${channelID}/recipients/${userID}`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -761,10 +830,9 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/recipients/${userID}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -784,15 +852,15 @@ class ChannelManager {
   public async startThreadWithMessages(
     channelID: string,
     messageID: string,
-    options: RESTPostAPIChannelMessagesThreadsJSONBody,
+    options: StartThreadFromMessageOptions,
     reason?: string
-  ): Promise<RESTPostAPIChannelMessagesThreadsResult> {
-    const res = await axiod.post<RESTPostAPIChannelMessagesThreadsResult>(
+  ): Promise<Channel> {
+    const res = await axiod.post<Channel>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/messages/${messageID}/threads`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -812,15 +880,40 @@ class ChannelManager {
    */
   public async startThreadWithoutMessages(
     channelID: string,
-    options: RESTPostAPIChannelThreadsJSONBody,
+    options: StartThreadWithoutMessageOptions,
     reason?: string
-  ): Promise<RESTPostAPIChannelThreadsResult> {
-    const res = await axiod.post<RESTPostAPIChannelThreadsResult>(
+  ): Promise<Channel> {
+    const res = await axiod.post<Channel>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/threads`,
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
+          'Content-Type': 'application/json',
+          'User-Agent':
+            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
+          'X-Audit-Log-Reason': reason ?? ''
+        }
+      }
+    );
+    return res.data;
+  }
+
+  /**
+   * Create a forum thread
+   * @param channelID - Channel Identifiant
+   */
+  public async startThreadinForumChannel(
+    channelID: string,
+    options: StartThreadFromMessageOptions & CreateMessageOptions,
+    reason?: string
+  ): Promise<Channel> {
+    const res = await axiod.post<Channel>(
+      `https://discord.com/api/v${this.version}/channels/${channelID}/threads`,
+      JSON.stringify(options),
+      {
+        headers: {
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -841,7 +934,7 @@ class ChannelManager {
       '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -864,7 +957,7 @@ class ChannelManager {
       '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -880,10 +973,9 @@ class ChannelManager {
   public async leaveThread(channelID: string): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/@me`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -903,10 +995,9 @@ class ChannelManager {
   ): Promise<void> {
     await axiod.delete(
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/${userID}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -924,12 +1015,12 @@ class ChannelManager {
   public async getThreadMember(
     channelID: string,
     userID: string
-  ): Promise<APIThreadMember> {
-    const res = await axiod.get<APIThreadMember>(
+  ): Promise<ThreadMember> {
+    const res = await axiod.get<ThreadMember>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members/${userID}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -944,14 +1035,12 @@ class ChannelManager {
    * @param channelID - Channel Identifiant
    * @returns - List of Thread Member Object
    */
-  public async listThreadMembers(
-    channelID: string
-  ): Promise<RESTGetAPIChannelThreadMembersResult> {
-    const res = await axiod.get<RESTGetAPIChannelThreadMembersResult>(
+  public async listThreadMembers(channelID: string): Promise<ThreadMember[]> {
+    const res = await axiod.get<ThreadMember[]>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/thread-members`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -969,13 +1058,13 @@ class ChannelManager {
    */
   public async listPublicArchivedThreads(
     channelID: string,
-    options: RESTGetAPIChannelThreadsArchivedQuery
-  ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
-    const res = await axiod.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
+    options: ListArchivedThreadsOptions
+  ): Promise<ListArchivedThreadsResponse> {
+    const res = await axiod.get<ListArchivedThreadsResponse>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/threads/archived/public`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -994,13 +1083,13 @@ class ChannelManager {
    */
   public async listPrivateArchivedThreads(
     channelID: string,
-    options: RESTGetAPIChannelThreadsArchivedQuery
-  ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
-    const res = await axiod.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
+    options: ListArchivedThreadsOptions
+  ): Promise<ListArchivedThreadsResponse> {
+    const res = await axiod.get<ListArchivedThreadsResponse>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/threads/archived/private`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -1019,13 +1108,13 @@ class ChannelManager {
    */
   public async listJoinedPrivateArchivedThreads(
     channelID: string,
-    options: RESTGetAPIChannelThreadsArchivedQuery
-  ): Promise<RESTGetAPIChannelUsersThreadsArchivedResult> {
-    const res = await axiod.get<RESTGetAPIChannelUsersThreadsArchivedResult>(
+    options: ListArchivedThreadsOptions
+  ): Promise<ListArchivedThreadsResponse> {
+    const res = await axiod.get<ListArchivedThreadsResponse>(
       `https://discord.com/api/v${this.version}/channels/${channelID}/users/@me/threads/archived/private`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -1038,3 +1127,19 @@ class ChannelManager {
 }
 
 export { ChannelManager };
+export type {
+  ModifyDMChannelOptions,
+  ModifyGuildChannelOptions,
+  GetMessagesOptions,
+  CreateMessageOptions,
+  GetReactionsOptions,
+  BulkDeleteMessagesOptions,
+  EditChannelPermissionsOptions,
+  CreateChannelInviteOptions,
+  FollowNewsChannelOptions,
+  GroupDMAddRecipientOptions,
+  StartThreadFromMessageOptions,
+  StartThreadWithoutMessageOptions,
+  ListArchivedThreadsOptions,
+  ListArchivedThreadsResponse
+};

@@ -1,22 +1,24 @@
-import {
-  axiod,
-  option,
-  RESTDeleteAPIInviteResult,
-  RESTGetAPIInviteQuery,
-  RESTGetAPIInviteResult
-} from '../../dep.ts';
+import { axiod, option } from '../../dep.ts';
+
 import { APIVersions } from '../Client.ts';
+import { Invite } from '../../structures/index.ts';
+
+interface GetInviteOptions {
+  with_counts?: boolean;
+  with_expiration?: boolean;
+  guild_scheduled_event_id?: string;
+}
 
 class InviteManager {
   /**
    * Bot's token
    */
-  private token: string;
+  #token: string;
 
   /**
    * Token type
    */
-  private readonly tokenType: string;
+  readonly #tokenType: string;
 
   /**
    * API Version
@@ -28,8 +30,8 @@ class InviteManager {
    * @param version - API Version
    */
   constructor(token: string, tokenType: string, version: APIVersions) {
-    this.token = token;
-    this.tokenType = tokenType;
+    this.#token = token;
+    this.#tokenType = tokenType;
     this.version = version;
   }
 
@@ -41,13 +43,13 @@ class InviteManager {
    */
   public async getInvite(
     code: string,
-    options?: RESTGetAPIInviteQuery
-  ): Promise<RESTGetAPIInviteResult> {
-    const res = await axiod.get<RESTGetAPIInviteResult>(
+    options: GetInviteOptions = {}
+  ): Promise<Invite> {
+    const res = await axiod.get<Invite>(
       `https://discord.com/api/v${this.version}/invites/${code}`,
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
@@ -64,16 +66,12 @@ class InviteManager {
    * @param reason - Reason for the deletion
    * @returns - Invite Object
    */
-  public async deleteInvite(
-    code: string,
-    reason?: string
-  ): Promise<RESTDeleteAPIInviteResult> {
-    const res = await axiod.delete<RESTDeleteAPIInviteResult>(
+  public async deleteInvite(code: string, reason?: string): Promise<Invite> {
+    const res = await axiod.delete<Invite>(
       `https://discord.com/api/v${this.version}/invites/${code}`,
-      '',
       {
         headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
+          Authorization: `${this.#tokenType} ${this.#token}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)',
@@ -86,3 +84,4 @@ class InviteManager {
 }
 
 export { InviteManager };
+export type { GetInviteOptions };

@@ -1,10 +1,11 @@
-import { APIChannel, APIGuild, APIRole, APIUser } from '../../dep.ts';
+import { Channel, Guild, User } from '../../structures/index.ts';
+import { Role } from '../../structures/Role.ts';
 
 class CacheManager {
-  public channels = new Map<string, APIChannel>();
-  public roles = new Map<string, APIRole>();
-  public guilds = new Map<string, APIGuild>();
-  public users = new Map<string, APIUser>();
+  public channels = new Map<string, Channel>();
+  public roles = new Map<string, Role>();
+  public guilds = new Map<string, Guild>();
+  public users = new Map<string, User>();
 }
 
 export { CacheManager };
