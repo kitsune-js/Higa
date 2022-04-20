@@ -5,6 +5,7 @@ export * from './Emoji';
 export * from './Guild';
 export * from './GuildScheduledEvent';
 export * from './GuildTemplate';
+export * from './Interaction';
 export * from './Invite';
 export * from './Role';
 export * from './StageInstance';
