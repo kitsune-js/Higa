@@ -635,7 +635,7 @@ class ChannelManager {
    */
   public async createChannelInvite(
     channelID: string,
-    options: CreateChannelInviteOptions,
+    options: CreateChannelInviteOptions = {},
     reason?: string
   ): Promise<Invite> {
     const res = await axios.post<Invite>(
