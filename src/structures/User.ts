@@ -58,4 +58,104 @@ enum VisibilityType {
   EVERYONE = 1
 }
 
-export { User, UserFlags, PremiumType, Connection, VisibilityType };
+interface ClientStatus {
+  descktop?: string;
+  mobile?: string;
+  web?: string;
+}
+
+interface Activity {
+  name: string;
+  type: ActivityType;
+  url?: string;
+  created_at: number;
+  timestamps?: ActivityTimestamps;
+  application_id?: string;
+  details?: string;
+  state?: string;
+  emoji?: ActivityEmoji;
+  party?: ActivityParty;
+  assets?: ActivityAssets;
+  secrets?: ActivitySecrets;
+  instance?: boolean;
+  flags: ActivityFlags;
+  buttons?: ActivityButton[];
+}
+
+enum ActivityType {
+  GAME = 0,
+  STRAM = 1,
+  LISTEN = 2,
+  WATCH = 3,
+  CUSTOM = 4,
+  COMPET = 5
+}
+
+interface ActivityTimestamps {
+  start?: number;
+  end?: number;
+}
+
+interface ActivityEmoji {
+  name: string;
+  id?: string;
+  animated?: boolean;
+}
+
+interface ActivityParty {
+  id?: string;
+  size?: [number, number];
+}
+/**
+ * @link https://discord.com/developers/docs/topics/gateway#activity-object-activity-asset-image
+ */
+interface ActivityAssets {
+  large_image?: string;
+  large_text?: string;
+  small_image?: string;
+  small_text?: string;
+}
+
+interface ActivitySecrets {
+  join?: string;
+  spectate?: string;
+  match?: string;
+}
+
+enum ActivityFlags {
+  INSTANCE = 1 << 0,
+  JOIN = 1 << 1,
+  SPECTATE = 1 << 2,
+  JOIN_REQUEST = 1 << 3,
+  SYNC = 1 << 4,
+  PLAY = 1 << 5,
+  PARTY_PRIVACY_FRIENDS = 1 << 6,
+  PARTY_PRIVACY_VOICE_CHANNEL = 1 << 7,
+  EMBEDDED = 1 << 8
+}
+
+interface ActivityButton {
+  label: string;
+  url: string;
+}
+
+enum StatusType {
+  IDLE = 'idle',
+  DND = 'dnd',
+  // invisible will be marked as offline
+  OFFLINE = 'offline',
+  INVISIBLE = 'invisible',
+  ONLINE = 'online'
+}
+
+export {
+  User,
+  UserFlags,
+  PremiumType,
+  Connection,
+  VisibilityType,
+  ClientStatus,
+  Activity,
+  ActivityType,
+  StatusType
+};
