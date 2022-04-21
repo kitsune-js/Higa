@@ -1,3 +1,6 @@
+if (!process.version.includes('v16.'))
+  throw new Error('Please use Node 16 or higher');
+
 export * from './client';
 export * from './structures';
 
