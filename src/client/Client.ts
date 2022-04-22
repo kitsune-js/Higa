@@ -3,9 +3,13 @@ import { EventEmitter } from 'node:events';
 import WebSocket from 'ws';
 
 import {
+  ApplicationCommandManager,
   AuditLogManager,
   CacheManager,
   ChannelManager,
+  EmojiManager,
+  GuildManager,
+  GuildScheduledEventManager,
   InviteManager,
   UserManager,
   VoiceManager
@@ -322,6 +326,11 @@ class Client extends EventEmitter {
   #cache = new CacheManager();
 
   /**
+   * Application Command Manager to interact with the REST API
+   */
+  public readonly applicationCommand: ApplicationCommandManager;
+
+  /**
    * Audit Log Manager to interact with the REST API
    */
   public auditLog: AuditLogManager;
@@ -330,6 +339,21 @@ class Client extends EventEmitter {
    * Channel Manager to interact with the REST API
    */
   public channel: ChannelManager;
+
+  /**
+   * Emoji Manager to interact with the REST API
+   */
+  public emoji: EmojiManager;
+
+  /**
+   * Guild Manager to interact with the REST API
+   */
+  public guild: GuildManager;
+
+  /**
+   * Guild Scheduled Event Manager to interact with the REST API
+   */
+  public guildScheduledEvent: GuildScheduledEventManager;
 
   /**
    * Invite Manager to interact with the REST API
@@ -390,6 +414,11 @@ class Client extends EventEmitter {
       }, this.#heartbeat_interval);
     });
 
+    this.applicationCommand = new ApplicationCommandManager(
+      this.#token,
+      this.#tokenType,
+      this.version
+    );
     this.auditLog = new AuditLogManager(
       this.#token,
       this.#tokenType,
@@ -399,6 +428,13 @@ class Client extends EventEmitter {
       this.#token,
       this.#tokenType,
       this.#cache,
+      this.version
+    );
+    this.emoji = new EmojiManager(this.#token, this.#tokenType, this.version);
+    this.guild = new GuildManager(this.#token, this.#tokenType, this.version);
+    this.guildScheduledEvent = new GuildScheduledEventManager(
+      this.#token,
+      this.#tokenType,
       this.version
     );
     this.invite = new InviteManager(this.#token, this.#tokenType, this.version);
