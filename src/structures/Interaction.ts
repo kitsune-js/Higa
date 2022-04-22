@@ -98,7 +98,7 @@ enum ComponentType {
 
 interface ActionRow extends Component {
   type: ComponentType.ACTION_ROW;
-  components: Component[];
+  components: (Button | SelectMenu)[];
 }
 
 interface Button extends Component {
@@ -217,10 +217,14 @@ export {
   GuildApplicationCommandPermissions,
   ApplicationCommandPermissionType,
   Component,
+  ComponentType,
   ActionRow,
   Button,
+  ButtonStyle,
   SelectMenu,
+  SelectMenuOption,
   TextInput,
+  TextInputStyle,
   Interaction,
   InteractionType,
   InteractionData,

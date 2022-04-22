@@ -3,9 +3,11 @@ import axios from 'axios';
 import { CacheManager } from '.';
 import { APIVersions } from '../';
 import {
+  ActionRow,
   AllowedMentions,
   Channel,
   ChannelType,
+  Component,
   Embed,
   FollowedChannel,
   Invite,
@@ -53,7 +55,7 @@ interface CreateMessageOptions {
   embeds?: Embed[];
   allowed_mentions?: AllowedMentions;
   message_reference?: MessageReference;
-  components?: any[];
+  components?: ActionRow[];
   sticker_ids?: string[];
   flags?: number;
 }

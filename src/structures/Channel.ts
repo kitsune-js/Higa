@@ -1,6 +1,7 @@
 import { Application } from './Application';
 import { Emoji } from './Emoji';
 import { GuildMember } from './Guild';
+import { Component, Interaction } from './Interaction';
 import { Role } from './Role';
 import { Sticker, StickerItem } from './Sticker';
 import { User } from './User';
@@ -85,9 +86,9 @@ interface Message {
   message_reference?: MessageReference;
   flags?: MessageFlags;
   referenced_message?: Message;
-  interaction?: any;
+  interaction?: Interaction;
   thread?: Channel;
-  components?: StickerItem[];
+  components?: Component[];
   sticker_items?: StickerItem[];
   stickers?: Sticker[];
 }
