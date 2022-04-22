@@ -1,4 +1,5 @@
 export * from './AuditLogManager';
+export * from './ApplicationCommandManager.ts';
 export * from './CacheManager';
 export * from './ChannelManager';
 export * from './EmojiManager';
