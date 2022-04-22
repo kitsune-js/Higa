@@ -215,6 +215,7 @@ interface WebhooksData {
 
 interface ClientEvents {
   READY: [client: Application];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   DEBUG: any;
   CHANNEL_CREATE: [channel: Channel];
   CHANNEL_UPDATE: [channelBefore: Channel, channelAfter: Channel];
