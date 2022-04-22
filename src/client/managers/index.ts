@@ -2,6 +2,7 @@ export * from './AuditLogManager';
 export * from './CacheManager';
 export * from './ChannelManager';
 export * from './EmojiManager';
+export * from './GuildManager';
 export * from './GuildScheduledEventManager';
 export * from './InviteManager';
 export * from './VoiceManager';
