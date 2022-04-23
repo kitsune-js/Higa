@@ -13,7 +13,7 @@
 
 It's a Discord API package builded by fantomitechno.
 
-## Why a new one as Discord.js exist and is powerfull ?
+## Why a new one as Discord.js exist and is powerful ?
 
 Just because I want to train myself and doing a project like that can be very interesting. More over, I don't agree with some of the ways Discord.js do some things so as I can't have myself to understand its code to do a fork, I decided to write my own library to do things like I want.
 
