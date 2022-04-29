@@ -85,4 +85,4 @@ class Oauth2Manager {
   }
 }
 
-export { Oauth2Manager };
+export { Oauth2Manager, AccesTokenResponse };
