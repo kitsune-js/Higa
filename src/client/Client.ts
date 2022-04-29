@@ -277,7 +277,7 @@ interface ClientEvents {
   STAGE_INSTANCE_DELETE: [stageInstance: StageInstance];
 }
 
-type APIVersions = '6' | '7' | '8' | '9';
+type APIVersions = '6' | '7' | '8' | '9' | '10';
 
 interface ClientOptions {
   token: string;
