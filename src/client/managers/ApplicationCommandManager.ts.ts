@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { ApplicationCommandType } from 'discord-api-types/v10';
 
 import { APIVersions } from '../..';
 import {
   ApplicationCommand,
   ApplicationCommandOption,
+  ApplicationCommandType,
   ApplicationCommandPermissions,
   GuildApplicationCommandPermissions,
   LocalizedString

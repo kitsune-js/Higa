@@ -216,6 +216,7 @@ export {
   ApplicationCommandOption,
   ApplicationCommandOptionChoice,
   ApplicationCommandInteractionDataOption,
+  ApplicationCommandType,
   GuildApplicationCommandPermissions,
   ApplicationCommandPermissions,
   ApplicationCommandPermissionType,
