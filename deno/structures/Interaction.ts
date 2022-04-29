@@ -14,7 +14,8 @@ interface ApplicationCommand {
   description: string;
   description_localizations?: LocalizedString;
   options?: ApplicationCommandOption[];
-  default_permission?: boolean;
+  dm_permission?: boolean;
+  default_member_permissions?: string;
   version: string;
 }
 
@@ -82,7 +83,8 @@ interface ApplicationCommandPermissions {
 
 enum ApplicationCommandPermissionType {
   ROLE = 1,
-  USER = 2
+  USER = 2,
+  CHANNEL = 3
 }
 
 interface Component {
@@ -98,7 +100,7 @@ enum ComponentType {
 
 interface ActionRow extends Component {
   type: ComponentType.ACTION_ROW;
-  components: Component[];
+  components: (Button | SelectMenu)[];
 }
 
 interface Button extends Component {
@@ -209,17 +211,26 @@ interface MessageInteraction {
   member: GuildMember;
 }
 
-export { ApplicationCommandPermissionType, InteractionType };
+export {
+  ApplicationCommandPermissionType,
+  ComponentType,
+  ButtonStyle,
+  TextInputStyle,
+  InteractionType
+};
 export type {
   ApplicationCommand,
   ApplicationCommandOption,
   ApplicationCommandOptionChoice,
   ApplicationCommandInteractionDataOption,
+  ApplicationCommandType,
   GuildApplicationCommandPermissions,
+  ApplicationCommandPermissions,
   Component,
   ActionRow,
   Button,
   SelectMenu,
+  SelectMenuOption,
   TextInput,
   Interaction,
   InteractionData,
