@@ -7,3 +7,4 @@ export * from './GuildScheduledEventManager.ts';
 export * from './InviteManager.ts';
 export * from './VoiceManager.ts';
 export * from './UserManager.ts';
+export * from './WebhookManager.ts';

@@ -30,7 +30,8 @@ import {
   ChannelManager,
   InviteManager,
   UserManager,
-  VoiceManager
+  VoiceManager,
+  WebhookManager
 } from './managers/index.ts';
 
 /* It's a constant that contains all the intents the bot can listen to. */
@@ -351,7 +352,11 @@ class Client extends EventEmitter<ClientEvents> {
   public voice: VoiceManager;
 
   /**
-   *
+   * Webhook to interact with the REST API
+   */
+  public webhook: WebhookManager;
+
+  /**
    * @param token - Bot token
    * @param intents - Array of intents the bot will be listening to
    */
@@ -408,6 +413,7 @@ class Client extends EventEmitter<ClientEvents> {
     this.invite = new InviteManager(this.token, this.tokenType, this.version);
     this.user = new UserManager(this.token, this.tokenType, this.version);
     this.voice = new VoiceManager(this.token, this.tokenType, this.version);
+    this.webhook = new WebhookManager(this.token, this.tokenType, this.version);
   }
 
   /**
