@@ -6,6 +6,6 @@ export * from './EmojiManager';
 export * from './GuildManager';
 export * from './GuildScheduledEventManager';
 export * from './InviteManager';
-export * from './_OAuth2Manager';
+export * from './OAuth2Manager';
 export * from './VoiceManager';
 export * from './UserManager';
