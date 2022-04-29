@@ -5,6 +5,7 @@ import { APIVersions } from '../..';
 import {
   ApplicationCommand,
   ApplicationCommandOption,
+  ApplicationCommandPermissions,
   GuildApplicationCommandPermissions,
   LocalizedString
 } from '../../structures';
@@ -25,7 +26,7 @@ interface ApplicationCommandOptions {
 }
 
 interface EditPermissionsOptions {
-  permissions: GuildApplicationCommandPermissions[];
+  permissions: ApplicationCommandPermissions[];
 }
 
 class ApplicationCommandManager {
@@ -425,6 +426,7 @@ class ApplicationCommandManager {
     applicationId: string,
     guildId: string,
     commandId: string,
+    bearerToken: string,
     options: EditPermissionsOptions
   ): Promise<GuildApplicationCommandPermissions[]> {
     const res = await axios.patch<GuildApplicationCommandPermissions[]>(
@@ -432,36 +434,7 @@ class ApplicationCommandManager {
       JSON.stringify(options),
       {
         headers: {
-          Authorization: `${this.#tokenType} ${this.#token}`,
-          'Content-Type': 'application/json',
-          'User-Agent':
-            'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        }
-      }
-    );
-    return res.data;
-  }
-
-  /**
-   * Batch edit permissions for an application command
-   * @param {string} applicationId - The ID of the application.
-   * @param {string} guildId - The ID of the guild you want to edit the permissions for.
-   * @param {string} commandId - The ID of the command you want to edit the permissions for.
-   * @param {GuildApplicationCommandPermissions[]} options - GuildApplicationCommandPermissions[]
-   * @returns GuildApplicationCommandPermissions[]
-   */
-  public async batchEditApplicationCommandPermissions(
-    applicationId: string,
-    guildId: string,
-    commandId: string,
-    options: GuildApplicationCommandPermissions[]
-  ): Promise<GuildApplicationCommandPermissions[]> {
-    const res = await axios.patch<GuildApplicationCommandPermissions[]>(
-      `https://discord.com/api/v${this.version}/applications/${applicationId}/guilds/${guildId}/commands/${commandId}/permissions`,
-      JSON.stringify(options),
-      {
-        headers: {
-          Authorization: `${this.#tokenType} ${this.#token}`,
+          Authorization: `Bearer ${bearerToken}`,
           'Content-Type': 'application/json',
           'User-Agent':
             'Higa (https://github.com/fantomitechno/Higa, 1.0.0-dev)'

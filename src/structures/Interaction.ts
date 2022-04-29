@@ -14,7 +14,8 @@ interface ApplicationCommand {
   description: string;
   description_localizations?: LocalizedString;
   options?: ApplicationCommandOption[];
-  default_permission?: boolean;
+  dm_permission?: boolean;
+  default_member_permissions?: string;
   version: string;
 }
 
@@ -82,7 +83,8 @@ interface ApplicationCommandPermissions {
 
 enum ApplicationCommandPermissionType {
   ROLE = 1,
-  USER = 2
+  USER = 2,
+  CHANNEL = 3
 }
 
 interface Component {
@@ -215,6 +217,7 @@ export {
   ApplicationCommandOptionChoice,
   ApplicationCommandInteractionDataOption,
   GuildApplicationCommandPermissions,
+  ApplicationCommandPermissions,
   ApplicationCommandPermissionType,
   Component,
   ComponentType,
