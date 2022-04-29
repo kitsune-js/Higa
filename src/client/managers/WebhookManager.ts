@@ -367,7 +367,8 @@ class WebhookManager {
         headers: {
           'Content-Type': 'application/json',
           'User-Agent': 'Higa (http://github.com/fantomitechno/Higa, 1.0.0-dev)'
-        }
+        },
+        params
       }
     );
   }
