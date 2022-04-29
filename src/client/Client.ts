@@ -12,7 +12,8 @@ import {
   GuildScheduledEventManager,
   InviteManager,
   UserManager,
-  VoiceManager
+  VoiceManager,
+  WebhookManager
 } from '.';
 import {
   Activity,
@@ -372,6 +373,11 @@ class Client extends EventEmitter {
   public voice: VoiceManager;
 
   /**
+   * Webhook Manager to interact with the REST API
+   */
+  public webhook: WebhookManager;
+
+  /**
    *
    * @param token - Bot token
    * @param intents - Array of intents the bot will be listening to
@@ -441,6 +447,11 @@ class Client extends EventEmitter {
     this.invite = new InviteManager(this.#token, this.#tokenType, this.version);
     this.user = new UserManager(this.#token, this.#tokenType, this.version);
     this.voice = new VoiceManager(this.#token, this.#tokenType, this.version);
+    this.webhook = new WebhookManager(
+      this.#token,
+      this.#tokenType,
+      this.version
+    );
   }
 
   /**
