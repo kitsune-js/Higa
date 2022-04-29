@@ -374,4 +374,9 @@ class WebhookManager {
   }
 }
 
-export { WebhookManager };
+export {
+  WebhookManager,
+  ExecuteWebhookOptions,
+  ExecuteWebhookParams,
+  GetWebhookMessageParams
+};

@@ -9,3 +9,4 @@ export * from './InviteManager';
 export * from './OAuth2Manager';
 export * from './VoiceManager';
 export * from './UserManager';
+export * from './WebhookManager';
