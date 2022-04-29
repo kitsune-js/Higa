@@ -4,3 +4,5 @@ build
 package-lock.json
 types
 .vscode
+
+src/client/managers/ExampleManager.ts
