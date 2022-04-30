@@ -38,7 +38,8 @@ import {
   WebhookManager,
   InteractionManager,
   StickerManager,
-  GuildTemplateManager
+  GuildTemplateManager,
+  StageInstanceManager
 } from './managers/index.ts';
 
 /* It's a constant that contains all the intents the bot can listen to. */
@@ -380,6 +381,11 @@ class Client extends EventEmitter<ClientEvents> {
   public invite: InviteManager;
 
   /**
+   * Stage Instance Manager to interact with the REST API
+   */
+  public stageInstance: StageInstanceManager;
+
+  /**
    * Sticker Manager to interact with the REST API
    */
   public sticker: StickerManager;
@@ -471,6 +477,11 @@ class Client extends EventEmitter<ClientEvents> {
       this.version
     );
     this.invite = new InviteManager(this.token, this.tokenType, this.version);
+    this.stageInstance = new StageInstanceManager(
+      this.token,
+      this.tokenType,
+      this.version
+    );
     this.sticker = new StickerManager(this.token, this.tokenType, this.version);
     this.user = new UserManager(this.token, this.tokenType, this.version);
     this.voice = new VoiceManager(this.token, this.tokenType, this.version);

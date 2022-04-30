@@ -8,6 +8,8 @@ export * from './GuildScheduledEventManager.ts';
 export * from './GuildTemplateManager.ts';
 export * from './InteractionManager.ts';
 export * from './InviteManager.ts';
+export * from './OAuth2Manager.ts';
+export * from './StageInstanceManager.ts';
 export * from './StickerManager.ts';
 export * from './UserManager.ts';
 export * from './VoiceManager.ts';

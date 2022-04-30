@@ -9,6 +9,7 @@ export * from './GuildTemplateManager';
 export * from './InteractionManager';
 export * from './InviteManager';
 export * from './OAuth2Manager';
+export * from './StageInstanceManager';
 export * from './StickerManager';
 export * from './UserManager';
 export * from './VoiceManager';
