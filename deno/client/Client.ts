@@ -25,13 +25,18 @@ import {
   VoiceState
 } from '../structures/index.ts';
 import {
+  ApplicationCommandManager,
   AuditLogManager,
   CacheManager,
   ChannelManager,
+  EmojiManager,
+  GuildManager,
+  GuildScheduledEventManager,
   InviteManager,
   UserManager,
   VoiceManager,
-  WebhookManager
+  WebhookManager,
+  InteractionManager
 } from './managers/index.ts';
 
 /* It's a constant that contains all the intents the bot can listen to. */
@@ -288,6 +293,7 @@ interface ClientOptions {
   intents?: (keyof typeof ClientIntents)[];
   version?: APIVersions;
   wsConnection?: boolean;
+  applicationId?: string;
 }
 
 class Client extends EventEmitter<ClientEvents> {
@@ -327,6 +333,11 @@ class Client extends EventEmitter<ClientEvents> {
   private cache_ = new CacheManager();
 
   /**
+   * Application Command Manager to interact with the REST API
+   */
+  public readonly applicationCommand: ApplicationCommandManager;
+
+  /**
    * Audit Log Manager to interact with the REST API
    */
   public auditLog: AuditLogManager;
@@ -335,6 +346,23 @@ class Client extends EventEmitter<ClientEvents> {
    * Channel Manager to interact with the REST API
    */
   public channel: ChannelManager;
+
+  /**
+   * Emoji Manager to interact with the REST API
+   */
+  public emoji: EmojiManager;
+
+  /**
+   * Guild Manager to interact with the REST API
+   */
+  public guild: GuildManager;
+
+  /**
+   * Guild Scheduled Event Manager to interact with the REST API
+   */
+  public guildScheduledEvent: GuildScheduledEventManager;
+
+  public interaction: InteractionManager;
 
   /**
    * Invite Manager to interact with the REST API
@@ -352,7 +380,7 @@ class Client extends EventEmitter<ClientEvents> {
   public voice: VoiceManager;
 
   /**
-   * Webhook to interact with the REST API
+   * Webhook Manager to interact with the REST API
    */
   public webhook: WebhookManager;
 
@@ -399,6 +427,11 @@ class Client extends EventEmitter<ClientEvents> {
       }, this.heartbeat_interval);
     });
 
+    this.applicationCommand = new ApplicationCommandManager(
+      this.token,
+      this.tokenType,
+      this.version
+    );
     this.auditLog = new AuditLogManager(
       this.token,
       this.tokenType,
@@ -410,10 +443,31 @@ class Client extends EventEmitter<ClientEvents> {
       this.cache_,
       this.version
     );
+    this.emoji = new EmojiManager(this.token, this.tokenType, this.version);
+    this.guild = new GuildManager(this.token, this.tokenType, this.version);
+    this.guildScheduledEvent = new GuildScheduledEventManager(
+      this.token,
+      this.tokenType,
+      this.version
+    );
     this.invite = new InviteManager(this.token, this.tokenType, this.version);
     this.user = new UserManager(this.token, this.tokenType, this.version);
     this.voice = new VoiceManager(this.token, this.tokenType, this.version);
     this.webhook = new WebhookManager(this.token, this.tokenType, this.version);
+    if (options.applicationId) {
+      this.interaction = new InteractionManager(
+        options.applicationId,
+        this.version
+      );
+    } else {
+      this.interaction = new InteractionManager('', this.version);
+      this.user
+        .getCurrentUser()
+        .then(
+          (user) =>
+            (this.interaction = new InteractionManager(user.id, this.version))
+        );
+    }
   }
 
   /**

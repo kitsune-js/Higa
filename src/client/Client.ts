@@ -13,7 +13,8 @@ import {
   InviteManager,
   UserManager,
   VoiceManager,
-  WebhookManager
+  WebhookManager,
+  InteractionManager
 } from '.';
 import {
   Activity,
@@ -286,6 +287,7 @@ interface ClientOptions {
   intents?: (keyof typeof ClientIntents)[];
   version?: APIVersions;
   wsConnection?: boolean;
+  applicationId?: string;
 }
 
 class Client extends EventEmitter {
@@ -356,6 +358,8 @@ class Client extends EventEmitter {
    * Guild Scheduled Event Manager to interact with the REST API
    */
   public guildScheduledEvent: GuildScheduledEventManager;
+
+  public interaction: InteractionManager;
 
   /**
    * Invite Manager to interact with the REST API
@@ -452,6 +456,20 @@ class Client extends EventEmitter {
       this.#tokenType,
       this.version
     );
+    if (options.applicationId) {
+      this.interaction = new InteractionManager(
+        options.applicationId,
+        this.version
+      );
+    } else {
+      this.interaction = new InteractionManager('', this.version);
+      this.user
+        .getCurrentUser()
+        .then(
+          (user) =>
+            (this.interaction = new InteractionManager(user.id, this.version))
+        );
+    }
   }
 
   /**
