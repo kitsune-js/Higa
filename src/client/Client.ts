@@ -37,6 +37,7 @@ import {
   User,
   VoiceState
 } from '../structures';
+import { StickerManager } from './managers';
 
 /* It's a constant that contains all the intents the bot can listen to. */
 enum ClientIntents {
@@ -359,12 +360,20 @@ class Client extends EventEmitter {
    */
   public guildScheduledEvent: GuildScheduledEventManager;
 
+  /**
+   * Integration Manager to interact with the REST API
+   */
   public interaction: InteractionManager;
 
   /**
    * Invite Manager to interact with the REST API
    */
   public invite: InviteManager;
+
+  /**
+   * Sticker Manager to interact with the REST API
+   */
+  public sticker: StickerManager;
 
   /**
    * User Manager to interact with the REST API
@@ -449,6 +458,11 @@ class Client extends EventEmitter {
       this.version
     );
     this.invite = new InviteManager(this.#token, this.#tokenType, this.version);
+    this.sticker = new StickerManager(
+      this.#token,
+      this.#tokenType,
+      this.version
+    );
     this.user = new UserManager(this.#token, this.#tokenType, this.version);
     this.voice = new VoiceManager(this.#token, this.#tokenType, this.version);
     this.webhook = new WebhookManager(

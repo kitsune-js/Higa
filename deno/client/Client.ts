@@ -36,7 +36,8 @@ import {
   UserManager,
   VoiceManager,
   WebhookManager,
-  InteractionManager
+  InteractionManager,
+  StickerManager
 } from './managers/index.ts';
 
 /* It's a constant that contains all the intents the bot can listen to. */
@@ -370,6 +371,11 @@ class Client extends EventEmitter<ClientEvents> {
   public invite: InviteManager;
 
   /**
+   * Sticker Manager to interact with the REST API
+   */
+  public sticker: StickerManager;
+
+  /**
    * User Manager to interact with the REST API
    */
   public user: UserManager;
@@ -451,6 +457,7 @@ class Client extends EventEmitter<ClientEvents> {
       this.version
     );
     this.invite = new InviteManager(this.token, this.tokenType, this.version);
+    this.sticker = new StickerManager(this.token, this.tokenType, this.version);
     this.user = new UserManager(this.token, this.tokenType, this.version);
     this.voice = new VoiceManager(this.token, this.tokenType, this.version);
     this.webhook = new WebhookManager(this.token, this.tokenType, this.version);

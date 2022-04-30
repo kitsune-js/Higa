@@ -8,6 +8,7 @@ export * from './GuildScheduledEventManager';
 export * from './InteractionManager';
 export * from './InviteManager';
 export * from './OAuth2Manager';
-export * from './VoiceManager';
+export * from './StickerManager';
 export * from './UserManager';
+export * from './VoiceManager';
 export * from './WebhookManager';

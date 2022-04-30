@@ -7,6 +7,7 @@ export * from './GuildManager.ts';
 export * from './GuildScheduledEventManager.ts';
 export * from './InteractionManager.ts';
 export * from './InviteManager.ts';
-export * from './VoiceManager.ts';
+export * from './StickerManager.ts';
 export * from './UserManager.ts';
+export * from './VoiceManager.ts';
 export * from './WebhookManager.ts';
