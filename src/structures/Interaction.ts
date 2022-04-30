@@ -1,5 +1,11 @@
 import { LocalizedString } from '.';
-import { ChannelType, Message } from './Channel';
+import {
+  AllowedMentions,
+  Attachment,
+  ChannelType,
+  Embed,
+  Message
+} from './Channel';
 import { Emoji } from './Emoji';
 import { GuildMember } from './Guild';
 import { User } from './User';
@@ -100,7 +106,7 @@ enum ComponentType {
 
 interface ActionRow extends Component {
   type: ComponentType.ACTION_ROW;
-  components: (Button | SelectMenu)[];
+  components: (Button | SelectMenu | TextInput)[];
 }
 
 interface Button extends Component {
@@ -156,6 +162,57 @@ enum TextInputStyle {
   PARAGRAPH = 2
 }
 
+interface InteractionResponse {
+  type: InteractionCallbackType;
+}
+
+enum InteractionCallbackType {
+  PONG = 1,
+  CHANNEL_MESSAGE_WITH_SOURCE = 4,
+  DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE = 5,
+  DEFERRED_UPDATE_MESSAGE = 6,
+  UPDATE_MESSAGE = 7,
+  APPLICATION_COMMAND_AUTOCOMPLETE_RESULT = 8,
+  MODAL = 9
+}
+
+interface InteractionMessageResponse extends InteractionResponse {
+  type:
+    | InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE
+    | InteractionCallbackType.UPDATE_MESSAGE;
+  data: InteractionMessageResponseData;
+}
+
+interface InteractionMessageResponseData {
+  tts?: boolean;
+  content?: string;
+  embeds?: Embed[];
+  allowed_mentions?: AllowedMentions;
+  flags?: number;
+  components?: ActionRow[];
+  attachments?: Attachment[];
+}
+
+interface InteractionAutocompleteResponse extends InteractionResponse {
+  type: InteractionCallbackType.APPLICATION_COMMAND_AUTOCOMPLETE_RESULT;
+  data: InteractionAutocompleteResponseData;
+}
+
+interface InteractionAutocompleteResponseData {
+  choices: ApplicationCommandOptionChoice[];
+}
+
+interface InteractionModalResponse extends InteractionResponse {
+  type: InteractionCallbackType.MODAL;
+  data: InteractionModalResponseData;
+}
+
+interface InteractionModalResponseData {
+  custom_id: string;
+  title: string;
+  components?: ActionRow[];
+}
+
 interface Interaction {
   id: string;
   application_id: string;
@@ -191,7 +248,7 @@ interface InteractionData {
   component_type?: number;
   values: SelectMenuOption[];
   target_id?: string;
-  components?: Component[];
+  components?: ActionRow[];
 }
 
 interface ResolvedData {
@@ -233,5 +290,13 @@ export {
   InteractionType,
   InteractionData,
   ResolvedData,
-  MessageInteraction
+  MessageInteraction,
+  InteractionResponse,
+  InteractionAutocompleteResponse,
+  InteractionModalResponse,
+  InteractionMessageResponse,
+  InteractionMessageResponseData,
+  InteractionAutocompleteResponseData,
+  InteractionModalResponseData,
+  InteractionCallbackType
 };
