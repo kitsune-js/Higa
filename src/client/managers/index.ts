@@ -5,6 +5,7 @@ export * from './ChannelManager';
 export * from './EmojiManager';
 export * from './GuildManager';
 export * from './GuildScheduledEventManager';
+export * from './GuildTemplateManager';
 export * from './InteractionManager';
 export * from './InviteManager';
 export * from './OAuth2Manager';

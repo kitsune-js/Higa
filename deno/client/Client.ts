@@ -37,7 +37,8 @@ import {
   VoiceManager,
   WebhookManager,
   InteractionManager,
-  StickerManager
+  StickerManager,
+  GuildTemplateManager
 } from './managers/index.ts';
 
 /* It's a constant that contains all the intents the bot can listen to. */
@@ -363,6 +364,14 @@ class Client extends EventEmitter<ClientEvents> {
    */
   public guildScheduledEvent: GuildScheduledEventManager;
 
+  /**
+   * Guild Template Manager to interact with the REST API
+   */
+  public guildTemplate: GuildTemplateManager;
+
+  /**
+   * Integration Manager to interact with the REST API
+   */
   public interaction: InteractionManager;
 
   /**
@@ -452,6 +461,11 @@ class Client extends EventEmitter<ClientEvents> {
     this.emoji = new EmojiManager(this.token, this.tokenType, this.version);
     this.guild = new GuildManager(this.token, this.tokenType, this.version);
     this.guildScheduledEvent = new GuildScheduledEventManager(
+      this.token,
+      this.tokenType,
+      this.version
+    );
+    this.guildTemplate = new GuildTemplateManager(
       this.token,
       this.tokenType,
       this.version

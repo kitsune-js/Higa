@@ -5,6 +5,7 @@ export * from './ChannelManager.ts';
 export * from './EmojiManager.ts';
 export * from './GuildManager.ts';
 export * from './GuildScheduledEventManager.ts';
+export * from './GuildTemplateManager.ts';
 export * from './InteractionManager.ts';
 export * from './InviteManager.ts';
 export * from './StickerManager.ts';
