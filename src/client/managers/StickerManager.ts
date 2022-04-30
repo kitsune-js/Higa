@@ -213,4 +213,9 @@ class StickerManager {
   }
 }
 
-export { StickerManager };
+export {
+  StickerManager,
+  StickerPacksResponse,
+  CreateStickerOptions,
+  ModifyStickerOptions
+};
