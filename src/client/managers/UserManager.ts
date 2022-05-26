@@ -224,8 +224,8 @@ class UserManager {
    * It gets the current user's connections
    * @returns Connections' Array
    */
-  async getUserConnections(): Promise<Connection> {
-    const res = await axios.get<Connection>(
+  async getUserConnections(): Promise<Connection[]> {
+    const res = await axios.get<Connection[]>(
       `https://discord.com/api/v${this.version}/users/@me/connections`,
       {
         headers: {
