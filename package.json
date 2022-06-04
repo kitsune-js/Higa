@@ -50,9 +50,9 @@
   "author": "fantomitechno <fantomitechno@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fantomitechno/Higa.git"
+    "url": "https://github.com/kitsune-js/Higa.git"
   },
-  "homepage": "https://fantomitechno.github.io/Higa",
+  "homepage": "https://kitsune-js.github.io/Higa",
   "license": "ISC",
   "engines": {
     "node": ">=16.0.0"
