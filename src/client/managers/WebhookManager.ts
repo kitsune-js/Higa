@@ -42,12 +42,12 @@ class WebhookManager {
   /**
    * Bot's token
    */
-  readonly #token: string;
+  readonly #token: string | undefined;
 
   /**
    * Token type
    */
-  readonly #tokenType: string;
+  readonly #tokenType: string | undefined;
 
   /**
    * API Version
@@ -58,7 +58,7 @@ class WebhookManager {
    * @param token - Bot's token
    * @param version - API Version
    */
-  constructor(token: string, tokenType: string, version: APIVersions) {
+  constructor(version: APIVersions, token?: string, tokenType?: string) {
     this.#token = token;
     this.#tokenType = tokenType;
     this.version = version;
@@ -76,6 +76,7 @@ class WebhookManager {
     name: string,
     avatar?: any
   ): Promise<Webhook> {
+    if (!this.#token) throw new Error('No token provided');
     const res = await axios.post<Webhook>(
       `https://discord.com/api/v${this.version}/channels/${channelId}/webhooks`,
       JSON.stringify({
@@ -100,6 +101,7 @@ class WebhookManager {
    * @returns Array of webhooks
    */
   public async getChannelWebhooks(channelId: string): Promise<Webhook[]> {
+    if (!this.#token) throw new Error('No token provided');
     const res = await axios.get<Webhook[]>(
       `https://discord.com/api/v${this.version}/channels/${channelId}/webhooks`,
       {
@@ -120,6 +122,7 @@ class WebhookManager {
    * @returns Array of webhooks
    */
   public async getGuilWebhooks(guildId: string): Promise<Webhook[]> {
+    if (!this.#token) throw new Error('No token provided');
     const res = await axios.get<Webhook[]>(
       `https://discord.com/api/v${this.version}/guilds/${guildId}/webhooks`,
       {
@@ -140,6 +143,7 @@ class WebhookManager {
    * @returns Webhook object.
    */
   public async getWebhook(webhookId: string): Promise<Webhook> {
+    if (!this.#token) throw new Error('No token provided');
     const res = await axios.get<Webhook>(
       `https://discord.com/api/v${this.version}/webhooks/${webhookId}`,
       {
@@ -187,6 +191,7 @@ class WebhookManager {
     webhookId: string,
     options: ModifyWebhookOptions
   ): Promise<Webhook> {
+    if (!this.#token) throw new Error('No token provided');
     const res = await axios.patch<Webhook>(
       `https://discord.com/api/v${this.version}/webhooks/${webhookId}`,
       JSON.stringify(options),
@@ -233,6 +238,7 @@ class WebhookManager {
    * @param {string} webhookId - The ID of the webhook you want to delete.
    */
   public async deleteWebhook(webhookId: string): Promise<void> {
+    if (!this.#token) throw new Error('No token provided');
     await axios.delete(
       `https://discord.com/api/v${this.version}/webhooks/${webhookId}`,
       {
