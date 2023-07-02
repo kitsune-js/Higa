@@ -490,9 +490,9 @@ class Client extends EventEmitter {
     this.user = new UserManager(this.#token, this.#tokenType, this.version);
     this.voice = new VoiceManager(this.#token, this.#tokenType, this.version);
     this.webhook = new WebhookManager(
+      this.version,
       this.#token,
-      this.#tokenType,
-      this.version
+      this.#tokenType
     );
     if (options.applicationId) {
       this.interaction = new InteractionManager(
