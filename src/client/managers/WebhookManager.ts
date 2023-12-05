@@ -317,7 +317,7 @@ class WebhookManager {
     params: GetWebhookMessageParams = {}
   ): Promise<Message> {
     const res = await axios.get<Message>(
-      `https://discord.com/api/v${this.version}/webhooks/${webhookId}/${webhookToken}/${messageId}`,
+      `https://discord.com/api/v${this.version}/webhooks/${webhookId}/${webhookToken}/messages/${messageId}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -347,7 +347,7 @@ class WebhookManager {
     params: ExecuteWebhookParams = {}
   ): Promise<Message> {
     const res = await axios.patch<Message>(
-      `https://discord.com/api/v${this.version}/webhooks/${webhookId}/${webhookToken}/${messageId}`,
+      `https://discord.com/api/v${this.version}/webhooks/${webhookId}/${webhookToken}/messages/${messageId}`,
       JSON.stringify(options),
       {
         headers: {
@@ -368,7 +368,7 @@ class WebhookManager {
     params: ExecuteWebhookParams = {}
   ): Promise<void> {
     await axios.delete(
-      `https://discord.com/api/v${this.version}/webhooks/${webhookId}/${webhookToken}/${messageId}`,
+      `https://discord.com/api/v${this.version}/webhooks/${webhookId}/${webhookToken}/messages/${messageId}`,
       {
         headers: {
           'Content-Type': 'application/json',
